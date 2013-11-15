@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta property="og:title" content="{$subject}" />
+	<title>{$subject}</title>
+	<style type="text/css" n:syntax="off">
+		#outlook a{padding:0;}
+		body{width:100% !important;} .ReadMsgBody{width:100%;} .ExternalClass{width:100%;}
+		body{-webkit-text-size-adjust:none;}
+		body{margin:0; padding:0;}
+		body{ font-family: Arial, sans-serif; font-size: 14px; }
+		img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
+		table td{border-collapse:collapse;}
+		#backgroundTable{height:100% !important; margin:0; padding:0; width:100% !important;}
+		body, #backgroundTable{ background-color:#ececec; }
+		.headerContent { text-align: center;  padding: 20px;}
+		#templateHeader { background: #f5f5f5; }
+		#templateContainer{ }
+		h1, .h1, h2, h3 {
+			color:#36001c;
+			display:block;
+			font-family: 'Arial', sans-serif;
+			font-size:18px;
+			margin-top:0;
+			margin-right:0;
+			margin-bottom:10px;
+			margin-left:0;
+			text-align:left;
+		}
+		h1 { line-height: 20px; }
+		h1, h1 a { text-align: center; padding-bottom: 0; }
+		h2 { font-size: 16px; }
+		h3 { font-size: 15px; }
+		a.subscribe,
+		h1 a { text-decoration: none; color: #000; }
+		h2 a { text-decoration: none; color: #000; }
+		#templateContainer, .bodyContent{  background-color:#FFFFFF; }
+		.bodyContent img{ display:inline; height:auto;  }
+		.social,
+		.social a { color: #73c20c; text-decoration: none; font-size: 12px;  }
+		.links a { color: #000; text-decoration: none; font-size: 12px;  }
+		.links { text-align: right; }
+		.links a:hover,
+		.social a:hover { text-decoration: underline; }
+	</style>
+</head>
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+<center>
+	<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
+		<tr>
+			<td align="center" valign="top">
+				<table border="0" cellpadding="10" cellspacing="0" width="600" height="70"><tr><td valign="top" class="preheaderContent"></td></tr></table>
+				<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
+					<tr n:if="$image">
+						<td align="center" valign="top">
+							<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
+								<tr>
+									<td class="headerContent">
+										<center>
+										<h1><a href="{$homeUrl}">{$image}</a></h1>
+										</center>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" valign="top">
+							<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+								<tr>
+									<td valign="top" class="bodyContent">
+										<table border="0" cellpadding="20" cellspacing="0" width="100%">
+											<tr>
+												<td valign="top">
+													<div>
+														<h2 n:if="$subject">{$subject}</h2>
+														{!$message}
+													</div>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" valign="top">
+							<table border="0" cellpadding="10" cellspacing="0" width="600" id="templateFooter">
+								<tr>
+									<td valign="top" class="footerContent">
+										<table border="0" cellpadding="10" cellspacing="0" width="100%">
+											<tr>
+												<td valign="middle" id="utility">
+													<div n:if="$social">
+														<p><small>Connect with us:</small></p>
+														<p class="social">
+															<a n:foreach="$social as $key => $item" target="_blank" rel="nofollow" id="social-twitter" href="{$item}">{$key|lower|capitalize} |</a>
+														</p>
+													</div>
+												</td>
+												<td valign="middle" n:if="$unSubscribe">
+													<p>Would you like to unsubscribe from this digest?</p>
+													<p class="links">
+														{$unSubscribe}
+													</p>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<br />
+			</td>
+		</tr>
+	</table>
+</center>
+</body>
+</html>

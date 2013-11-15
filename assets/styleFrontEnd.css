@@ -1,0 +1,33 @@
+/* Forms */
+.widgetGuts table { width: 70%; }
+.widgetGuts table * { vertical-align: top; }
+.widgetGuts table,
+.widgetGuts table tr,
+.widgetGuts table th,
+.widgetGuts table td { border: 0; }
+.widgetGuts table th { width: 35%; padding-top: 8px; }
+.widgetGuts table td { width: 60% }
+.widgetGuts dl,
+.widgetGuts dd,
+.widgetGuts dt { margin: 0; }
+.widgetGuts dd,
+.widgetGuts dt { margin-bottom: 15px; }
+.widgetGuts .success,
+.widgetGuts .error
+{
+	clear: both;
+	font-weight: bold;
+	display: inline-block;
+	width: auto;
+	margin-top: 15px;
+	padding: 3px 7px;
+	border-radius: 4px;
+	background: #000;
+	color: #ffce00;
+	line-height: 1.3em;
+	list-style: none;
+}
+.widgetGuts .success li,
+.widgetGuts .error li { padding-left: 0; margin-left: 0; }
+.widgetGuts .success { color: #fff; margin-top: 0; margin-bottom: 15px; }
+.widgetGuts.shortcode {  }

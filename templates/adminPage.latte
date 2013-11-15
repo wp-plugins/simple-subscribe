@@ -1,0 +1,32 @@
+<div class="wrap wrapDivide relative">
+	<div id="icon-users" class="icon32"><br></div><h2>Subscribers</h2>
+	<div class="subscribersExport">
+		<form method="POST">
+			<span><strong>Export</strong></span>
+			<select name="criteria" id="criteria">
+				<option value="all">all</option>
+				<option value="active">active</option>
+				<option value="inactive">inactive</option>
+			</select>
+			<span>subscribers as</span>
+			<select name="export" id="export">
+				<option value="csv">.CSV</option>
+				<option value="xls">.XLS</option>
+				<option value="tsv">.TSV</option>
+				<option value="xml">.XML</option>
+			</select>
+			<input type="submit" class="button-primary" value="Export" />
+		</form>
+	</div>
+	<form method="POST">
+		{$table->display()}
+	</form>
+	<div class="settingsPage">
+		<div class="leftSide prettyForm">
+			<h3>Add a new subscriber</h3>
+			{$formSubscriber}
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>
