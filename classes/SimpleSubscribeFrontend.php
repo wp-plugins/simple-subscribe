@@ -77,7 +77,7 @@ class SimpleSubscribeFrontEnd
             try {
                 $subscribers = SimpleSubscribeSubscribers::getInstance();
                 $formValues = $form->getValues();
-                $subscribers->deleteUserByEmail($formValues->email);
+                $subscribers->deleteOrDeactivateByEmail($formValues->email);
                 $widgetMessage = '<strong>You have successfully unsubscribed. We\'re sorry to see you leave!</strong>';
                 $form = '';
             } catch (SubscribersException $e){

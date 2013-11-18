@@ -9,6 +9,10 @@ class SimpleSubscribeSubscribers
     var $tableName;
     /** @var string */
     var $salt;
+    /** @var \SimpleSubscribeSettings */
+    var $settings;
+    /** @var mixed */
+    var $settingsAll;
     /** @var Wordpress WPDB object */
     var $wpdb;
 
@@ -23,6 +27,8 @@ class SimpleSubscribeSubscribers
         $this->wpdb = $wpdb;
         $this->tableName = $wpdb->prefix . 'subscribers';
         $this->salt = $this->tableName;
+        $this->settings = new SimpleSubscribeSettings(SUBSCRIBE_KEY);
+        $this->settingsAll = $this->settings->getSettings();
     }
 
 
@@ -139,6 +145,23 @@ class SimpleSubscribeSubscribers
 
 
     /**
+     * Decides what to do, deactivate, or delete? according to settings in admin
+     *
+     * @param $email
+     */
+
+    public function deleteOrDeactivateByEmail($email)
+    {
+        $delete = isset($this->settingsAll['misc']['deactivation']) ? ($this->settingsAll['misc']['deactivation'] == 0 ? TRUE : FALSE) : TRUE;
+        if($delete == TRUE){
+            $this->deleteUserByEmail($email);
+        } else {
+            $this->deactivateUserByEmail($email);
+        }
+    }
+
+
+    /**
      * Used by API
      *
      * @param $email
@@ -149,6 +172,23 @@ class SimpleSubscribeSubscribers
     {
         if($this->userByEmailExists($email)){
             $this->deleteUser($this->getUserIdByEmail($email));
+        } else {
+            throw new SubscribersException('User with this e-mail address does not exist!');
+        }
+    }
+
+
+    /**
+     * Used by API
+     *
+     * @param $email
+     * @throws SubscribersException
+     */
+
+    public function deactivateUserByEmail($email)
+    {
+        if($this->userByEmailExists($email)){
+            $this->deactivateUser($this->getUserIdByEmail($email));
         } else {
             throw new SubscribersException('User with this e-mail address does not exist!');
         }
@@ -323,6 +363,16 @@ class SimpleSubscribeSubscribers
         }
         return $return;
     }
+
+
+    /**
+     * Removes registered user from subscription
+     *
+     * @param $id
+     * @return mixed
+     */
+
+    public function deactivateRegisteredUserById($id){ return delete_user_meta($id, 'subscription'); }
 
 
     /**

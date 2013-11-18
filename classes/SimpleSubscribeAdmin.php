@@ -19,6 +19,8 @@ class SimpleSubscribeAdmin extends Nette\Object
     var $subscribers;
     /** @var \Nette\Forms\Form settings form */
     var $formSettings;
+    /** @var \Nette\Forms\Form email preview form */
+    var $formEmailTemplate;
     /** @var \Nette\Forms\Form add subscriber admin form */
     var $formSubscriber;
     /** @var \Nette\Forms\Form email preview */
@@ -37,10 +39,11 @@ class SimpleSubscribeAdmin extends Nette\Object
         add_action('admin_notices', array($this, 'adminNotices'));
         add_action('admin_enqueue_scripts', function(){ wp_enqueue_style('core', SUBSCRIBE_ASSETS . 'styleAdmin.css'); wp_enqueue_script('netteForms', SUBSCRIBE_ASSETS . 'netteForms.js', array(), '1.0.0'); });
         // settings & forms
-        $this->settings         = new SimpleSubscribeSettings(SUBSCRIBE_KEY);;
+        $this->settings         = new SimpleSubscribeSettings(SUBSCRIBE_KEY);
         $this->email            = SimpleSubscribeEmail::getInstance();
         $this->subscribers      = SimpleSubscribeSubscribers::getInstance();
         $this->formSettings     = SimpleSubscribeForms::settings($this->settings->getSettings());
+        $this->formEmailTemplate= SimpleSubscribeForms::emailTemplate($this->settings->getSettings());
         $this->formSubscriber   = SimpleSubscribeForms::subscribeAdmin($this->settings->getTableColumns());
         $this->formEmailPreview = SimpleSubscribeForms::emailPreview();
     }
@@ -66,6 +69,7 @@ class SimpleSubscribeAdmin extends Nette\Object
     public function adminMenu()
     {
         add_menu_page('Subscribers', 'Subscribers', 'manage_options', 'SimpleSubscribe', array($this, 'renderAdminListing'), NULL, '71.22');
+        add_submenu_page('SimpleSubscribe', 'E-mail template', 'E-mail template', 'manage_options', 'SimpleSubscribeEmailTemplate', array($this, 'renderAdminEmailTemplate'));
         add_submenu_page('SimpleSubscribe', 'Settings', 'Settings', 'manage_options', 'SimpleSubscribeSettings', array($this, 'renderAdminSettings'));
     }
 
@@ -81,8 +85,8 @@ class SimpleSubscribeAdmin extends Nette\Object
     public function adminPluginLinks($links, $file)
     {
         if ($file == 'simple-subscribe/SimpleSubsribe.php'){
-            $settingsLink = Html::el('a')->href(get_bloginfo('wpurl') . '/wp-admin/admin.php?page=SimpleSubscribeSettings')->setText('Settings');
-            $settingsProfileLink = Html::el('a')->href(get_bloginfo('wpurl') . '/wp-admin/profile.php')->setText('My Subscriptions');
+            $settingsLink = Html::el('a')->href(admin_url('admin.php?page=SimpleSubscribeSettings'))->setText('Settings');
+            $settingsProfileLink = Html::el('a')->href(admin_url('profile.php'))->setText('My Subscriptions');
             array_push($links, $settingsLink, $settingsProfileLink);
         }
         return $links;
@@ -179,6 +183,15 @@ class SimpleSubscribeAdmin extends Nette\Object
                 $this->addNotice('error', $error);
             }
         }
+        // email template (saved in settings table tho)
+        if ($this->formEmailTemplate->isSubmitted() && $this->formEmailTemplate->isValid()){
+            $this->settings->saveSettings($this->formEmailTemplate->getValues(TRUE));
+            $this->addNotice('updated', 'Settings successfully saved.');
+        } elseif ($this->formEmailTemplate->hasErrors()){
+            foreach($this->formEmailTemplate->getErrors() as $error){
+                $this->addNotice('error', $error);
+            }
+        }
         // subscriber form
         if ($this->formSubscriber->isSubmitted() && $this->formSubscriber->isValid()){
             try{
@@ -227,13 +240,29 @@ class SimpleSubscribeAdmin extends Nette\Object
 
 
     /**
+     * E-mail template settings page
+     */
+
+    public function renderAdminEmailTemplate()
+    {
+        // defaults
+        $defaults = array('formEmailTemplate' => $this->formEmailTemplate, 'formEmailPreview' => $this->formEmailPreview);
+        // template
+        $template = new SimpleSubscribeTemplate('adminEmailTemplate.latte');
+        $template->prepareTemplate($defaults);
+
+        echo $template->getTemplate();
+    }
+
+
+    /**
      * Renders admin subpage - that being the settings page.
      */
 
     public function renderAdminSettings()
     {
         // defaults
-        $defaults = array('formSettings' => $this->formSettings, 'formEmailPreview' => $this->formEmailPreview );
+        $defaults = array('formSettings' => $this->formSettings);
         // template
         $template = new SimpleSubscribeTemplate('adminSubpage.latte');
         $template->prepareTemplate($defaults);

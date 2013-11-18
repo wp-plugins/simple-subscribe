@@ -3,8 +3,6 @@ if (!defined('ABSPATH')) { exit; }
 
 class SimpleSubscribeSettings extends Nette\Object
 {
-    /** @var bool */
-    private static $instance = false;
     /** @var master key */
     var $key;
     /** @var mixed */
@@ -43,7 +41,12 @@ class SimpleSubscribeSettings extends Nette\Object
      * @return mixed
      */
 
-    public function getSettings(){ return unserialize(get_option($this->key)); }
+    public function getSettings()
+    {
+        $settings = unserialize(get_option($this->key));
+        $settingsMerge = is_array($settings) ? $settings : array();
+        return $settingsMerge;
+    }
 
 
     /**
@@ -62,7 +65,7 @@ class SimpleSubscribeSettings extends Nette\Object
      * @return mixed
      */
 
-    public function saveSettings($array){ return update_option($this->key, serialize(array_filter(array_map('array_filter', $array)))); }
+    public function saveSettings($array){ return update_option($this->key, serialize(array_filter(array_map('array_filter', array_merge($this->getSettings(), $array))))); }
 
 
     /**
@@ -75,8 +78,14 @@ class SimpleSubscribeSettings extends Nette\Object
     {
         return array(
             'cron'  => array('timing' => '0'),
+            'misc'  => array('deactivation' => '0', 'senderName' => html_entity_decode(get_option('blogname'), ENT_QUOTES), 'senderEmail' => get_option('admin_email')),
             'val'   => array('js' => '1', 'css' => '1'),
-            'email' => array('type' => '1')
+            'email' => array('type' => '1'),
+            'emailDesign' => array(
+                'colourBg' => '#f5f5f5',
+                'colourTitle' => '#000000',
+                'colourLinks' => '#000000'),
+            'emailType' => (array('source' => '0', 'type' => '1'))
         );
     }
 

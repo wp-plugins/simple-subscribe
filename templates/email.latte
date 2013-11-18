@@ -4,18 +4,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta property="og:title" content="{$subject}" />
 	<title>{$subject}</title>
-	<style type="text/css" n:syntax="off">
-		#outlook a{padding:0;}
-		body{width:100% !important;} .ReadMsgBody{width:100%;} .ExternalClass{width:100%;}
-		body{-webkit-text-size-adjust:none;}
-		body{margin:0; padding:0;}
+	<style type="text/css">
+		#outlook a { padding:0; }
+		body{ width:100% !important; } .ReadMsgBody{ width:100%; } .ExternalClass{ width:100%; }
+		body{ -webkit-text-size-adjust:none; }
+		body{ margin:0; padding:0; }
 		body{ font-family: Arial, sans-serif; font-size: 14px; }
-		img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
-		table td{border-collapse:collapse;}
-		#backgroundTable{height:100% !important; margin:0; padding:0; width:100% !important;}
-		body, #backgroundTable{ background-color:#ececec; }
+		img{ border:0; height:auto; line-height:100%; outline:none; text-decoration:none; }
+		table td{ border-collapse:collapse; }
+		#backgroundTable{ height:100% !important; margin:0; padding:0; width:100% !important; }
+		#unsubcribe { text-align: right!important; }
+		body, #backgroundTable{ background-color: #ececec; }
 		.headerContent { text-align: center;  padding: 20px;}
-		#templateHeader { background: #f5f5f5; }
+		#templateHeader { background: {!$colours['colourBg']}; }
 		#templateContainer{ }
 		h1, .h1, h2, h3 {
 			color:#36001c;
@@ -29,20 +30,20 @@
 			text-align:left;
 		}
 		h1 { line-height: 20px; }
-		h1, h1 a { text-align: center; padding-bottom: 0; }
+		h1, h1 a { text-align: center; padding-bottom: 0; color: {!$colours['colourTitle']} !important; }
 		h2 { font-size: 16px; }
 		h3 { font-size: 15px; }
+		h2#postTitle { margin-bottom: 20px; }
 		a.subscribe,
-		h1 a { text-decoration: none; color: #000; }
-		h2 a { text-decoration: none; color: #000; }
-		#templateContainer, .bodyContent{  background-color:#FFFFFF; }
-		.bodyContent img{ display:inline; height:auto;  }
-		.social,
-		.social a { color: #73c20c; text-decoration: none; font-size: 12px;  }
-		.links a { color: #000; text-decoration: none; font-size: 12px;  }
+		h1 a { text-decoration: none; }
+		h2 a { text-decoration: none; }
+		#templateContainer, .bodyContent{ background-color:#FFFFFF; }
+		.bodyContent img{ display:inline; height:auto; }
 		.links { text-align: right; }
-		.links a:hover,
-		.social a:hover { text-decoration: underline; }
+		.social,
+		.social a { font-size: 12px; }
+		a:link, a { color: {!$colours['colourLinks']}; text-decoration: none; }
+		a:hover { text-decoration: underline; }
 	</style>
 </head>
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
@@ -74,7 +75,7 @@
 											<tr>
 												<td valign="top">
 													<div>
-														<h2 n:if="$subject">{$subject}</h2>
+														<h2 id="postTitle" n:if="$subject">{$subject}</h2>
 														{!$message}
 													</div>
 												</td>
@@ -96,12 +97,12 @@
 													<div n:if="$social">
 														<p><small>Connect with us:</small></p>
 														<p class="social">
-															<a n:foreach="$social as $key => $item" target="_blank" rel="nofollow" id="social-twitter" href="{$item}">{$key|lower|capitalize} |</a>
+															<a n:foreach="$social as $key => $item" target="_blank" rel="nofollow" href="{$item}">{$key|lower|capitalize} |</a>
 														</p>
 													</div>
 												</td>
-												<td valign="middle" n:if="$unSubscribe">
-													<p>Would you like to unsubscribe from this digest?</p>
+												<td valign="middle" id="unsubcribe" n:if="$unSubscribe">
+													<p><small>Would you like to unsubscribe from this digest?</small></p>
 													<p class="links">
 														{$unSubscribe}
 													</p>

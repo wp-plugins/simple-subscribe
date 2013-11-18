@@ -1,11 +1,11 @@
 <?php
 /*
     Plugin Name: Simple Subscribe
-    Description: Easiest to use new post subscribe plugin.
+    Description: The easiest to use subscribe plugin, just for you :)
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.0
+    Version: 1.0.8
     License: GPLv2
 */
 /*
@@ -50,6 +50,8 @@ if (!class_exists('SimpleSubscribe'))
             // nette
             if(!defined('NETTE')){ require_once('classes/Nette.min.php'); }
             // required libs
+            // TODO: autoload
+            require_once('classes/Html2Text.php');
             require_once('classes/SimpleSubscribeUtils.php');
             require_once('classes/SimpleSubscribeCron.php');
             require_once('classes/SimpleSubscribeForms.php');

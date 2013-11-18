@@ -111,7 +111,10 @@ class SimpleSubscribeListTable extends WP_List_Table
             'activate' => sprintf('<a href="?page=%s&action=%s&id=%s">Activate</a>',$_GET['page'],'activate',$item['id']),
             'deactivate' => sprintf('<a href="?page=%s&action=%s&id=%s">Deactivate</a>',$_GET['page'],'deactivate',$item['id'])
         );
-        return sprintf('%1$s %2$s', $item['email'], $this->row_actions($actions));
+        if(!isset($item['wp'])){
+            return sprintf('%1$s %2$s', $item['email'], $this->row_actions($actions));
+        }
+        return $item['email'];
     }
 
 
@@ -130,7 +133,9 @@ class SimpleSubscribeListTable extends WP_List_Table
             }
             return Html::el('a title="Activate Subscriber"')->href('', array('page' => $_GET['page'],'action' => 'activate','id' => $item['id']))->add(Html::el('span class="statusInactive"'));
         }
-        return Html::el('span')->setText(Html::el('small class="strong"')->setText('Wordpress Registered User.'));
+        return Html::el('span')->setText(Html::el('small class="strong"')
+                ->setHtml('Wordpress Registered User.<br />' . Html::el('a')
+                    ->href('', array('page' => $_GET['page'],'action' => 'deactivateRegistered','id' => $item['id']))->setText('Deactivate.')));
     }
 
 
@@ -227,6 +232,10 @@ class SimpleSubscribeListTable extends WP_List_Table
                     $this->subscribers->deactivateUser($_GET['id']);
                     $this->addNotice('updated', 'Subscriber successfully deactivated!');
                 }
+                break;
+            case 'deactivateRegistered':
+                    $this->subscribers->deactivateRegisteredUserById($_GET['id']);
+                    $this->addNotice('updated', 'Subscriber successfully deactivated!');
                 break;
         }
     }

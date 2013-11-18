@@ -1,7 +1,8 @@
 <?php
 if (!defined('ABSPATH')) { exit; }
 
-use Nette\Forms\Form;
+use Nette\Forms\Form,
+    Nette\Utils\Html;
 
 class SimpleSubscribeForms extends Nette\Object
 {
@@ -123,8 +124,7 @@ class SimpleSubscribeForms extends Nette\Object
         }
         if(array_key_exists('interests', $fields)){ $form->addTextarea('interests', 'Interests'); }
         if(array_key_exists('location', $fields)){ $form->addText('location', 'Location'); }
-        $form->addText('date', 'Date')
-            ->setDefaultValue(date('Y-m-d H:i:s'));
+        $form->addHidden('date', date('Y-m-d H:i:s'));
         $form->addText('ip', 'Ip')
             ->setDefaultValue(SimpleSubscribeUtils::getRealIp())
             ->addCondition(Form::FILLED)
@@ -154,6 +154,19 @@ class SimpleSubscribeForms extends Nette\Object
                 'In the morning. (approx. 9AM)',
                 'In the evening. (approx. 10PM)')
         );
+        // Misc
+        $form->addGroup('Miscellaneous Settings');
+        $formMisc = $form->addContainer('misc');
+        $formMisc->addSelect('deactivation', 'Upon user\'s unsubscription from e-mail digest',
+            array('Delete User',
+                'Only Deactivate User (that\'s evil)')
+        );
+        $formMisc->addText('senderEmail', 'Sender\'s e-mail address, one used to send e-mail digest from')
+            ->setOption('description', 'Default: ' . get_option('admin_email'))
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::EMAIL, 'Must be valid e-mail address');
+        $formMisc->addText('senderName', 'Sender\'s name')
+            ->setOption('description', 'Default: ' . html_entity_decode(get_option('blogname'), ENT_QUOTES));
         // Form fields
         $form->addGroup('Additional subscribe form fields');
         $formForm = $form->addContainer('form');
@@ -167,18 +180,64 @@ class SimpleSubscribeForms extends Nette\Object
         $formVal = $form->addContainer('val');
         $formVal->addCheckbox('js', 'Use javascript validation in the front-end?');
         $formVal->addCheckbox('css', 'Use SimpleSubscribe stylesheet?');
+        // Submit
+        $form->addSubmit('submit', 'Save')->setAttribute('class', 'button-primary');
+
+        // set dafaults
+        if($defaults){ $form->setDefaults($defaults); }
+
+        return $form;
+    }
+
+
+    /**
+     * Email template settings in adin
+     *
+     * @param null $defaults
+     * @return Nette\Forms\Form
+     */
+
+    public static function emailTemplate($defaults = NULL)
+    {
+        $form = new Form('adminEmailTemplate');
         // Email template
-        /* Turned off for now.
         $form->addGroup('E-mail template');
-        $formEmail = $form->addContainer('email');
-        $formEmail->addSelect('type', 'E-mail digest type',
-            array('Short Excerpt.',
-                'Short Excerpt with Featured Image',
-                'Whole Post')
+        $formEmail = $form->addContainer('emailType');
+        $formEmail->addSelect(
+            'source',
+            'E-mail type',
+            array(
+                'HTML',
+                'Plain Text')
         );
-        */
+        $formEmail->addSelect(
+            'type',
+            'E-mail digest type',
+            array(
+                'Short Excerpt.',
+                'Short Excerpt with Featured Image',
+                'Whole Post (not recommended)')
+        );
+        // Design of e-mail
+        $form->addGroup('E-mail design');
+        $formDesign = $form->addContainer('emailDesign');
+        $formDesign->addText('colourBg', 'Header background colour')
+            ->setType('color')
+            ->setOption('description','Default: #f5f5f5')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::PATTERN, 'Background colour must be a valid hex code.', '^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$');
+        $formDesign->addText('colourTitle', 'Header title colour')
+            ->setType('color')
+            ->setOption('description','Default: #000000')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::PATTERN, 'Title colour must be a valid hex code.', '^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$');
+        $formDesign->addText('colourLinks', 'Links colour')
+            ->setType('color')
+            ->setOption('description','Default: #000000')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::PATTERN, 'Link colour must be a valid hex code.', '^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$');
         // Social links
-        $form->addGroup('Social Media Links (email template footer)');
+        $form->addGroup('Social Media Links');
         $formSocial = $form->addContainer('social');
         $formSocial->addText('twitter', 'Twitter profile URL')
             ->addCondition(Form::FILLED)
@@ -197,7 +256,6 @@ class SimpleSubscribeForms extends Nette\Object
             ->addRule(Form::URL, 'Vimeo profile URL, must be a valid URL.');
         // Submit
         $form->addSubmit('submit', 'Save')->setAttribute('class', 'button-primary');
-
         // set dafaults
         if($defaults){ $form->setDefaults($defaults); }
 

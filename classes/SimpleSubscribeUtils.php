@@ -82,4 +82,20 @@ class SimpleSubscribeUtils
                 break;
         }
     }
+
+
+    /**
+     * Little helper for e-mail body
+     *
+     * @param $id
+     * @return mixed|null
+     */
+
+    public static function getPostContent($id)
+    {
+        if(!is_numeric($id) || empty($id)){
+            return NULL;
+        }
+        return str_replace(']]>', ']]>', apply_filters('the_content', get_post($id)->post_content));
+    }
 }

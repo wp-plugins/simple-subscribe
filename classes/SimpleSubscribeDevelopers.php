@@ -40,7 +40,7 @@ class SimpleSubscribeDevelopers extends Nette\Object
             try {
                 $subscribers = SimpleSubscribeSubscribers::getInstance();
                 $formValues = $form->getValues();
-                $subscribers->deleteUserByEmail($formValues->email);
+                $subscribers->deleteOrDeactivateByEmail($formValues->email);
                 $form->setValues(array(),TRUE);
             } catch (SubscribersException $e){
                 $form->addError($e->getMessage());

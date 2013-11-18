@@ -1,0 +1,19 @@
+{$subject}
+========================================================
+
+{!$message}
+
+--------------------------------------------------------
+
+<p n:if=$social>
+Connect with us:
+
+{foreach $social as $key => $item}
+		{$key|lower|capitalize}:  {$item}
+{/foreach}
+
+--------------------------------------------------------
+</p>
+<p n:if="$unSubscribe">
+Would you like to unsubscribe from this digest? {$unSubscribe}
+</p>

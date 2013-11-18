@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0
+Stable tag: 1.0.8
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -27,26 +27,23 @@ All Wordpress registered users have the option to subscribe simply in their Word
 
 Forms have both client / server side validation and they are literally bulletproof. There plenty of other features you will find "on the run".
 
+**Newly** you can change the look of the e-mail digest, colours, type etc.
+
 = Road-map =
 
-This is what I plan to implement in upcoming versions of **Simple Subscribe:**
+This is what I plan to implement in upcoming versions of **Simple Subscribe**, those things in bold are priority!
 
+* **Message log** - digest errors, memory limits, etc.
 * Plugin "messages" settings
 	* Confirm subscription message
 	* Unsubscription message
 	* Thank you message and all others
 * Allow language support and translations
-* Email "digest type" settings
-	* Short Excerpt (plain text)
-	* Short Excerpt (html)
-	* Short Excerpt with featured image (html - current only option)
-	* Full post (html)
-* Subscribe - select digest category
+* Subscribe - **select digest category**
 * Subscribe - select digest post type (post / page ... others)
 * Subscribers import ( xml / csv / tsv *(maybe xls?)*)
 * Subscribers import maybe from other places / plugins?
-* E-mail queque, se we won't overkill the server with thousands of subscribers.
-* Email template editor, styles, colours, custom header image, etc.
+* **E-mail queque,** so we won't overkill the server with thousands of subscribers.
 * Ability to edit subscribers
 
 == Installation ==
@@ -216,7 +213,22 @@ if correctly or not, we should always display our hidden modal window, so people
 
 After that it's simple code, just to show working example of that logic, you can copy and paste this code or change, amend, whatever you wish to do.
 
+== Upgrade Notice ==
+
+= 1.0.8 =
+More options for setting up e-mail template and sender info.
+
 == Changelog ==
+
+= 1.0.8 =
+* Added option to deactivate wordpress registered users from subscription
+* E-mail template settings on it's own page
+* Added option to choose what happends, after user unsubscription (delete user, or deactivate?)
+* Added theming options of e-mail template (header background colour, title colour, links colour)
+* Added e-mail type (html / plain text)
+* Added e-mail digest type (Short Excerpt / Short Excerpt with Featured Image / Whole Post)
+* Added option for setting up custom blog name / email
+* Small speed enhancements
 
 = 1.0 =
 * Added option for Wordpress registered users to use subscription.
