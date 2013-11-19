@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.0.8
+    Version: 1.0.8.1
     License: GPLv2
 */
 /*
@@ -49,6 +49,9 @@ if (!class_exists('SimpleSubscribe'))
             SimpleSubscribeCheck::checkRequirements();
             // nette
             if(!defined('NETTE')){ require_once('classes/Nette.min.php'); }
+            // debug
+            //\Nette\Diagnostics\Debugger::$productionMode = FALSE;
+            //\Nette\Diagnostics\Debugger::enable();
             // required libs
             // TODO: autoload
             require_once('classes/Html2Text.php');
@@ -132,8 +135,16 @@ if (!class_exists('SimpleSubscribe'))
             if(is_admin()){
                 $admin = new SimpleSubscribeAdmin();
             } else {
-                if($this->settings['val']['js'] == '1'){ add_action('wp_enqueue_scripts', function(){ wp_enqueue_script('netteForms', SUBSCRIBE_ASSETS . 'netteForms.js', array('jquery'), '1.0.0', TRUE); });  }
-                if($this->settings['val']['css'] == '1'){ add_action('wp_enqueue_scripts', function(){ wp_enqueue_style('core', SUBSCRIBE_ASSETS . 'styleFrontEnd.css'); }); }
+                if(isset($this->settings['val']['js'])){
+                    if($this->settings['val']['js'] == '1'){
+                        add_action('wp_enqueue_scripts', function(){ wp_enqueue_script('netteForms', SUBSCRIBE_ASSETS . 'netteForms.js', array('jquery'), '1.0.0', TRUE); });
+                    }
+                }
+                if(isset($this->settings['val']['css']) == '1'){
+                    if($this->settings['val']['css'] == '1'){
+                        add_action('wp_enqueue_scripts', function(){ wp_enqueue_style('core', SUBSCRIBE_ASSETS . 'styleFrontEnd.css'); });
+                    }
+                }
             }
         }
 

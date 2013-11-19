@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.8
+Stable tag: 1.0.8.1
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -71,6 +71,7 @@ This is what I plan to implement in upcoming versions of **Simple Subscribe**, t
 5. Subscribe Widget Invalid Form Values
 6. Subscribe Widget Invalid Form Values II
 7. Subscribe Widget Valid
+8. E-mail template options
 
 == Developer's Guide ==
 
@@ -215,10 +216,16 @@ After that it's simple code, just to show working example of that logic, you can
 
 == Upgrade Notice ==
 
+= 1.0.8.1 =
+Minor bug fix, user profile subscription meta.
+
 = 1.0.8 =
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.0.8.1 =
+* Minor bugfix, user profile meta.
 
 = 1.0.8 =
 * Added option to deactivate wordpress registered users from subscription

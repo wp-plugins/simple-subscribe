@@ -100,7 +100,11 @@ class SimpleSubscribeAdmin extends Nette\Object
     public function adminUserProfile()
     {
         add_action('personal_options_update', function($user_id){
-            update_user_meta($user_id, 'subscription', $_POST['subscription'], get_user_meta( $user_id, 'greeting', true ));
+            if(isset($_POST['subscription'])){
+                update_user_meta($user_id, 'subscription', $_POST['subscription'], get_user_meta( $user_id, 'subscription', true ));
+            } else {
+                delete_user_meta($user_id,'subscription');
+            }
         });
         add_action('personal_options', function($profileuser){
             $subscription = get_user_meta($profileuser->ID, 'subscription', true);
