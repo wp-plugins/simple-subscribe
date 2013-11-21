@@ -13,10 +13,41 @@ if (!defined('ABSPATH') && !defined('WP_UNINSTALL_PLUGIN')){ exit(); }
 function simpleSubscribeUninstall()
 {
     global $wpdb;
-    $public = $wpdb->prefix . "subscribers";
-    $sql = "DROP TABLE IF EXISTS `" . $public . "`";
-    $wpdb->query($sql);
+
+    /**
+     * 1. Prepare tables to be deleted, go thru tables, check if they exist, and remove
+     */
+
+    $removeTables = array(
+        $wpdb->prefix . "subscribers",
+        $wpdb->prefix . "subscribers_log",
+    );
+
+    foreach($removeTables as $table){
+        if($wpdb->get_var("SHOW TABLES LIKE '$table'") == $table){
+            $wpdb->query("DROP TABLE IF EXISTS `" . $tableSubscribers . "`");
+        }
+    }
+
+
+    /**
+     * 2. Delete simple subcribe options
+     */
+
     delete_option('simpleSubscribe');
+
+
+    /**
+     * 3. Delete user meta
+     */
+
+    $registeredUsers = get_users(array('meta_key' => 'subscription', 'meta_value' => 1));
+    if(!empty($registeredUsers)){
+        foreach($registeredUsers as $user){
+            delete_user_meta($user->data->ID, 'subscription');
+        }
+    }
+
 }
 
 

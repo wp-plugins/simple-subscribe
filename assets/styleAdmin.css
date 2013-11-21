@@ -9,6 +9,8 @@
 	Admin page styling
 */
 
+.noBorder { border: 0 !important; }
+.wrapDivide th#type { width: 100px; }
 .strong { font-weight: bold; }
 .relative { position: relative; }
 .settingsPage { padding-top: 25px; }
