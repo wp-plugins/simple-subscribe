@@ -231,7 +231,7 @@ More options for setting up e-mail template and sender info.
 == Changelog ==
 
 = 1.1 =
-* Added an otpion to add Wordpress Registered users to subscription list (This one is for your Carl!)
+* Added an otpion to add Wordpress Registered users to subscription list (This one is for you Carl!)
 * Wordpress registered users get the option to unsubscribe from their profile - might have caused problems when using unsubsription form on website with Wordpress registered user's e-mail.
 * Changed codebase, better code handeling, autoloading - faster excecution
 * Added **Message Log** - by default it's on, you can turn off - but, it hodls ipmortant messages about cron jobs, possible server failure of e-mail sending, and in future e-mail queue.
