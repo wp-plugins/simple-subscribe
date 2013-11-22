@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.1
+    Version: 1.1.4
     License: GPLv2
 */
 /*
@@ -49,7 +49,7 @@ if (!class_exists('SimpleSubscribe'))
             SimpleSubscribeCheck::checkRequirements();
             // nette, nope, we're not going without you brother
             if(!defined('NETTE')){ require_once('libs/Nette/Nette.min.php'); }
-            // debug
+            // If debugging is the process of removing bugs, then programming must be the process of putting them in. - Edsger W. Dijkstra
             //\Nette\Diagnostics\Debugger::$productionMode = FALSE;
             //\Nette\Diagnostics\Debugger::enable();
             // required libs

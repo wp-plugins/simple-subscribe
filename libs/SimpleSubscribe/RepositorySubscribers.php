@@ -466,6 +466,22 @@ class RepositorySubscribers extends Repository
 
 
     /**
+     * Get all active e-mails - without wordpress users.
+     *
+     * @return array
+     */
+
+    public function getAllActiveNonWpEmails()
+    {
+        $return = array();
+        foreach($this->getAllWhere('active', 1) as $user){
+            $return[] = $user['email'];
+        }
+        return $return;
+
+    }
+
+    /**
      * For digest function
      *
      * @return array

@@ -1,12 +1,12 @@
 === Simple Subscribe ===
 Contributors: latorante
 Donate link: http://donate.latorante.name/
-Tags: subscription, e-mail subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
+Tags: subscription, subscribe, e-mail subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
 Requires at least: 3.3
 Tested up to: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.1
+Stable tag: 1.1.4
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -27,9 +27,9 @@ All Wordpress registered users have the option to subscribe simply in their Word
 
 Forms have both client / server side validation and they are literally bulletproof. There plenty of other features you will find "on the run".
 
-**Newly** you can change the look of the e-mail digest, colours, type etc.
+**Newly** you can change the look of the e-mail digest, colours, type etc. and contact all your subscribers directly with your own Subject and Message right from your Wordpress dashboard.
 
-If you are a **Developer**, what you're looking for is [here.](http://wordpress.org/plugins/simple-subscribe/other_notes/ "Developer's Guide").
+If you are a **Developer**, what you're looking for is [here.](http://wordpress.org/plugins/simple-subscribe/other_notes/ "Developer's Guide")
 
 = Road-map =
 
@@ -75,6 +75,7 @@ This is what I plan to implement in upcoming versions of **Simple Subscribe**, t
 7. Subscribe Widget Valid
 8. E-mail template options
 9. Log messages
+10. Mass e-mail message
 
 == Developer's Guide ==
 
@@ -219,6 +220,9 @@ After that it's simple code, just to show working example of that logic, you can
 
 == Upgrade Notice ==
 
+= 1.1.4 =
+New feautres, contact subscribers directly with one click in subscribers listing.
+
 = 1.1 =
 Wordpress registered users better handeling.
 
@@ -229,6 +233,11 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.1.4 =
+* Newly you can e-mail subscribers directly, either using admin form, or clicking "E-mail directly" in subscribers listing
+* Mass e-mail All Subscribers / All Wordpress Registered / All Non-wordpress Registered / Single subscriber with your news!
+* Slightly changed admin styles.
 
 = 1.1 =
 * Added an otpion to add Wordpress Registered users to subscription list (This one is for you Carl!)

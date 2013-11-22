@@ -110,7 +110,7 @@ class Email extends \Nette\Object
 
 
     /**
-     * Test
+     * Send email preview
      *
      * @param $email
      */
@@ -133,6 +133,40 @@ class Email extends \Nette\Object
             $this->sendEmail(array($formValues['email']), $previewConfirm->subject, $previewConfirm->data);
         }
 
+    }
+
+
+    /**
+     * Mass email handler
+     *
+     * @param $formValues
+     * @throws EmailException
+     */
+
+    public function sendMassEmail($formValues)
+    {
+        $email = $this->getSimpleEmailBody($formValues['subject'], $formValues['body']);
+        switch($formValues['emailWho']){
+            case 1:
+                // All subscriber(s)
+                $this->sendEmail($this->subscribers->getAllActiveEmails(), $email->subject, $email->data);
+                break;
+            case 2:
+                // Single subscriber
+                if(!empty($formValues['email'])){
+                    $this->sendEmail(array($formValues['email']), $email->subject, $email->data);
+                } else {
+                    throw new EmailException('No e-mail address provided');
+                }
+                break;
+            case 3:
+                // Wordpress Registered subscribers
+                $this->sendEmail($this->subscribers->getAllRegisteredActiveEmails(), $email->subject, $email->data);
+                break;
+            case 4:
+                //' Non-wordpress Registered subscribers'
+                $this->sendEmail($this->subscribers->getAllActiveNonWpEmails(), $email->subject, $email->data);
+        }
     }
 
 
@@ -178,7 +212,7 @@ class Email extends \Nette\Object
             $emailTo = $recipients[0];
             unset($recipients[0]);
         } else {
-            throw new EmailException('No recipients provided.');
+            throw new EmailException('No subscribers provided. (possibly none in your system)');
         }
         // try sending e-mail
         try{
@@ -199,7 +233,7 @@ class Email extends \Nette\Object
                 $mail->setBody($this->getEmailTemplate($data));
             }
             $this->mailer->send($mail);
-        } catch(Exception $e){
+        } catch(\Exception $e){
             throw new EmailException($e->getMessage());
         }
     }
@@ -229,6 +263,22 @@ class Email extends \Nette\Object
             'message' => $emailBody,
             'unSubscribe' => ''
         );
+        return $return;
+    }
+
+
+    /**
+     * Simple email body
+     *
+     * @param $subject
+     * @param $body
+     * @return \stdClass
+     */
+
+    public function getSimpleEmailBody($subject, $body)
+    {
+        $return = new \stdClass();
+        $return->data = array('subject' => $subject, 'message' => $body, 'unSubscribe' => '');
         return $return;
     }
 

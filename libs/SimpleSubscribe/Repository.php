@@ -194,8 +194,9 @@ abstract class Repository extends \Nette\Object
     /**
      * Goodie this one.
      *
-     * @return SimpleSubscribe
+     * @return mixed
      */
+
 
     final public static function getInstance()
     {

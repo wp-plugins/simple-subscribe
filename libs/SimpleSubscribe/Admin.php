@@ -34,6 +34,8 @@ class Admin extends \Nette\Object
     var $formSettings;
     /** @var \Nette\Forms\Form email preview form */
     var $formEmailTemplate;
+    /** @var \Nette\Forms\Form */
+    var $formEmail;
     /** @var \Nette\Forms\Form add subscriber admin form */
     var $formSubscriber;
     /** @var \SimpleSubscribe\Nette\Forms\Form */
@@ -60,6 +62,7 @@ class Admin extends \Nette\Object
         $this->email            = \SimpleSubscribe\Email::getInstance();
         $this->formSettings     = \SimpleSubscribe\Forms::settings($this->settings->getSettings());
         $this->formEmailTemplate= \SimpleSubscribe\Forms::emailTemplate($this->settings->getSettings());
+        $this->formEmail        = \SimpleSubscribe\Forms::email($_GET);
         $this->formSubscriber   = \SimpleSubscribe\Forms::subscribeAdmin($this->settings->getTableColumns());
         $this->formSubscriberWp = \SimpleSubscribe\Forms::subscribeAdminWp($this->subscribers->getAllRegisteredInactive());
         $this->formEmailPreview = \SimpleSubscribe\Forms::emailPreview();
@@ -87,7 +90,8 @@ class Admin extends \Nette\Object
     {
         add_menu_page('Subscribers', 'Subscribers', 'manage_options', 'SimpleSubscribe', array($this, 'renderAdminListing'), NULL, '71.22');
         add_submenu_page('SimpleSubscribe', 'E-mail template', 'E-mail template', 'manage_options', 'SimpleSubscribeEmailTemplate', array($this, 'renderAdminEmailTemplate'));
-        add_submenu_page('SimpleSubscribe', 'Settings', 'Settings', 'manage_options', 'Settings', array($this, 'renderAdminSettings'));
+        add_submenu_page('SimpleSubscribe', 'E-mail subscribers', 'E-mail subscribers', 'manage_options', 'SimpleSubscribeEmail', array($this, 'renderAdminEmail'));
+        add_submenu_page('SimpleSubscribe', 'Settings', 'Settings', 'manage_options', 'SimpleSubscribeSettings', array($this, 'renderAdminSettings'));
         add_submenu_page('SimpleSubscribe', 'Log', $this->log->menuTitle(), 'manage_options', 'SimpleSubscribeLog', array($this, 'renderAdminLog'));
     }
 
@@ -103,9 +107,28 @@ class Admin extends \Nette\Object
     public function adminPluginLinks($links, $file)
     {
         if ($file == 'simple-subscribe/SimpleSubsribe.php'){
-            $settingsLink = Html::el('a')->href(admin_url('admin.php?page=Settings'))->setText('Settings');
+            $settingsLink = Html::el('a')->href(admin_url('admin.php?page=SimpleSubscribeSettings'))->setText('Settings');
             $settingsProfileLink = Html::el('a')->href(admin_url('profile.php'))->setText('My Subscriptions');
             array_push($links, $settingsLink, $settingsProfileLink);
+        }
+        return $links;
+    }
+
+
+    /**
+     * Plugin meta links
+     *
+     * @param $links
+     * @param $file
+     * @return mixed
+     */
+
+    public function adminPluginMeta($links, $file)
+    {
+        if ($file == 'simple-subscribe/SimpleSubsribe.php'){
+            $ratePlugin = Html::el('a target="_blank"')->href('http://wordpress.org/support/view/plugin-reviews/simple-subscribe')->setText('Rate this plugin');
+            $donatePlugin = Html::el('a target="_blank" class="red"')->href('http://donate.latorante.name/')->setText('Donate');
+            array_push($links, $ratePlugin, $donatePlugin);
         }
         return $links;
     }
@@ -145,6 +168,7 @@ class Admin extends \Nette\Object
     {
         // filters
         add_filter('plugin_action_links',   array($this, 'adminPluginLinks'), 10, 2);
+        add_filter('plugin_row_meta',       array($this, 'adminPluginMeta'), 10, 2);
         // actions
         add_action('new_to_publish',        array($this, 'onPublish'));
         add_action('draft_to_publish',      array($this, 'onPublish'));
@@ -212,6 +236,19 @@ class Admin extends \Nette\Object
             $this->addNotice('updated', 'Settings successfully saved.');
         } elseif ($this->formEmailTemplate->hasErrors()){
             foreach($this->formEmailTemplate->getErrors() as $error){
+                $this->addNotice('error', $error);
+            }
+        }
+        // mass email
+        if ($this->formEmail->isSubmitted() && $this->formEmail->isValid()){
+            try{
+                $this->email->sendMassEmail($this->formEmail->getValues(TRUE));
+                $this->addNotice('updated', 'Email successfully sent.');
+            } catch (EmailException $e){
+                $this->addNotice('error', $e->getMessage());
+            }
+        } elseif ($this->formEmail->hasErrors()){
+            foreach($this->formEmail->getErrors() as $error){
                 $this->addNotice('error', $error);
             }
         }
@@ -283,6 +320,16 @@ class Admin extends \Nette\Object
         // template
         $template = new \SimpleSubscribe\Template('adminEmailTemplate.latte');
         $template->prepareTemplate(array('formEmailTemplate' => $this->formEmailTemplate, 'formEmailPreview' => $this->formEmailPreview));
+        echo $template->getTemplate();
+    }
+
+
+
+    public function renderAdminEmail()
+    {
+        // template
+        $template = new \SimpleSubscribe\Template('adminEmail.latte');
+        $template->prepareTemplate(array('formEmail' => $this->formEmail));
         echo $template->getTemplate();
     }
 

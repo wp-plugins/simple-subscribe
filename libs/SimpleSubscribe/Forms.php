@@ -297,4 +297,46 @@ class Forms
         return $form;
     }
 
+
+    /**
+     * Email subscribers
+     *
+     * @return \Nette\Forms\Form
+     */
+
+    public static function email(array $get)
+    {
+        $form = new Form('adminEmail');
+
+        // Prepare
+        if(isset($get['action']) && $get['action'] == 'email'){ $preFill = TRUE; } else { $preFill = FALSE; }
+        $emailWhoDefault = $preFill ? 2 : 1;
+        $emailSubscriberDefault = isset($get['email']) ? $get['email'] : '';
+
+        // Email subscribers
+        $form->addGroup('E-mail Subscriber(s)');
+        $form->addSelect('emailWho', 'Recipient(s)', array(
+            1 => 'All subscriber(s)',
+            2 => 'Single Subscriber',
+            3 => 'Wordpress Registered subscribers',
+            4 => 'Non-wordpress Registered subscribers'))
+            ->setDefaultValue($emailWhoDefault)
+            ->addCondition(Form::EQUAL, 2)
+            ->toggle("subscriber");
+        $form->addGroup()->setOption('container', Html::el('fieldset')->id("subscriber"));
+        $form->addText("email", "Subscriber")
+            ->setDefaultValue($emailSubscriberDefault)
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::EMAIL, 'Must be valid e-mail address');
+        $form->addGroup();
+        $form->addText('subject', 'Subject')
+            ->setRequired('Subject is required');
+        $form->addTextArea('body', 'E-mail message')
+            ->setRequired('You don\'t want to send an empty message now do you :)');
+        // Submit
+        $form->addSubmit('submit', 'Send')->setAttribute('class', 'button-primary');
+
+        return $form;
+    }
+
 }

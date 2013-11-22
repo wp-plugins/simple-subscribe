@@ -105,12 +105,15 @@ class TableSubscribes extends Table
         $actions = array(
             'delete' => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>',$_GET['page'],'delete',$item['id']),
             'activate' => sprintf('<a href="?page=%s&action=%s&id=%s">Activate</a>',$_GET['page'],'activate',$item['id']),
-            'deactivate' => sprintf('<a href="?page=%s&action=%s&id=%s">Deactivate</a>',$_GET['page'],'deactivate',$item['id'])
+            'deactivate' => sprintf('<a href="?page=%s&action=%s&id=%s">Deactivate</a>',$_GET['page'],'deactivate',$item['id']),
+            'email' => sprintf('<a href="?page=%s&action=%s&email=%s">E-mail directly</a>','SimpleSubscribeEmail','email',$item['email'])
         );
-        if(!isset($item['wp'])){
-            return sprintf('%1$s %2$s', $item['email'], $this->row_actions($actions));
+        if(isset($item['wp'])){
+            unset($actions['delete']);
+            unset($actions['activate']);
+            $actions['deactivate'] = sprintf('<a href="?page=%s&action=%s&id=%s">Deactivate</a>',$_GET['page'],'deactivateRegistered',$item['id']);
         }
-        return $item['email'];
+        return sprintf('%1$s %2$s', $item['email'], $this->row_actions($actions));
     }
 
 
