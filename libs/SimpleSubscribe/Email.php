@@ -164,7 +164,7 @@ class Email extends \Nette\Object
                 $this->sendEmail($this->subscribers->getAllRegisteredActiveEmails(), $email->subject, $email->data);
                 break;
             case 4:
-                //' Non-wordpress Registered subscribers'
+                // Non-wordpress Registered subscribers
                 $this->sendEmail($this->subscribers->getAllActiveNonWpEmails(), $email->subject, $email->data);
         }
     }
@@ -223,7 +223,7 @@ class Email extends \Nette\Object
             // TODO: add e-mail queue
             if(count($recipients > 0)){
                 foreach($recipients as $recipient){
-                    $mail->addCc($recipient);
+                    $mail->addBcc($recipient);
                 }
             }
             // set HTML / or plaintext body
