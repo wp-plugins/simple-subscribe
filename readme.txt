@@ -239,7 +239,7 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
-= 1.1.4.1.2 =
+= 1.1.4.2 =
 * Better e-mail handeling. (memorywise)
 
 = 1.1.4.1 =
