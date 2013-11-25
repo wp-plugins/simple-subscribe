@@ -221,7 +221,7 @@ class Email extends \Nette\Object
                 ->addTo($emailTo)
                 ->setSubject($subject);
             // TODO: add e-mail queue
-            if(count($recipients > 0)){
+            if((count($recipients)) > 0){
                 foreach($recipients as $recipient){
                     $mail->addBcc($recipient);
                 }

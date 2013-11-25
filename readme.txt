@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.1.4.1
+Stable tag: 1.1.4.2
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -220,6 +220,9 @@ After that it's simple code, just to show working example of that logic, you can
 
 == Upgrade Notice ==
 
+= 1.1.4.2 =
+* Better e-mail handeling. (memorywise)
+
 = 1.1.4.1 =
 * (Bug)fix, now using Bcc instead of Cc for mass emails.
 
@@ -236,6 +239,9 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+= 1.1.4.1.2 =
+* Better e-mail handeling. (memorywise)
+
 = 1.1.4.1 =
 * (Bug)fix, now using Bcc instead of Cc for mass emails.
 
