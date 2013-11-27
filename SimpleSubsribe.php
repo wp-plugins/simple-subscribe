@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.1.4.4
+    Version: 1.1.4.5
     License: GPLv2
 */
 /*
@@ -41,9 +41,15 @@ if (!defined('ABSPATH')) { exit; }
 require_once('SimpleSubscribeCheck.php');
 SimpleSubscribeCheck::checkRequirements();
 
+/**
+ * 3. Activation / deactivation
+ */
+
+register_activation_hook(__FILE__,      array('SimpleSubscribe', 'activate'));
+register_deactivation_hook( __FILE__,   array('SimpleSubscribe', 'deactivate'));
 
 /**
- * 3. Go, and do Simple Subscribe!
+ * 4. Go, and do Simple Subscribe!
  */
 
 require_once('SimpleSubscribeInit.php');

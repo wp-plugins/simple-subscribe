@@ -45,9 +45,6 @@ if (!class_exists('SimpleSubscribe'))
             define('SUBSCRIBE_ASSETS',  SUBSCRIBE_FOLDER . '/assets/');
             define('SUBSCRIBE_TEMPLATES',dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR);
             define('SUBSCRIBE_API_URL', SUBSCRIBE_HOME_URL . '/' . '?' . SUBSCRIBE_KEY);
-            // activation / deactivation hooks
-            register_activation_hook(__FILE__,      array($this, 'activate'));
-            register_deactivation_hook( __FILE__,   array($this, 'deactivate'));
             // init
             add_action('init',                      array($this, 'init'));
             // widgets + shortcodes

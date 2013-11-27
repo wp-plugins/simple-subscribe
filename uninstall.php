@@ -24,9 +24,7 @@ function simpleSubscribeUninstall()
     );
 
     foreach($removeTables as $table){
-        if($wpdb->get_var("SHOW TABLES LIKE '$table'") == $table){
-            $wpdb->query("DROP TABLE IF EXISTS `" . $tableSubscribers . "`");
-        }
+        $wpdb->query("DROP TABLE IF EXISTS `" . $table . "`");
     }
 
 
