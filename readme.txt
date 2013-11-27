@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.1.4.2
+Stable tag: 1.1.4.3
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -30,6 +30,12 @@ Forms have both client / server side validation and they are literally bulletpro
 **Newly** you can change the look of the e-mail digest, colours, type etc. and contact all your subscribers directly with your own Subject and Message right from your Wordpress dashboard.
 
 If you are a **Developer**, what you're looking for is [here.](http://wordpress.org/plugins/simple-subscribe/other_notes/ "Developer's Guide")
+
+= Requirements =
+
+1. Wordpress at least version 3.3
+1. PHP at least version 5.3.1
+1. Working e-mail functions on your server
 
 = Road-map =
 
@@ -218,7 +224,18 @@ if correctly or not, we should always display our hidden modal window, so people
 
 After that it's simple code, just to show working example of that logic, you can copy and paste this code or change, amend, whatever you wish to do.
 
+== Frequently Asked Questions ==
+
+= It requires PHP 5.3 and I don't have that =
+Well this one is a no-go unfortunately. Just upgrade, or change provider or use a differnt plugin ;).
+
+= It doesn't work they way I wanted it to =
+Yes, in that case just deactivate and unstinall the plugin.
+
 == Upgrade Notice ==
+
+= 1.1.4.3 =
+* Older PHP failsafe message - preventing PHP error failure on installations with PHP lower than 5.3.1
 
 = 1.1.4.2 =
 * Better e-mail handeling. (memorywise)
@@ -239,6 +256,10 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.1.4.3 =
+* Older PHP failsafe message - preventing PHP error failure on installations with PHP lower than 5.3.1
+
 = 1.1.4.2 =
 * Better e-mail handeling. (memorywise)
 

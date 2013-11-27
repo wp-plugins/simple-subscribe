@@ -23,7 +23,7 @@ class SimpleSubscribeCheck
     {
         global $wp_version;
         $wp_version_min  = '3.3';
-        $php = '5.3';
+        $php = '5.3.1';
         $recoverUrl = admin_url('plugins.php');
         $recoverLink = '<br /><br /><a href="'. $recoverUrl .'">Back to plugins.</a>';
         if (!version_compare($wp_version, $wp_version_min, '>=')){
@@ -49,5 +49,6 @@ class SimpleSubscribeCheck
         deactivate_plugins('simple-subscribe/SimpleSubsribe.php');
         unset($_GET['activate']);
         wp_die($message);
+        exit();
     }
 }
