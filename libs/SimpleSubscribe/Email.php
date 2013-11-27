@@ -205,7 +205,7 @@ class Email extends \Nette\Object
      * @throws EmailException
      */
 
-    private function sendEmail($recipients = array(), $subject = NULL, $data)
+    private function sendEmail($recipients = array(), $subject = '', $data)
     {
         // recipients check
         if(count($recipients) > 0){
@@ -279,6 +279,7 @@ class Email extends \Nette\Object
     {
         $return = new \stdClass();
         $return->data = array('subject' => $subject, 'message' => $body, 'unSubscribe' => '');
+        $return->subject = isset($subject) ? $subject : '';
         return $return;
     }
 

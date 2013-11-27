@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.1.4.3
+Stable tag: 1.1.4.4
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -234,6 +234,9 @@ Yes, in that case just deactivate and unstinall the plugin.
 
 == Upgrade Notice ==
 
+= 1.1.4.4 =
+* Empty subject bug-fix fallback.
+
 = 1.1.4.3 =
 * Older PHP failsafe message - preventing PHP error failure on installations with PHP lower than 5.3.1
 
@@ -256,6 +259,9 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.1.4.4 =
+* Empty subject bug-fix fallback.
 
 = 1.1.4.3 =
 * Older PHP failsafe message - preventing PHP error failure on installations with PHP lower than 5.3.1
