@@ -178,6 +178,10 @@ class Forms
 
     public static function settings($defaults = NULL)
     {
+        // prep
+        $emailSubjectName = isset($defaults['senderName']) ? $defaults['senderName'] : html_entity_decode(get_option('blogname'), ENT_QUOTES);
+
+        // Form
         $form = new Form('adminSettings');
         // Cron settings
         $form->addGroup('Cron Settings');
@@ -191,7 +195,8 @@ class Forms
         $form->addGroup('Miscellaneous Settings');
         $formMisc = $form->addContainer('misc');
         $formMisc->addSelect('deactivation', 'Upon user\'s unsubscription from e-mail digest',
-            array('Delete User',
+            array(
+                'Delete User',
                 'Only Deactivate User (that\'s evil)')
         );
         $formMisc->addText('senderEmail', 'Sender\'s e-mail address, one used to send e-mail digest from')
@@ -200,6 +205,12 @@ class Forms
             ->addRule(Form::EMAIL, 'Must be valid e-mail address');
         $formMisc->addText('senderName', 'Sender\'s name')
             ->setOption('description', 'Default: ' . html_entity_decode(get_option('blogname'), ENT_QUOTES));
+        $formMisc->addSelect('emailSubject', 'Post digest e-mail subject',
+            array(
+                'New Post from ' . $emailSubjectName,
+                'POST_TITLE by ' . $emailSubjectName,
+                'POST_TITLE')
+        );
         $formMisc->addCheckbox('log', 'Enable message log')
             ->setOption('description', '(logs errors, cron schedules, successfully sent digests, etc.)');
         // Form fields

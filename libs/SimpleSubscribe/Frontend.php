@@ -25,6 +25,7 @@ class FrontEnd
     public static function subscriptionForm($widget = FALSE, $args = array())
     {
         $widgetMessage = '';
+        $widgetTitle = isset($args['title']) ? $args['title'] : 'Subscribe';
         $widgetId = isset($args['widget_id']) ? $args['widget_id'] : NULL;
         $settings = new \SimpleSubscribe\Settings(SUBSCRIBE_KEY);
         $form = \SimpleSubscribe\Forms::subscriptionForm($settings->getTableColumns(), $widget, $widgetId);
@@ -46,7 +47,7 @@ class FrontEnd
                 'beforeWidget' => $args['before_widget'],
                 'beforeTitle' => $args['before_title'],
                 'afterTitle' => $args['after_title'],
-                'widgetTitle' => 'Subscribe',
+                'widgetTitle' => $widgetTitle,
                 'message' => $widgetMessage,
                 'guts' => $form,
                 'afterWidget' => $args['after_widget'],
@@ -81,6 +82,7 @@ class FrontEnd
     public static function unsubscriptionForm($widget = FALSE, $args = array())
     {
         $widgetMessage = '';
+        $widgetTitle = isset($args['title']) ? $args['title'] : 'Unsubscribe';
         $widgetId = isset($args['widget_id']) ? $args['widget_id'] : NULL;
         $form = \SimpleSubscribe\Forms::unsubscriptionForm($widget, $widgetId);
         if ($form->isSubmitted() && $form->isValid()){
@@ -100,7 +102,7 @@ class FrontEnd
                 'beforeWidget' => $args['before_widget'],
                 'beforeTitle' => $args['before_title'],
                 'afterTitle' => $args['after_title'],
-                'widgetTitle' => 'Unsubscribe',
+                'widgetTitle' => $widgetTitle,
                 'message' => $widgetMessage,
                 'guts' => $form,
                 'afterWidget' => $args['after_widget'],

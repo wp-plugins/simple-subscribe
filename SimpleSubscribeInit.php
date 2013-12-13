@@ -26,7 +26,6 @@ if (!class_exists('SimpleSubscribe'))
 
         public function __construct()
         {
-
             // nette, nope, we're not going without you brother
             if(!defined('NETTE')){ require_once('libs/Nette/Nette.min.php'); }
             // If debugging is the process of removing bugs, then programming must be the process of putting them in. - Edsger W. Dijkstra

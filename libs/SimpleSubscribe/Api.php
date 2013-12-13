@@ -47,7 +47,7 @@ class Api
                     $subscribers = \SimpleSubscribe\RepositorySubscribers::getInstance();
                     $subscribers->validateApiCall($this->queryVars['i'], $this->queryVars['sb']);
                     $subscribers->activateUser($this->queryVars['i']);
-                    $this->addMessage('success', 'Congratulations! You\'ve succesfully subsribed!');
+                    $this->addMessage('success', 'Congratulations! You\'ve successfully subscribed!');
                 } catch (RepositarySubscribersException $e){
                     $this->addMessage('error', $e->getMessage());
                 }

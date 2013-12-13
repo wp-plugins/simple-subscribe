@@ -28,7 +28,7 @@ class RepositorySubscribers extends Repository
         if($this->userExistsById($id)){
             return $this->checkUserHash($this->getById($id), $hash);
         } else {
-            throw new RepositarySubscribersException('User doesn\'t exists.');
+            throw new RepositarySubscribersException('User does not exist.');
         }
     }
 
@@ -130,7 +130,7 @@ class RepositorySubscribers extends Repository
         $delete = isset($this->settingsAll['misc']['deactivation']) ? ($this->settingsAll['misc']['deactivation'] == 0 ? TRUE : FALSE) : TRUE;
         if(email_exists($email)){
             // registered users can unsubscribe in their profile
-            throw new RepositarySubscribersException('Registered users can unsubscribe in their wordpress admin profile.');
+            throw new RepositarySubscribersException('Registered users can unsubscribe in their Wordpress admin profile.');
         } else {
             // subscribers
             if($delete == TRUE){
@@ -272,7 +272,7 @@ class RepositorySubscribers extends Repository
     public function add($data)
     {
         if($this->userByEmailExists($data->email)){
-            throw new RepositarySubscribersException('We\'re really sorry, but user with this e-mail address already exists.',0);
+            throw new RepositarySubscribersException('We are really sorry, but user with this e-mail address already exists.',0);
         } else {
             $data->active = 0;
             if($this->insert($data)){
@@ -300,7 +300,7 @@ class RepositorySubscribers extends Repository
     public function addThruAdmin($data)
     {
         if($this->userByEmailExists($data->email)){
-            throw new RepositarySubscribersException('We\'re really sorry, but user with this e-mail address already exists.', 0);
+            throw new RepositarySubscribersException('We are really sorry, but user with this e-mail address already exists.', 0);
         } else {
             return $this->database->insert($this->tableName, (array)$data);
         }
@@ -316,7 +316,7 @@ class RepositorySubscribers extends Repository
 
     public function addWpRegistered(array $ids)
     {
-        if(!is_array($ids) || empty($ids)){ throw new RepositarySubscribersException('No users given'); }
+        if(!is_array($ids) || empty($ids)){ throw new RepositarySubscribersException('No users given.'); }
         foreach($ids as $id){
             $this->activateRegisteredUserById($id);
         }

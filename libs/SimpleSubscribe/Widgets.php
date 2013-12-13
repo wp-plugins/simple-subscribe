@@ -11,6 +11,8 @@
 
 namespace SimpleSubscribe;
 
+use Nette\Utils\Html;
+
 
 if(!class_exists('WP_Widget')){ require_once(ABSPATH . 'wp-admin/includes/widgets.php' ); }
 
@@ -42,10 +44,32 @@ class WidgetAdd extends \WP_Widget
 
     public function widget($args, $instance)
     {
-        $template = FrontEnd::subscriptionForm(TRUE, $args);
+        $template = FrontEnd::subscriptionForm(TRUE, array_merge($args,$instance));
         echo $template;
     }
 
+
+    /**
+     * Widget settings form
+     *
+     * @param $instance
+     */
+
+    function form($instance)
+    {
+        $instance = wp_parse_args((array) $instance, array('title' => ''));
+        $title = strip_tags($instance['title']);
+        echo Html::el('p')
+            ->add(Html::el('label',
+                array('for' => $this->get_field_id('title'))
+                )->setText('Widget title:'))
+            ->add(Html::el('input',
+                array(
+                    'class' => 'widefat',
+                    'id' => $this->get_field_id('title'),
+                    'name' => $this->get_field_name('title'),
+                    'value' => esc_attr($title))));
+    }
 }
 
 
@@ -77,8 +101,30 @@ class WidgetRemove extends \WP_Widget
 
     public function widget($args, $instance)
     {
-        $template = FrontEnd::unsubscriptionForm(TRUE, $args);
+        $template = FrontEnd::unsubscriptionForm(TRUE, array_merge($args,$instance));
         echo $template;
+    }
+
+
+    /**
+     * Widget settings form
+     *
+     * @param $instance
+     */
+
+    function form($instance)
+    {
+        $instance = wp_parse_args((array) $instance, array('title' => ''));
+        $title = strip_tags($instance['title']);
+        echo Html::el('p')
+            ->add(Html::el('label',
+            array('for' => $this->get_field_id('title'))
+        )->setText('Widget title:'))
+            ->add(Html::el('input class="widefat"',
+            array(
+                'id' => $this->get_field_id('title'),
+                'name' => $this->get_field_name('title'),
+                'value' =>  esc_attr($title))));
     }
 
 }

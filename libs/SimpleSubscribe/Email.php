@@ -208,23 +208,16 @@ class Email extends \Nette\Object
     private function sendEmail($recipients = array(), $subject = '', $data)
     {
         // recipients check
-        if(count($recipients) > 0){
-            $emailTo = $recipients[0];
-            unset($recipients[0]);
-        } else {
+        if(!is_array($recipients)){ $recipients = array($recipients); }
+        if(count($recipients) < 1){
             throw new EmailException('No subscribers provided. (possibly none in your system)');
         }
         // try sending e-mail
         try{
             $mail = new \Nette\Mail\Message;
-            $mail->setFrom($this->senderEmail, $this->senderName)
-                ->addTo($emailTo)
-                ->setSubject($subject);
-            // TODO: add e-mail queue
-            if((count($recipients)) > 0){
-                foreach($recipients as $recipient){
-                    $mail->addBcc($recipient);
-                }
+            $mail->setFrom($this->senderEmail, $this->senderName)->setSubject($subject);
+            foreach($recipients as $recipient){
+                $mail->addBcc($recipient);
             }
             // set HTML / or plaintext body
             if($this->htmlEmail == TRUE){
@@ -295,16 +288,33 @@ class Email extends \Nette\Object
     {
         // if not set, go with excerpt with featured 0: Short Excerpt, 1: Short Excerpt with Featured image, 2: Full post
         $digestType = isset($this->settingsAll['emailType']['type']) ? $this->settingsAll['emailType']['type'] : 0;
+        //  0: New Post from, 1: POST_TITLE by, 2: POST_TITLE
+        $digestSubject = isset($this->settingsAll['misc']['emailSubject']) ? $this->settingsAll['misc']['emailSubject'] : 0;
+
         // prepare return
         $return = new \stdClass();
 
         // post variables
         $postLink = get_permalink($post->ID);
-        $postExcerpt = $this->createPostDigestExcerpt($post->post_content, 130);
+        $postExcerpt = (isset($post->post_excerpt) && (!empty($post->post_excerpt))) ? $post->post_excerpt : $this->createPostDigestExcerpt($post->post_content, 350);
         $postTitle = $post->post_title;
         $postImage = wp_get_attachment_image(get_post_thumbnail_id($post->ID), 'simpleSubscribeEmail');
 
-        //digest type
+        // digest subject
+        switch($digestSubject){
+            case 0:
+            default:
+                $return->subject = 'New Post from ' . $this->senderName;
+                break;
+            case 1:
+                $return->subject = $post->post_title . ' by ' . $this->senderName;
+                break;
+            case 2:
+                $return->subject = $post->post_title;
+                break;
+        }
+
+        // digest type
         switch($digestType){
             case 0:
                 $emailBody = Html::el('table border="0" cellpadding="0" cellspacing="0" width="100%"')
@@ -312,7 +322,7 @@ class Email extends \Nette\Object
                     Html::el('tr')->add(
                         Html::el('td style="width: 100%"')
                             ->add(Html::el('h3')->setText($post->post_title))
-                            ->add(Html::el('p')->setText($this->createPostDigestExcerpt($post->post_content, 20))
+                            ->add(Html::el('p')->setText($postExcerpt)
                                 ->add(Html::el('p')
                                 ->add(Html::el('a class="more"')->href(get_permalink($post->ID))->setHtml('Read more &hellip;')))
                         )
@@ -326,7 +336,7 @@ class Email extends \Nette\Object
                     Html::el('tr')->add(
                         Html::el('td style="width: 70%"')
                             ->add(Html::el('h3')->setText($post->post_title))
-                            ->add(Html::el('p')->setText($this->createPostDigestExcerpt($post->post_content, 20))
+                            ->add(Html::el('p')->setText($postExcerpt)
                                 ->add(Html::el('p')
                                 ->add(Html::el('a class="more"')->href(get_permalink($post->ID))->setHtml('Read more &hellip;')))
                         )->add(
@@ -340,17 +350,14 @@ class Email extends \Nette\Object
                     Html::el('tr')->add(
                         Html::el('td style="width: 70%"')
                             ->add(Html::el('h3')->setText($post->post_title))
-                            ->add(Html::el('p')->setText($this->createPostDigestExcerpt($post->post_content, 20))
-                                ->add(Html::el('div')->setHtml(Utils::getPostContent($post->ID)))
-                        )
+                            ->add(Html::el('div')->setHtml(Utils::getPostContent($post->ID)))
                     )
                 );
                 break;
         }
 
         // return
-        $return->subject = 'New Post from ' . $this->senderName;
-        $return->data = array( 'subject' => $return->subject, 'message' => $emailBody,);
+        $return->data = array('subject' => $return->subject, 'message' => $emailBody);
 
         return $return;
     }

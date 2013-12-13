@@ -3,10 +3,10 @@ Contributors: latorante
 Donate link: http://donate.latorante.name/
 Tags: subscription, subscribe, e-mail subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
 Requires at least: 3.3
-Tested up to: 3.7.1
+Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.1.4.5
+Stable tag: 1.1.5
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -42,7 +42,6 @@ If you are a **Developer**, what you're looking for is [here.](http://wordpress.
 This is what I plan to implement in upcoming versions of **Simple Subscribe**, those things in bold are priority!
 
 1. **E-mail queque,** so we won't overkill the server with thousands of subscribers.
-1. E-mail anyone - or group of e-mail directly, with direct message from WP Dashboard.
 1. Subscribe - **select digest category**
 1. Subscribe - select digest post type (post / page ... others)
 1. Ability to edit subscribers
@@ -234,6 +233,9 @@ Yes, in that case just deactivate and unstinall the plugin.
 
 == Upgrade Notice ==
 
+= 1.1.5 =
+* Newer, better.
+
 = 1.1.4.5 =
 * Hopefully last of the small updates, fixing activation / deactivation hooks and uninstall
 
@@ -263,6 +265,15 @@ More options for setting up e-mail template and sender info.
 
 == Changelog ==
 
+= 1.1.5 =
+* Modified theme for new Wordpress 3.8 admin, and Twenty Fourteen
+* Added Widget settings (Title) *(thanks to Elaine)*
+* Fixed small typos *(thanks to Elaine)*
+* Removed email "To:" parameter, all e-mails now go thru Bcc only *(thanks to Anders)*
+* Longer excerpt, using Wordpress Excerpt if there is, or making custom one from post content if there isn't *(thanks to Elaine)*
+* New settings added, choose your post digest "Subject" *(thanks to Victoria)*
+* Fixed Subscription confirmation e-mail link - underlined now.
+
 = 1.1.4.5 =
 * Hopefully last of the small updates, fixing activation / deactivation hooks and uninstall. I'm so sorry guys!
 
@@ -284,7 +295,7 @@ More options for setting up e-mail template and sender info.
 * Slightly changed admin styles.
 
 = 1.1 =
-* Added an otpion to add Wordpress Registered users to subscription list (This one is for you Carl!)
+* Added an otpion to add Wordpress Registered users to subscription list *(This one is for you Carl!)*
 * Wordpress registered users get the option to unsubscribe from their profile - might have caused problems when using unsubsription form on website with Wordpress registered user's e-mail.
 * Changed codebase, better code handeling, autoloading - faster excecution
 * Added **Message Log** - by default it's on, you can turn off - but, it hodls ipmortant messages about cron jobs, possible server failure of e-mail sending, and in future e-mail queue.
