@@ -34,7 +34,8 @@ class TableSubscribes extends Table
         global $status, $page;
         $this->subscribers = $subscribers;
         $this->settings = $settings;
-        parent::__construct(array('singular'=> 'subscriber', 'plural' => 'subscribers', 'ajax'	=> false));
+        add_filter('set-screen-option', array('\SimpleSubscribe\TableSubscribes', 'setScreenOptions'), 100, 3);
+        parent::__construct(array('singular'=> 'subscriber', 'plural' => 'subscribers', 'ajax'	=> FALSE));
     }
 
 
@@ -112,7 +113,14 @@ class TableSubscribes extends Table
             unset($actions['delete']);
             unset($actions['activate']);
             $actions['deactivate'] = sprintf('<a href="?page=%s&action=%s&id=%s">Deactivate</a>',$_GET['page'],'deactivateRegistered',$item['id']);
+        } else {
+            if(isset($item['active']) && $item['active'] == 1){
+                unset($actions['activate']);
+            } else {
+                unset($actions['deactivate']);
+            }
         }
+
         return sprintf('%1$s %2$s', $item['email'], $this->row_actions($actions));
     }
 
@@ -164,7 +172,9 @@ class TableSubscribes extends Table
         $allSubscribers = $this->subscribers->getAllSubscribers();
         $this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
         usort($allSubscribers, array(&$this, 'usort_reorder'));
-        $perPage = 50; // set per page
+
+        $perPage = $this->get_items_per_page('subscribersPerPage', 50);
+
         $this->found_data = array_slice($allSubscribers,(($this->get_pagenum()-1)* $perPage), $perPage);
         $this->set_pagination_args(array('total_items' => count($allSubscribers), 'per_page' => $perPage ));
         $this->items = $this->found_data;
@@ -223,8 +233,9 @@ class TableSubscribes extends Table
      * Process export
      */
 
-    public static function processExport()
+    public static function process()
     {
+        // export
         if(isset($_POST['export'])){
             try{
                 $exporter = new \SimpleSubscribe\Exporter();
@@ -234,5 +245,28 @@ class TableSubscribes extends Table
                 Admin::getInstance()->addNotice('error', $e->getMessage());
             }
         }
+        // listing table per_itmems
+        if(isset($_POST['wp_screen_options']['option']) && $_POST['wp_screen_options']['option'] == 'subscribersPerPage'){
+            update_user_meta(
+                get_current_user_id(),
+                'subscribersPerPage',
+                $_POST['wp_screen_options']['value'],
+                get_user_meta(get_current_user_id(), 'subscribersPerPage', TRUE)
+            );
+        }
+    }
+
+
+    /**
+     * Screen Options
+     */
+
+    public static function screenOptions()
+    {
+        add_screen_option('per_page', array(
+            'label' => 'Subscribers',
+            'default' => 50,
+            'option' => 'subscribersPerPage'
+        ));
     }
 }

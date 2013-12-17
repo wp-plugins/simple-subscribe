@@ -69,7 +69,6 @@ class Forms
             ->setRequired('To unsubscribe, you need to fill in your e-mail address.')
             ->addRule(Form::EMAIL, 'Your e-mail address must be valid.');
         $form->addSubmit('submit', 'Unsubscribe')->setAttribute('class', 'subscribeButton');
-
         // swap renderer for widgets
         if($widget == TRUE){
             $renderer = $form->getRenderer();
@@ -221,6 +220,16 @@ class Forms
         $formForm->addCheckbox('age', 'Age');
         $formForm->addCheckbox('interests', 'Interests');
         $formForm->addCheckbox('location', 'Location');
+        // Categories
+        $form->addGroup('Digest Category');
+        $formCat = $form->addContainer('cat');
+        // List thru categories
+        $formCat->addCheckbox('0', 'All')->setOption('description', 'If you select All, the other categories will deselect automatically.');
+        foreach(get_categories(array('hide_empty' => 0)) as $category){
+            $formCat->addCheckbox($category->term_id, $category->name);
+        }
+        $form->addGroup();
+
         // Js
         $form->addGroup('Front-end');
         $formVal = $form->addContainer('val');
@@ -285,21 +294,13 @@ class Forms
         // Social links
         $form->addGroup('Social Media Links');
         $formSocial = $form->addContainer('social');
-        $formSocial->addText('twitter', 'Twitter profile URL')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::URL, 'Twitter profile URL, must be a valid URL.');
-        $formSocial->addText('facebook', 'Facebook profile URL')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::URL, 'Facebook profile URL, must be a valid URL.');
-        $formSocial->addText('pinterest', 'Pinterest profile URL')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::URL, 'Pinterest profile URL, must be a valid URL.');
-        $formSocial->addText('youtube', 'Youtube profile URL')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::URL, 'Youtube profile URL, must be a valid URL.');
-        $formSocial->addText('vimeo', 'Vimeo profile URL')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::URL, 'Vimeo profile URL, must be a valid URL.');
+
+        foreach(Settings::getSocialServices() as $key => $value){
+            $formSocial->addText($key, $value . ' profile URL')
+                ->addCondition(Form::FILLED)
+                ->addRule(Form::URL, $value . ' profile URL, must be a valid URL.');
+        }
+
         // Submit
         $form->addSubmit('submit', 'Save')->setAttribute('class', 'button-primary');
         // set dafaults

@@ -25,7 +25,7 @@ class FrontEnd
     public static function subscriptionForm($widget = FALSE, $args = array())
     {
         $widgetMessage = '';
-        $widgetTitle = isset($args['title']) ? $args['title'] : 'Subscribe';
+        $widgetTitle = isset($args['title']) && !empty($widget['title']) ? $args['title'] : 'Subscribe';
         $widgetId = isset($args['widget_id']) ? $args['widget_id'] : NULL;
         $settings = new \SimpleSubscribe\Settings(SUBSCRIBE_KEY);
         $form = \SimpleSubscribe\Forms::subscriptionForm($settings->getTableColumns(), $widget, $widgetId);

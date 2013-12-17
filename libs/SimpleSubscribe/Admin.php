@@ -54,7 +54,7 @@ class Admin extends \Nette\Object
         add_action('admin_init', array($this, 'adminInit'));
         add_action('admin_menu', array($this, 'adminMenu'));
         add_action('admin_notices', array($this, 'adminNotices'));
-        add_action('admin_enqueue_scripts', function(){ wp_enqueue_style('core', SUBSCRIBE_ASSETS . 'styleAdmin.css'); wp_enqueue_script('netteForms', SUBSCRIBE_ASSETS . 'netteForms.js', array(), '1.0.0'); });
+        add_action('admin_enqueue_scripts', function(){ wp_enqueue_style('core', SUBSCRIBE_ASSETS . 'styleAdmin.css', null, '2.0'); wp_enqueue_script('netteForms', SUBSCRIBE_ASSETS . 'netteForms.js', array(), '1.0.0'); });
         // settings & forms
         $this->settings         = new \SimpleSubscribe\Settings(SUBSCRIBE_KEY);
         $this->subscribers      = \SimpleSubscribe\RepositorySubscribers::getInstance();
@@ -88,6 +88,7 @@ class Admin extends \Nette\Object
 
     public function adminMenu()
     {
+        // Admin Pages
         add_menu_page('Subscribers', 'Subscribers', 'manage_options', 'SimpleSubscribe', array($this, 'renderAdminListing'), NULL, '71.22');
         add_submenu_page('SimpleSubscribe', 'E-mail template', 'E-mail template', 'manage_options', 'SimpleSubscribeEmailTemplate', array($this, 'renderAdminEmailTemplate'));
         add_submenu_page('SimpleSubscribe', 'E-mail subscribers', 'E-mail subscribers', 'manage_options', 'SimpleSubscribeEmail', array($this, 'renderAdminEmail'));
@@ -169,6 +170,9 @@ class Admin extends \Nette\Object
         // filters
         add_filter('plugin_action_links',   array($this, 'adminPluginLinks'), 10, 2);
         add_filter('plugin_row_meta',       array($this, 'adminPluginMeta'), 10, 2);
+        // Screen Options
+        add_action('load-toplevel_page_SimpleSubscribe', array('\SimpleSubscribe\TableSubscribes', 'screenOptions'));
+        add_filter('set-screen-option', function($status, $option, $value){ return $value; }, 10, 3);
         // actions
         add_action('new_to_publish',        array($this, 'onPublish'));
         add_action('draft_to_publish',      array($this, 'onPublish'));
@@ -192,9 +196,11 @@ class Admin extends \Nette\Object
 
     public function onPublish($post)
     {
-        if($post->post_type == 'post'){
-            $timingSettings = $this->settings->getTiming();
-            $timing = !empty($timingSettings) ? $this->settings->getTiming() : 0;
+        // settings
+        $timing = $this->settings->getTiming();
+        $inCategory = $this->settings->inCategory($post);
+
+        if($post->post_type == 'post' && $inCategory){
             switch($timing){
                 case 1:
                     \SimpleSubscribe\Cron::scheduleCron(Utils::NINE_AM, $post->ID);
@@ -220,10 +226,28 @@ class Admin extends \Nette\Object
     public function processActions()
     {
         // WP_List_Table export
-        \SimpleSubscribe\TableSubscribes::processExport();
+        \SimpleSubscribe\TableSubscribes::process();
         // settings form
         if ($this->formSettings->isSubmitted() && $this->formSettings->isValid()){
-            $this->settings->saveSettings($this->formSettings->getValues(TRUE));
+            $values = $this->formSettings->getValues(TRUE);
+            // if there are cateogires selected, and ALL as well, uncheck remaining
+            if ((count(array_filter($values['cat'])) > 0) && ($values['cat']['0'] == TRUE)){
+                foreach($values['cat'] as $key => $value){
+                    $values['cat'][$key] = FALSE;
+                    $this->formSettings['cat'][$key]->value = FALSE;
+                }
+                $values['cat']['0'] = TRUE;
+                $this->formSettings['cat']['0']->value = TRUE;
+            // if there is other category selected, unselect ALL
+            } elseif (count(array_filter($values['cat'])) > 1){
+                $values['cat']['0'] = FALSE;
+                $this->formSettings['cat']['0']->value = FALSE;
+                // if there's no category selected, select ALL
+            } elseif (!in_array(TRUE, $values['cat'])){
+                $values['cat']['0'] = TRUE;
+                $this->formSettings['cat']['0']->value = TRUE;
+            }
+            $this->settings->saveSettings($values);
             $this->addNotice('updated', 'Settings successfully saved.');
         } elseif ($this->formSettings->hasErrors()){
             foreach($this->formSettings->getErrors() as $error){

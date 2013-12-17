@@ -16,6 +16,23 @@ use Nette\Utils\Html;
 
 if(!class_exists('WP_Widget')){ require_once(ABSPATH . 'wp-admin/includes/widgets.php' ); }
 
+class Widgets extends \Nette\Object
+{
+
+    /**
+     * Register widgets
+     */
+
+    public static function register()
+    {
+        add_action('widgets_init', function(){
+            register_widget('\SimpleSubscribe\WidgetAdd');
+            register_widget('\SimpleSubscribe\WidgetRemove');
+        });
+    }
+}
+
+
 class WidgetAdd extends \WP_Widget
 {
 

@@ -98,7 +98,7 @@
 													<div n:if="$social">
 														<p><small>Connect with us:</small></p>
 														<p class="social">
-															<a n:foreach="$social as $key => $item" target="_blank" rel="nofollow" href="{$item}">{$key|lower|capitalize} |</a>
+															<a n:foreach="$social as $key => $item" target="_blank" rel="nofollow" href="{$item}">{$key|lower|capitalize} {sep}|{/sep}</a>
 														</p>
 													</div>
 												</td>

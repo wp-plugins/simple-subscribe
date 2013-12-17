@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.1.5
+Stable tag: 1.2
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -42,8 +42,8 @@ If you are a **Developer**, what you're looking for is [here.](http://wordpress.
 This is what I plan to implement in upcoming versions of **Simple Subscribe**, those things in bold are priority!
 
 1. **E-mail queque,** so we won't overkill the server with thousands of subscribers.
-1. Subscribe - **select digest category**
 1. Subscribe - select digest post type (post / page ... others)
+1. Custom E-mail template header image
 1. Ability to edit subscribers
 1. Allow language support and translations
 1. Subscribers import ( xml / csv / tsv *(maybe xls?)*)
@@ -233,6 +233,9 @@ Yes, in that case just deactivate and unstinall the plugin.
 
 == Upgrade Notice ==
 
+= 1.2 =
+* Added post digest categories and other small features.
+
 = 1.1.5 =
 * Newer, better.
 
@@ -264,6 +267,14 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.2 =
+* You can select post digest Category now
+* Better log message handeling - you can delete individual messages, instead of just clearing all.
+* Better admin css for mobile devices
+* Ability to change screen options and number of displayed subscribers on page.
+* Added Google+, Tumblr and Flickr to social links in e-mail template.
+* Other tiny features
 
 = 1.1.5 =
 * Modified theme for new Wordpress 3.8 admin, and Twenty Fourteen

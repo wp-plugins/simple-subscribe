@@ -1,26 +1,30 @@
-<div class="wrap wrapDivide relative">
+<div class="wrap wrapDivide">
 	<div id="icon-users" class="icon32"><br></div><h2>Subscribers</h2>
-	<div class="subscribersExport">
+	<div class="clear"></div>
+	<div class="relative">
+		<div class="subscribersExport">
+			<form method="POST">
+				<span><strong>Export</strong></span>
+				<select name="criteria" id="criteria">
+					<option value="all">all</option>
+					<option value="active">active</option>
+					<option value="inactive">inactive</option>
+				</select>
+				<span>subscribers as</span>
+				<select name="export" id="export">
+					<option value="csv">.CSV</option>
+					<option value="xls">.XLS</option>
+					<option value="tsv">.TSV</option>
+					<option value="xml">.XML</option>
+				</select>
+				<input type="submit" class="button-primary" value="Export" />
+			</form>
+		</div>
+		<div class="clear"></div>
 		<form method="POST">
-			<span><strong>Export</strong></span>
-			<select name="criteria" id="criteria">
-				<option value="all">all</option>
-				<option value="active">active</option>
-				<option value="inactive">inactive</option>
-			</select>
-			<span>subscribers as</span>
-			<select name="export" id="export">
-				<option value="csv">.CSV</option>
-				<option value="xls">.XLS</option>
-				<option value="tsv">.TSV</option>
-				<option value="xml">.XML</option>
-			</select>
-			<input type="submit" class="button-primary" value="Export" />
+			{$table->display()}
 		</form>
 	</div>
-	<form method="POST">
-		{$table->display()}
-	</form>
 	<div class="settingsPage">
 		<div class="leftSide prettyForm noBorder">
 			<div class="info">

@@ -275,6 +275,7 @@ class RepositorySubscribers extends Repository
             throw new RepositarySubscribersException('We are really sorry, but user with this e-mail address already exists.',0);
         } else {
             $data->active = 0;
+            $data->ip = \SimpleSubscribe\Utils::getRealIp();
             if($this->insert($data)){
                 try{
                     $email = \SimpleSubscribe\Email::getInstance();

@@ -66,7 +66,61 @@ class Settings extends \Nette\Object
      * @return mixed
      */
 
-    public function getTiming(){ return isset($this->options['cron']['timing']) ? $this->options['cron']['timing'] : NULL; }
+    public function getTiming(){ return isset($this->options['cron']['timing']) ? $this->options['cron']['timing'] : 0; }
+
+
+    /**
+     * Get's categories
+     *
+     * @return array
+     */
+
+    public function getCategories(){ return isset($this->options['cat']) ? $this->options['cat'] : array('0' => TRUE); }
+
+
+    /**
+     * Get's array of cat ids, to test
+     * with current post cats
+     *
+     * @return array
+     */
+
+    public function getArrayCategories()
+    {
+        $arr = array();
+        foreach($this->getCategories() as $key => $value){
+            if(0 != $key){
+               $arr[] = $key;
+            }
+        }
+        return $arr;
+    }
+
+
+    /**
+     * In category, can we post?
+     *
+     * @param $post
+     * @return bool
+     */
+
+    public function inCategory($post)
+    {
+        // get vars
+        $categories = $this->getCategories();
+        $catogoriesAllowed = $this->getArrayCategories();
+        $categoriesPost = wp_get_post_categories($post->ID);
+
+        if(isset($categories['0']) && $categories['0'] == TRUE){
+            return TRUE;
+        }
+        foreach($categoriesPost as $cat){
+            if(array_key_exists($cat, $categories)){
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
 
 
     /**
@@ -106,6 +160,7 @@ class Settings extends \Nette\Object
             ),
             'val'   => array('js' => '1', 'css' => '1'),
             'email' => array('type' => '1'),
+            'cat'   => array('0' => '1'),
             'emailDesign' => array(
                 'colourBg' => '#f5f5f5',
                 'colourTitle' => '#000000',
@@ -150,6 +205,27 @@ class Settings extends \Nette\Object
             'interests' => 'Interests',
             'age'       => 'Age',
             'location'  => 'Location'
+        );
+    }
+
+
+    /**
+     * Get's social services
+     *
+     * @return array
+     */
+
+    public static function getSocialServices()
+    {
+        return array(
+            'twitter' => 'Twitter',
+            'facebook' => 'Facebook',
+            'pinterest' => 'Pinterest',
+            'youtube' => 'Youtube',
+            'vimeo' => 'Vimeo',
+            'google' => 'Google Plus+',
+            'tumblr' => 'Tumblr',
+            'flickr' => 'Flickr',
         );
     }
 }

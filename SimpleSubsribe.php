@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.1.5
+    Version: 1.2
     License: GPLv2
 */
 /*
@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) { exit; }
 
 /**
  * 2. Check minimum requirements (wp version, php version)
- * Reason behind this is, we just need PHP 5.3 at least,
+ * Reason behind this is, we just need PHP 5.3.1 at least,
  * and wordpress 3.3 or higher. We just can't run the show
  * on some outdated installation.
  */

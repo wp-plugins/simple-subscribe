@@ -45,10 +45,9 @@ if (!class_exists('SimpleSubscribe'))
             define('SUBSCRIBE_TEMPLATES',dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR);
             define('SUBSCRIBE_API_URL', SUBSCRIBE_HOME_URL . '/' . '?' . SUBSCRIBE_KEY);
             // init
-            add_action('init',                      array($this, 'init'));
+            add_action('init', array($this, 'init'));
             // widgets + shortcodes
-            add_action('widgets_init', function(){ register_widget('\SimpleSubscribe\WidgetAdd'); });
-            add_action('widgets_init', function(){ register_widget('\SimpleSubscribe\WidgetRemove'); });
+            \SimpleSubscribe\Widgets::register();
             \SimpleSubscribe\Shortcodes::register();
             // settings
             $this->settings = new \SimpleSubscribe\Settings(SUBSCRIBE_KEY);

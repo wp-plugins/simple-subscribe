@@ -1,12 +1,17 @@
-<div class="wrap wrapDivide relative">
+<div class="wrap wrapDivide">
 	<div id="icon-edit-pages" class="icon32"><br></div><h2>Simple Subscribe Log</h2>
-	<form method="POST">
-		<div class="subscribersExport">
+	<div class="relative relativeLog">
+		<div class="subscribersExport subscribersExportLog">
+			<form method="POST">
 				<div class="hidden"><input type="hidden" name="action" value="emptyLog"></div>
 				<input type="submit" class="button-primary button" value="Remove log messages">
+			</form>
 		</div>
-		{$table->display()}
 		<div class="clear"></div>
-	</form>
+		<form method="POST">
+		{$table->display()}
+			<div class="clear"></div>
+		</form>
+	</div>
 	<div class="clear"></div>
 </div>

@@ -69,15 +69,18 @@ class TableLogs extends Table
      * Type of message
      *
      * @param $item
-     * @return Nette\Utils\Html
+     * @return string
      */
 
     function column_type($item)
     {
         if($item['type'] == 0){
-            return \Nette\Utils\Html::el('strong class="error"')->setText('Error');
+            $type = \Nette\Utils\Html::el('strong class="error"')->setText('Error');
+        } else {
+            $type = \Nette\Utils\Html::el('strong')->setText('Message');
         }
-        return \Nette\Utils\Html::el('strong')->setText('Message');
+        $actions = array( 'delete' => sprintf('<a href="?page=%s&action=%s&id=%s">Delete Message</a>',$_GET['page'],'delete',$item['id']));
+        return sprintf('%1$s %2$s', $type, $this->row_actions($actions));
     }
 
 
@@ -125,9 +128,21 @@ class TableLogs extends Table
 
     public function process_bulk_action()
     {
-        if($this->current_action() == 'emptyLog'){
-            $this->log->truncate();
-            $this->addNotice('updated', 'All log messages cleared!');
+        try {
+            switch ($this->current_action()){
+                case 'emptyLog':
+                    $this->log->truncate();
+                    $this->addNotice('updated', 'All log messages cleared!');
+                    break;
+                case 'delete':
+                    if(is_numeric($_GET['id'])){
+                        $this->log->delete(array('id' =>$_GET['id'] ));
+                        $this->addNotice('updated', 'Log message deleted!');
+                    }
+                    break;
+            }
+        } catch (RepositaryLogException $e){
+            $this->addNotice('error', $e->getMessage());
         }
     }
 }

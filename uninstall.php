@@ -43,6 +43,7 @@ function simpleSubscribeUninstall()
     if(!empty($registeredUsers)){
         foreach($registeredUsers as $user){
             delete_user_meta($user->data->ID, 'subscription');
+            delete_user_meta($user->data->ID, 'subscribersPerPage');
         }
     }
 
