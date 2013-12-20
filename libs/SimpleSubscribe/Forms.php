@@ -212,6 +212,12 @@ class Forms
         );
         $formMisc->addCheckbox('log', 'Enable message log')
             ->setOption('description', '(logs errors, cron schedules, successfully sent digests, etc.)');
+        // if blog is on different url, allow users to select back button url
+        if(\SimpleSubscribe\Utils::getPostsPageUrl()){
+            $homeUrlDesc = Html::el('small')->setHtml('Backlink on '. Html::el('a', array('href' => SUBSCRIBE_API_URL, 'target' => '_blank'))->setText('confirmation / unsubscription page') .', by default it\'s homepage.');
+            $formMisc->addSelect('homeUrl', 'Homepage link',array(SUBSCRIBE_HOME_URL,\SimpleSubscribe\Utils::getPostsPageUrl()))
+                ->setOption('description', $homeUrlDesc);
+        }
         // Form fields
         $form->addGroup('Additional subscribe form fields');
         $formForm = $form->addContainer('form');
@@ -276,6 +282,11 @@ class Forms
         // Design of e-mail
         $form->addGroup('E-mail design');
         $formDesign = $form->addContainer('emailDesign');
+        $formDesign->addText('colourBodyBg', 'E-mail background colour')
+            ->setType('color')
+            ->setOption('description','Default: #ececec')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::PATTERN, 'Background colour must be a valid hex code.', '^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$');
         $formDesign->addText('colourBg', 'Header background colour')
             ->setType('color')
             ->setOption('description','Default: #f5f5f5')

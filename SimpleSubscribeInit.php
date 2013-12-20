@@ -75,7 +75,7 @@ if (!class_exists('SimpleSubscribe'))
             });
             add_action('parse_request', function($wp){
                 if(array_key_exists(SUBSCRIBE_KEY, $wp->query_vars)){
-                    $api = new \SimpleSubscribe\Api($wp);
+                    $api = new \SimpleSubscribe\Api($wp, $this->settings);
                 }
             });
 

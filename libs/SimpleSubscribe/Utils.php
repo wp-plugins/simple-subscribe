@@ -95,6 +95,22 @@ class Utils
 
 
     /**
+     * Posts page url
+     *
+     * @return null
+     */
+
+    public static function getPostsPageUrl()
+    {
+        $a = get_option('page_for_posts');
+        if(!empty($a)){
+            return get_permalink((int)$a);
+        }
+        return NULL;
+    }
+
+
+    /**
      * Little helper for e-mail body
      *
      * @param $id

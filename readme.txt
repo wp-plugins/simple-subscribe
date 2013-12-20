@@ -1,12 +1,12 @@
 === Simple Subscribe ===
 Contributors: latorante
 Donate link: http://donate.latorante.name/
-Tags: subscription, subscribe, e-mail subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
+Tags: subscription, subscribe, e-mail subscription, email subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
 Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.2
+Stable tag: 1.2.3
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -233,6 +233,9 @@ Yes, in that case just deactivate and unstinall the plugin.
 
 == Upgrade Notice ==
 
+= 1.2.3 =
+* Chnage e-mail body background colour, e-mail digest links as text for html stripping e-mail clients.
+
 = 1.2 =
 * Added post digest categories and other small features.
 
@@ -267,6 +270,11 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.2.3 =
+* Subscription confirmation url in text format as well, for e-mail clients that strip HTML links
+* Added option to select backlink url on Confrimation screen, (if a static page is selected as posts page)
+* Added option to change e-mail background colour
 
 = 1.2 =
 * You can select post digest Category now

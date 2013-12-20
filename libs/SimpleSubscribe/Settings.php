@@ -133,6 +133,23 @@ class Settings extends \Nette\Object
 
 
     /**
+     * Backbutton homepage link
+     *
+     * @return null
+     */
+
+    public function getBackLinkUrl()
+    {
+        $postsPage = \SimpleSubscribe\Utils::getPostsPageUrl();
+        $postsPageSettings = isset($this->options['misc']['homeUrl']) ? TRUE : FALSE;
+        if($postsPageSettings){
+            return $postsPage;
+        }
+        return SUBSCRIBE_HOME_URL;
+    }
+
+
+    /**
      * Save settings
      *
      * @param $array
@@ -162,6 +179,7 @@ class Settings extends \Nette\Object
             'email' => array('type' => '1'),
             'cat'   => array('0' => '1'),
             'emailDesign' => array(
+                'colourBodyBg' => '#ececec',
                 'colourBg' => '#f5f5f5',
                 'colourTitle' => '#000000',
                 'colourLinks' => '#000000'),

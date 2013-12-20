@@ -14,7 +14,8 @@
 		table td{ border-collapse:collapse; }
 		#backgroundTable{ height:100% !important; margin:0; padding:0; width:100% !important; }
 		#unsubcribe { text-align: right !important; }
-		body, #backgroundTable{ background-color: #ececec; }
+		body, #backgroundTable { background-color: #ececec; }
+		body, #backgroundTable { background-color: {!$colours['colourBodyBg']}; }
 		.headerContent { text-align: center;  padding: 20px;}
 		#templateHeader { background: {!$colours['colourBg']}; }
 		#templateContainer{ }
@@ -37,6 +38,7 @@
 		a.subscribe,
 		h1 a { text-decoration: none; }
 		h2 a { text-decoration: none; }
+		small { font-size: 9px; }
 		#templateContainer, .bodyContent{ background-color:#FFFFFF; }
 		.bodyContent img{ display:inline; height:auto; }
 		.bodyContent a { text-decoration: underline !important; }

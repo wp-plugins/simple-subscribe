@@ -17,6 +17,8 @@ class Api
     var $request;
     /** @var array */
     var $messages = array();
+    /** @var \SimpleSubscribe\Settings */
+    var $settings;
     /** @var query vars */
     var $queryVars;
 
@@ -27,10 +29,11 @@ class Api
      * @param WP $request
      */
 
-    public function __construct(\WP $request)
+    public function __construct(\WP $request, \SimpleSubscribe\Settings $settings)
     {
         $this->request = $request;
         $this->queryVars = $this->request->query_vars;
+        $this->settings = $settings;
         $this->process();
     }
 
@@ -68,11 +71,13 @@ class Api
         $template = new \SimpleSubscribe\Template('adminApi.latte');
         $templateGuts = $this->hasMessages() ? $this->getMessages() : \SimpleSubscribe\FrontEnd::unsubscriptionForm();
         $templateAction = $this->hasMessages() ? 'Confirm Subscription' : 'Unsubscribe';
+        $templateBackUrl = $this->settings->getBackLinkUrl();
+
         $defaults = array(
             'action' => $templateAction,
             'stylesheetUrl' => SUBSCRIBE_ASSETS . 'styleApi.css',
             'guts' => $templateGuts,
-            'backLink' => '<a href="' . SUBSCRIBE_HOME_URL . '">Back to homepage &raquo;</a>'
+            'backLink' => '<a href="' . $templateBackUrl . '">Back to homepage &raquo;</a>'
         );
         $template->prepareTemplate($defaults, $data);
         echo $template->getTemplate();

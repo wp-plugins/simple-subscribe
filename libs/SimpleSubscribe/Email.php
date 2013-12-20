@@ -82,7 +82,7 @@ class Email extends \Nette\Object
         // prepare social links and colours
         $settingsSocial = isset($this->settingsAll['social']) ? $this->settingsAll['social'] : array();
         $settingsColours = isset($this->settingsAll['emailDesign']) ? $this->settingsAll['emailDesign'] : array();
-        $defaultColours = array('colourBg' => '#f5f5f5','colourTitle' => '#000000', 'colourLinks' => '#000000');
+        $defaultColours = array('colourBodyBg' => '#ececec', 'colourBg' => '#f5f5f5','colourTitle' => '#000000', 'colourLinks' => '#000000');
         // which template file are we using?
         $templateFile = $this->htmlEmail ? 'email.latte' : 'emailPlain.latte';
         // defaults
@@ -250,6 +250,11 @@ class Email extends \Nette\Object
         );
         $emailLink = Html::el('a')->href(SUBSCRIBE_HOME_URL, $emailUrlQuery)->setText('here.');
         $emailBody = 'To finish your subscription, you need to confirm your e-mail address '. $emailLink .'';
+        // only add this to HTML mails, possible link that could have been stripped down in some e-mail clients.
+        if($this->htmlEmail == TRUE){
+            $emailBody .= '<br /><br />';
+            $emailBody .= '<small>If you can\'t click the link above, copy and paste this url into your browser: ' . $emailLink->href .'</small>';
+        }
         $return->subject = 'Subscription confirmation';
         $return->data = array(
             'subject' => $return->subject,
@@ -354,6 +359,11 @@ class Email extends \Nette\Object
                     )
                 );
                 break;
+        }
+
+        if($this->htmlEmail == TRUE){
+            $emailBody .= '<br /><br />';
+            $emailBody .= '<small>If you can\'t click the link above, copy and paste this url into your browser: ' . $postLink .'</small>';
         }
 
         // return
