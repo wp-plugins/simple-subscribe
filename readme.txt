@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.2.3
+Stable tag: 1.2.3.1
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -270,6 +270,9 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.2.3.1 =
+* Christmas bugfix, settings not being injected in API call. Merry happy!
 
 = 1.2.3 =
 * Subscription confirmation url in text format as well, for e-mail clients that strip HTML links
