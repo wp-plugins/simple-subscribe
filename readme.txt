@@ -1,7 +1,7 @@
 === Simple Subscribe ===
-Contributors: latorante
+Contributors: latorante, Dabelon
 Donate link: http://donate.latorante.name/
-Tags: subscription, subscribe, e-mail subscription, email subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
+Tags: subscription, subscribe, e-mail subscript ion, email subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
 Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
