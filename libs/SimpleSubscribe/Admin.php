@@ -48,6 +48,9 @@ class Admin extends \Nette\Object
      * Constructor
      */
 
+
+
+
     public function __construct()
     {
         // admin actions
@@ -90,6 +93,7 @@ class Admin extends \Nette\Object
     {
         // Admin Pages
         add_menu_page('Subscribers', 'Subscribers', 'manage_options', 'SimpleSubscribe', array($this, 'renderAdminListing'), NULL, '71.22');
+        add_submenu_page('SimpleSubscribe', 'Readygraph App', 'Readygraph App', 'manage_options', 'ssubscribe-register-app', array($this, 'add_ssubscribe_app_register_page'));
         add_submenu_page('SimpleSubscribe', 'E-mail template', 'E-mail template', 'manage_options', 'SimpleSubscribeEmailTemplate', array($this, 'renderAdminEmailTemplate'));
         add_submenu_page('SimpleSubscribe', 'E-mail subscribers', 'E-mail subscribers', 'manage_options', 'SimpleSubscribeEmail', array($this, 'renderAdminEmail'));
         add_submenu_page('SimpleSubscribe', 'Settings', 'Settings', 'manage_options', 'SimpleSubscribeSettings', array($this, 'renderAdminSettings'));
@@ -338,6 +342,12 @@ class Admin extends \Nette\Object
     /**
      * Renders e-mail template settings page
      */
+
+    public function add_ssubscribe_app_register_page(){
+        $template = new \SimpleSubscribe\Template('ssubscribe_app_page.php');
+        $template->prepareTemplate(array('formEmailTemplate' => $this->formEmailTemplate, 'formEmailPreview' => $this->formEmailPreview));
+        echo $template->getTemplate();
+    }
 
     public function renderAdminEmailTemplate()
     {

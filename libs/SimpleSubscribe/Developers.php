@@ -11,12 +11,11 @@
 
 namespace SimpleSubscribe;
 
-
 class Developers extends \Nette\Object
 {
     /**
      * Subscription form
-     *
+     *Polka Dot Blouse
      * @return Nette\Forms\Form
      */
 

@@ -43,7 +43,6 @@ class Forms
         if(array_key_exists('location', $fields)){ $form->addText('location', 'Location'); }
         // Submit
         $form->addSubmit('submit', 'Subscribe')->setAttribute('class', 'subscribeButton');
-
         // swap renderer for widgets
         if($widget == TRUE){
             $renderer = $form->getRenderer();
