@@ -9,6 +9,8 @@
  * the SimpleSubscribe.php file in root directory of this plugin.
  */
 
+
+
 if (!class_exists('SimpleSubscribe'))
 {
     class SimpleSubscribe
@@ -46,6 +48,7 @@ if (!class_exists('SimpleSubscribe'))
             define('SUBSCRIBE_API_URL', SUBSCRIBE_HOME_URL . '/' . '?' . SUBSCRIBE_KEY);
             // init
             add_action('init', array($this, 'init'));
+            add_action('admin_init', array($this, 'on_plugin_activated_redirect') );  
             // widgets + shortcodes
             \SimpleSubscribe\Widgets::register();
             \SimpleSubscribe\Shortcodes::register();
@@ -54,13 +57,19 @@ if (!class_exists('SimpleSubscribe'))
             $this->settingsAll = $this->settings->getSettings();
         }
 
-
+        public function on_plugin_activated_redirect(){
+            $setting_url="admin.php?page=ssubscribe-register-app";    
+            if (get_option('my_plugin_do_activation_redirect', false)) {  
+                delete_option('my_plugin_do_activation_redirect'); 
+                wp_redirect(admin_url($setting_url)); 
+            }  
+        }
         /**
          * Initialize
          */
-
         public function init()
         {
+
             /** 1. Cron */
             add_action(SUBSCRIBE_CRON, array('\SimpleSubscribe\Cron', 'cron'));
 
@@ -94,6 +103,7 @@ if (!class_exists('SimpleSubscribe'))
                     }
                 }
             }
+            //wp_redirect("admin.php?page=ssubscribe-register-app"); 
         }
 
 
@@ -106,6 +116,16 @@ if (!class_exists('SimpleSubscribe'))
             // get wpdb object
             global $wpdb;
             // tables, get ready!
+
+            if(strtoupper($wpdb->get_var("show tables like '". WP_ssubscribe_TABLE_APP . "'")) != strtoupper(WP_ssubscribe_TABLE_APP))  
+            {
+                $wpdb->query("
+                    CREATE TABLE `". WP_ssubscribe_TABLE_APP . "` (
+                        `eemail_app_pk` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+                        `eemail_app_id` VARCHAR( 250 ) NOT NULL )
+                    ");
+            }
+
             $tables = array(
                 strtolower($wpdb->prefix . 'subscribers') =>
                 "CREATE TABLE " . strtolower($wpdb->prefix . 'subscribers') . " (
@@ -139,6 +159,7 @@ if (!class_exists('SimpleSubscribe'))
                     dbDelta($sql);
                 }
             }
+            add_option('my_plugin_do_activation_redirect', true);  
         }
 
 
@@ -149,5 +170,7 @@ if (!class_exists('SimpleSubscribe'))
         public static function deactivate() { \SimpleSubscribe\Cron::unscheduleCronEvents(); }
     }
 }
+
+
 
 $simpleSubscribe = new SimpleSubscribe();

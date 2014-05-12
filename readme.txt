@@ -1,12 +1,12 @@
 === Simple Subscribe ===
-Contributors: Dabelon
+Contributors: Dabelon, wenzhixue, latorante
 Donate link: http://donate.latorante.name/
 Tags: subscription, subscribe, e-mail subscript ion, email subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
 Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.2.3.1
+Stable tag: 1.3
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
 
@@ -15,7 +15,7 @@ Simple Subscribe is the subscribe plugin you have been waiting for. It's simple 
 Simple Subscribe is the only bulletproof secure plugin, that is easy to use and developers friendly as well. It gives you the power to simply add subscription
 form to your Wordpress website, as a **widget**, **shortcode** or using php in your template codes.
 
-Subscription form can gather more than just e-mail address tho, you can select additional fields like name, location, age and interests. All the subscribers can
+Subscription form can gather more than just e-mail address, you can select additional fields like name, location, age and interests. All the subscribers can
 be exported into **.csv**, **.xls**, **.tsv** or **.xml** format and used anywhere else, in fact, you can even select to export by criteria **active**, or **inactive** or simply **all**.
 
 Your subscribers have the option to unsubscribe in each e-mail digest they receive, or you can put unsubscription form on your website. As of now, all use HTML template,
@@ -27,31 +27,19 @@ All Wordpress registered users have the option to subscribe simply in their Word
 
 Forms have both client / server side validation and they are literally bulletproof. There plenty of other features you will find "on the run".
 
-**Newly** you can change the look of the e-mail digest, colours, type etc. and contact all your subscribers directly with your own Subject and Message right from your Wordpress dashboard.
+**New** you can change the look of the e-mail digest, colours, type etc. and contact all your subscribers directly with your own Subject and Message right from your Wordpress dashboard.
 
 If you are a **Developer**, what you're looking for is [here.](http://wordpress.org/plugins/simple-subscribe/other_notes/ "Developer's Guide")
+
+= ReadyGraph App =
+
+This menu item allows users to sign up for a free ReadyGraph account, or sync an existing free ReadyGraph account.  Once a ReadyGraph account is synced, this menu item is where the user manages their ReadyGraph account, views email addresses, sends emails to their community members, and views insights on user growth.		
 
 = Requirements =
 
 1. Wordpress at least version 3.3
 1. PHP at least version 5.3.1
 1. Working e-mail functions on your server
-
-= Road-map =
-
-This is what I plan to implement in upcoming versions of **Simple Subscribe**, those things in bold are priority!
-
-1. **E-mail queque,** so we won't overkill the server with thousands of subscribers.
-1. Subscribe - select digest post type (post / page ... others)
-1. Custom E-mail template header image
-1. Ability to edit subscribers
-1. Allow language support and translations
-1. Subscribers import ( xml / csv / tsv *(maybe xls?)*)
-1. Subscribers import maybe from other places / plugins?
-1. Plugin "messages" settings
-	* Confirm subscription message
-	* Unsubscription message
-	* Thank you message and all others
 
 == Installation ==
 
@@ -65,7 +53,7 @@ This is what I plan to implement in upcoming versions of **Simple Subscribe**, t
 = Manual =
 1. Go to [http://wordpress.org/plugins/simple-subscribe/](http://wordpress.org/plugins/simple-subscribe/ "Simple Subscribe")
 2. Download latest version of Simple Subscribe.
-3. Unzip file into Wordpress plugins directory.
+3. Unzip file into Wordpress plugins directory or install zip via upload in admin plugins page.
 4. Activate plugin.
 5. Enjoy.
 
@@ -130,7 +118,7 @@ object of our form we simply call:
 
 `
 <?php
-	// get sebuscription form
+	// get subscription form
 	$subscriptionForm = \SimpleSubscribe\Developers::getSubscriptionForm();
 
 	// or unsubscription one, whichever one you need
@@ -218,7 +206,7 @@ Consider this code:
 	</script>
 `
 
-Right, let's go thru this code again, it's pretty straightforward. At first, we create an instance of our form, we check if it was submitted, if it was - no matter
+Right, let's go through this code again, it's pretty straightforward. At first, we create an instance of our form, we check if it was submitted, if it was - no matter
 if correctly or not, we should always display our hidden modal window, so people can see it straight away after the page reloads - we set the modal window class to "visible".
 
 After that it's simple code, just to show working example of that logic, you can copy and paste this code or change, amend, whatever you wish to do.
@@ -233,8 +221,11 @@ Yes, in that case just deactivate and unstinall the plugin.
 
 == Upgrade Notice ==
 
+= 1.3 =
+* Integrated ReadyGraph functionality.
+
 = 1.2.3 =
-* Chnage e-mail body background colour, e-mail digest links as text for html stripping e-mail clients.
+* Change e-mail body background colour, e-mail digest links as text for html stripping e-mail clients.
 
 = 1.2 =
 * Added post digest categories and other small features.
@@ -258,7 +249,7 @@ Yes, in that case just deactivate and unstinall the plugin.
 * (Bug)fix, now using Bcc instead of Cc for mass emails.
 
 = 1.1.4 =
-New feautres, contact subscribers directly with one click in subscribers listing.
+New features, contact subscribers directly with one click in subscribers listing.
 
 = 1.1 =
 Wordpress registered users better handeling.
@@ -270,6 +261,9 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.3 =
+* Integrated ReadyGraph functionality.
 
 = 1.2.3.1 =
 * Christmas bugfix, settings not being injected in API call. Merry happy!
