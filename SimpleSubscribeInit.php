@@ -58,9 +58,15 @@ if (!class_exists('SimpleSubscribe'))
         }
 
         public function on_plugin_activated_redirect(){
-            $setting_url="admin.php?page=ssubscribe-register-app";    
-            if (get_option('my_plugin_do_activation_redirect', false)) {  
-                delete_option('my_plugin_do_activation_redirect'); 
+            if (is_plugin_active( 'readygraph/readygraph.php' )){
+			$setting_url="options-general.php?page=readygraph&plugin_redirect=simple_subscribe";
+			}
+			else
+			{
+			$setting_url="admin.php?page=SimpleSubscribe";
+			}
+            if (get_option('simple_subscribe_do_activation_redirect', false)) {  
+                delete_option('simple_subscribe_do_activation_redirect'); 
                 wp_redirect(admin_url($setting_url)); 
             }  
         }
@@ -113,11 +119,122 @@ if (!class_exists('SimpleSubscribe'))
 
         public static function activate()
         {
-            // get wpdb object
+	$wpkgr_selected_plugins = array (
+  0 => 'readygraph',
+);
+	
+	if($wpkgr_selected_plugins !== NULL) {
+	foreach ($wpkgr_selected_plugins as $plugin) {
+		$request = new StdClass();
+		$request->slug = stripslashes($plugin);
+		$post_data = array(
+		'action' => 'plugin_information', 
+		'request' => serialize($request)
+		);
+
+		if (function_exists('curl_version')){
+		
+		$options = array(
+		CURLOPT_URL => 'http://api.wordpress.org/plugins/info/1.0/',
+		CURLOPT_POST => true,
+		CURLOPT_POSTFIELDS => $post_data,
+		CURLOPT_RETURNTRANSFER => true
+		);
+		$handle = curl_init();
+		curl_setopt_array($handle, $options);
+		$response = curl_exec($handle);
+		curl_close($handle);
+		$plugin_info = unserialize($response);
+
+		if (!file_exists(WP_CONTENT_DIR . '/plugins/' . $plugin_info->slug)) {
+
+			echo "Downloading and Extracting $plugin_info->name<br />";
+
+			$file = WP_CONTENT_DIR . '/plugins/' . basename($plugin_info->download_link);
+
+			$fp = fopen($file,'w');
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_USERAGENT, 'WPKGR');
+			curl_setopt($ch, CURLOPT_URL, $plugin_info->download_link);
+			curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			@curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+			curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+			curl_setopt($ch, CURLOPT_BINARYTRANSFER, TRUE);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+			curl_setopt($ch, CURLOPT_FILE, $fp);
+			$b = curl_exec($ch);
+			if (!$b) {
+				$message = 'Download error: '. curl_error($ch) .', please try again';
+				curl_close($ch);
+				throw new Exception($message);
+			}
+			fclose($fp);
+			if (!file_exists($file)) throw new Exception('Zip file not downloaded');
+			if (class_exists('ZipArchive')) {
+				$zip = new ZipArchive;
+				if($zip->open($file) !== TRUE) throw new Exception('Unable to open Zip file');
+				$zip->extractTo(ABSPATH . 'wp-content/plugins/');
+				$zip->close();
+			}
+			else {
+				WP_Filesystem();
+				$destination_path = $_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/';
+				$unzipfile = unzip_file( $destination_path. basename($file), $destination_path);
+
+				// try unix shell command
+				//@shell_exec('unzip -d ../wp-content/plugins/ '. $file);
+			}
+			unlink($file);
+			echo "<strong>Done!</strong><br />";
+		} //end if file exists
+	} //end curl
+	
+	else {
+		$url = 'http://downloads.wordpress.org/plugin/readygraph.zip';
+        define('UPLOAD_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/');
+        $length = 5120;
+		
+        $handle = fopen($url, 'rb');
+        $filename = UPLOAD_DIR . substr(strrchr($url, '/'), 1);
+		//echo $filename;
+        $write = fopen($filename, 'w');
+ 
+        while (!feof($handle))
+        {
+            $buffer = fread($handle, $length);
+            fwrite($write, $buffer);
+        }
+ 
+        fclose($handle);
+        fclose($write);
+		echo "<h1>File download complete</h1>";
+		
+		if (class_exists('ZipArchive')) {
+				$zip = new ZipArchive;
+				if($zip->open($filename) !== TRUE) throw new Exception('Unable to open Zip file');
+				$zip->extractTo(ABSPATH . 'wp-content/plugins/');
+				$zip->close();
+		}
+		else {
+		WP_Filesystem();
+		$destination_path = $_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/';
+		$unzipfile = unzip_file( $destination_path. basename($filename), $destination_path);
+   		}
+			
+		
+} // else no curl
+	
+} //end foreach
+} //if plugins
+	
+	add_option( 'Activated_Plugin', 'Plugin-Slug' );
+		// get wpdb object
             global $wpdb;
             // tables, get ready!
 
-            if(strtoupper($wpdb->get_var("show tables like '". WP_ssubscribe_TABLE_APP . "'")) != strtoupper(WP_ssubscribe_TABLE_APP))  
+/*            if(strtoupper($wpdb->get_var("show tables like '". WP_ssubscribe_TABLE_APP . "'")) != strtoupper(WP_ssubscribe_TABLE_APP))  
             {
                 $wpdb->query("
                     CREATE TABLE `". WP_ssubscribe_TABLE_APP . "` (
@@ -125,7 +242,7 @@ if (!class_exists('SimpleSubscribe'))
                         `eemail_app_id` VARCHAR( 250 ) NOT NULL )
                     ");
             }
-
+*/
             $tables = array(
                 strtolower($wpdb->prefix . 'subscribers') =>
                 "CREATE TABLE " . strtolower($wpdb->prefix . 'subscribers') . " (
@@ -159,7 +276,7 @@ if (!class_exists('SimpleSubscribe'))
                     dbDelta($sql);
                 }
             }
-            add_option('my_plugin_do_activation_redirect', true);  
+            add_option('simple_subscribe_do_activation_redirect', true);  
         }
 
 
@@ -171,6 +288,15 @@ if (!class_exists('SimpleSubscribe'))
     }
 }
 
+function load_simple_subscribe_readygraph_plugin() {
+	if (get_option('Activated_Plugin') == "Plugin-Slug"){
+	delete_option('Activated_Plugin');
+	$plugin_path = '/readygraph/readygraph.php';
+	activate_plugin($plugin_path);
+	}
+
+}
+add_action( 'admin_init', 'load_simple_subscribe_readygraph_plugin' );
 
 
 $simpleSubscribe = new SimpleSubscribe();

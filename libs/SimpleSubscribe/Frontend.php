@@ -33,13 +33,20 @@ class FrontEnd
         $has_app = false;
 
         global $wpdb;
-        $cSql = "select * from wp_ssubscribe_app where 1=1 ";
+/*        $cSql = "select * from wp_ssubscribe_app where 1=1 ";
         $data = $wpdb->get_results($cSql,ARRAY_A);
         if(count($data) > 0){
             $has_app =true;
             $under_style = 'inherit';
         }
-
+*/
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		$readygraph_api = get_option('readygraph_application_id');
+		echo $readygraph_api;echo is_plugin_active( 'readygraph/readygraph.php' );
+		if ($readygraph_api && strlen($readygraph_api) > 0 && is_plugin_active( 'readygraph/readygraph.php' )) {
+			$has_app =true;
+            $under_style = 'inherit';
+		}
         if ($form->isSubmitted() && $form->isValid()){
             try{
                 $subscribers = \SimpleSubscribe\RepositorySubscribers::getInstance();
@@ -47,7 +54,7 @@ class FrontEnd
 
                 if($has_app){
                     $email = $form->getValues()['email'];
-                    $app_id = $data[0]['eemail_app_id'];
+					 $app_id = get_option('readygraph_application_id');
                     $rg_url = 'https://readygraph.com/api/v1/wordpress-enduser/';
 
                     $postdata = http_build_query(

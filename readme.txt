@@ -1,19 +1,28 @@
 === Simple Subscribe ===
-Contributors: Dabelon, wenzhixue
+Contributors: Dabelon, wenzhixue, tanaylakhani
 Donate link: http://donate.latorante.name/
 Tags: subscription, subscribe, e-mail subscript ion, email subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
 Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.3
+Stable tag: 1.4
 
-Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly.
+Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly. Automate user growth through ReadyGraph integration.
 
 == Description ==
 
 Simple Subscribe is the only bulletproof secure plugin, that is easy to use and developers friendly as well. It gives you the power to simply add subscription
 form to your Wordpress website, as a **widget**, **shortcode** or using php in your template codes.
+
+This plugin has integrated [ReadyGraph](http://readygraph.com/), an optional set of features to automate the growth of your userbase.  It helps you achieve the three goals of any web marketer: maximize conversion of site visitors to register for your email list, maximize viral referrals for your site, and maximize return visits to your site.  To accomplish this, we have integrated a key set of growth features with this plugin:
+	- Intelligent signup popup with email or one-click Facebook login
+	- Full viral referral flow
+	- Automated end user re-engagement emails including welcome emails, weekly digest, friend joined alert and more (all email campaigns are optional and configurable)
+	- Enhanced email deliverabilty
+	- Cloud-based analytics and data storage
+	- Settings that allow you to turn on and off all ReadyGraph features.
+
 
 Subscription form can gather more than just e-mail address, you can select additional fields like name, location, age and interests. All the subscribers can
 be exported into **.csv**, **.xls**, **.tsv** or **.xml** format and used anywhere else, in fact, you can even select to export by criteria **active**, or **inactive** or simply **all**.
@@ -33,7 +42,28 @@ If you are a **Developer**, what you're looking for is [here.](http://wordpress.
 
 = ReadyGraph App =
 
-This menu item allows users to sign up for a free ReadyGraph account, or sync an existing free ReadyGraph account.  Once a ReadyGraph account is synced, this menu item is where the user manages their ReadyGraph account, views email addresses, sends emails to their community members, and views insights on user growth.		
+ReadyGraph is a system that automates the growth of your site’s userbase. It is optimized to deliver audience growth and motivate users to consistently revisit your site.
+
+= Optimized Signup Form =
+
+ReadyGraph’s signup form with intelligent pop-up functionality and one-click login is designed to maximize signups to your email list.  You can configure when the popup appears so as to maximize the likelihood that the user is engaged enough to register for your list.
+
+= Viral Friend Invites =
+
+ReadyGraph adds a friend invite process to your site’s signup flow.  We then power the entire viral loop by sending email and Facebook invitations that encourage your visitors’ friends to signup for your site.
+
+= Automated Re-engagement Emails =
+
+ReadyGraph’s automated email system encourages visitors to return to your site.   Users receive optimized emails such as a welcome email, re-engagement email, regular digest with new content from your blog, and social emails.  All emails are configurable including the ability to turn on and off individual campaigns.  We handle all sending to maximize deliverability.
+
+= Analytics =
+
+Track daily-new subscribers, daily invites, total traffic, and other key metrics that quantify growth and user engagement.  ReadyGraph safely stores user data in the cloud so you can access data from anywhere.
+
+= Newsfeed =
+
+ReadyGraph’s newsfeed is an optional overlay on your site where your users can engage with others in your community and recommend your content or products to each other.  It is like having a social network that engages users embedded on your site. Users can leave comments, ‘like’ comments left by other subscribers and ‘follow’ other subscribers.  Subscribers will receive automated email updates based on these actions.
+
 
 = Requirements =
 

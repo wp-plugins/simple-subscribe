@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.3
+    Version: 1.4
     License: GPLv2
 */
 /*
@@ -30,7 +30,7 @@
  */
 global $wpdb, $wp_version;
 if (!defined('ABSPATH')) { exit; }
-define("WP_ssubscribe_TABLE_APP", $wpdb->prefix . "ssubscribe_app");
+//define("WP_ssubscribe_TABLE_APP", $wpdb->prefix . "ssubscribe_app");
 
 /**
  * 2. Check minimum requirements (wp version, php version)
