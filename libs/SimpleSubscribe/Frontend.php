@@ -52,13 +52,13 @@ class FrontEnd
                 $subscribers->add($form->getValues());
 
                 if($has_app){
-                    $email = $form->getValues()['email'];
+                    $email = $form->getValues()->email;
 					 $app_id = get_option('readygraph_application_id');
                     $rg_url = 'https://readygraph.com/api/v1/wordpress-enduser/';
 
                     $postdata = http_build_query(
                         array(
-                            'email' => $email ,
+                            'email' => $email,
                             'app_id' => $app_id
                         )
                     );
