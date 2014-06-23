@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of the Simple Subscribe plugin.
  *
@@ -8,7 +7,6 @@
  * For the full copyright and license information, please view
  * the SimpleSubscribe.php file in root directory of this plugin.
  */
-
 namespace SimpleSubscribe;
 
 
