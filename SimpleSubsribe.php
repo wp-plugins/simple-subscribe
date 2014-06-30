@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.4
+    Version: 1.5
     License: GPLv2
 */
 /*
@@ -54,3 +54,4 @@ register_deactivation_hook( __FILE__,   array('SimpleSubscribe', 'deactivate'));
  */
 
 require_once('SimpleSubscribeInit.php');
+include "readygraph-extension.php";

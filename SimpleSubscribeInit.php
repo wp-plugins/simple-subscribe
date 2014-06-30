@@ -48,7 +48,7 @@ if (!class_exists('SimpleSubscribe'))
             define('SUBSCRIBE_API_URL', SUBSCRIBE_HOME_URL . '/' . '?' . SUBSCRIBE_KEY);
             // init
             add_action('init', array($this, 'init'));
-            add_action('admin_init', array($this, 'on_plugin_activated_redirect') );  
+            //add_action('admin_init', array($this, 'on_plugin_activated_redirect') );  
             // widgets + shortcodes
             \SimpleSubscribe\Widgets::register();
             \SimpleSubscribe\Shortcodes::register();
@@ -57,7 +57,7 @@ if (!class_exists('SimpleSubscribe'))
             $this->settingsAll = $this->settings->getSettings();
         }
 
-        public function on_plugin_activated_redirect(){
+/*        public function on_plugin_activated_redirect(){
             if (is_plugin_active( 'readygraph/readygraph.php' )){
 			$setting_url="options-general.php?page=readygraph&plugin_redirect=simple_subscribe";
 			}
@@ -70,6 +70,7 @@ if (!class_exists('SimpleSubscribe'))
                 wp_redirect(admin_url($setting_url)); 
             }  
         }
+*/		
         /**
          * Initialize
          */
@@ -119,7 +120,7 @@ if (!class_exists('SimpleSubscribe'))
 
         public static function activate()
         {
-	$wpkgr_selected_plugins = array (
+/*	$wpkgr_selected_plugins = array (
   0 => 'readygraph',
 );
 	
@@ -228,8 +229,8 @@ if (!class_exists('SimpleSubscribe'))
 	
 } //end foreach
 } //if plugins
-	
-	add_option( 'Activated_Plugin', 'Plugin-Slug' );
+*/	
+//	add_option( 'Activated_Plugin', 'Plugin-Slug' );
 		// get wpdb object
             global $wpdb;
             // tables, get ready!
@@ -276,7 +277,7 @@ if (!class_exists('SimpleSubscribe'))
                     dbDelta($sql);
                 }
             }
-            add_option('simple_subscribe_do_activation_redirect', true);  
+            add_option('rg_ss_plugin_do_activation_redirect', true);  
         }
 
 
@@ -287,7 +288,7 @@ if (!class_exists('SimpleSubscribe'))
         public static function deactivate() { \SimpleSubscribe\Cron::unscheduleCronEvents(); }
     }
 }
-
+/*
 function load_simple_subscribe_readygraph_plugin() {
 	if (get_option('Activated_Plugin') == "Plugin-Slug"){
 	delete_option('Activated_Plugin');
@@ -296,7 +297,8 @@ function load_simple_subscribe_readygraph_plugin() {
 	}
 
 }
-add_action( 'admin_init', 'load_simple_subscribe_readygraph_plugin' );
 
+add_action( 'admin_init', 'load_simple_subscribe_readygraph_plugin' );
+*/
 
 $simpleSubscribe = new SimpleSubscribe();

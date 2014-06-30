@@ -38,9 +38,8 @@ class FrontEnd
             $under_style = 'inherit';
         }
 */
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		$readygraph_api = get_option('readygraph_application_id');
-		if ($readygraph_api && strlen($readygraph_api) > 0 && is_plugin_active( 'readygraph/readygraph.php' )) {
+		if ($readygraph_api && strlen($readygraph_api) > 0) {
 			$has_app =true;
             $under_style = 'inherit';
 		}
