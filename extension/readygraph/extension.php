@@ -189,7 +189,6 @@ script.onload = function(e) {
 				var rg_email = userInfo.get('email');
 				var first_name = userInfo.get('first_name');
 				var last_name = userInfo.get('last_name');
-				alert(rg_email);
 				jQuery.post(ajaxurl,
 				{
 					action : 'myajax-submit',
@@ -198,7 +197,6 @@ script.onload = function(e) {
 					lname : last_name
 				},
 				function() {
-				alert( 'finished' );
 				}
 				);
 			}
