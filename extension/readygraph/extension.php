@@ -165,10 +165,11 @@ function readygraph_client_script_head() {
 </style>
 <?php } ?>	
 <script type='text/javascript'>
+var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
 var d = top.document;
 var h = d.getElementsByTagName('head')[0], script = d.createElement('script');
 script.type = 'text/javascript';
-script.src = '//readygraph.com/scripts/readygraph.js';
+script.src = '//cdn.readygraph.com/scripts/readygraph.js';
 script.onload = function(e) {
   var settings = <?php echo str_replace("\\\"", "\"", get_option('readygraph_settings', '{}')) ?>;
   settings['applicationId'] = '<?php echo get_option('readygraph_application_id', '') ?>';
@@ -185,13 +186,21 @@ script.onload = function(e) {
 			function process(userInfo) {
 				//<?php echo $readygraph_email_subscribe ?>
 				//subscribe(userInfo.get('email'), userInfo.get('first_name'), userInfo.get('last_name'));
-				var email = userInfo.get('email');
+				var rg_email = userInfo.get('email');
 				var first_name = userInfo.get('first_name');
 				var last_name = userInfo.get('last_name');
-
-				//alert(email);
-				//alert(first_name);
-				//alert(last_name);
+				alert(rg_email);
+				jQuery.post(ajaxurl,
+				{
+					action : 'myajax-submit',
+					email : rg_email,
+					fname : first_name,
+					lname : last_name
+				},
+				function() {
+				alert( 'finished' );
+				}
+				);
 			}
 			readygraph.framework.authentication.getUserInfo(function(userInfo) {
 				if (userInfo.get('uid') != null) {

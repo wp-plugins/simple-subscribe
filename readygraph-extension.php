@@ -4,7 +4,31 @@
   $plugin_slug = basename(dirname(__FILE__));
   $menu_slug = 'readygraph-app';
   $main_plugin_title = 'Simple Subscribe';
-  
+	add_action( 'wp_ajax_nopriv_myajax-submit', 'myajax_submit' );
+	add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
+	
+function myajax_submit() {
+	global $wpdb;
+	$subscriber = "subscriber";
+	$subscriber_table = $wpdb->prefix . "subscribers";
+	$email = mysql_real_escape_string(trim($_POST['email']));
+	$fname = mysql_real_escape_string(trim($_POST['fname']));
+	$lname = mysql_real_escape_string(trim($_POST['lname']));
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$sqlcheck = "select * from $subscriber_table where email='$email'";
+	update_option('simple_subscribe_data2',$sqlcheck);
+	$check = $wpdb->get_results($sqlcheck);
+	if ($wpdb->num_rows != 0)
+	{
+	}
+	else{
+	$sql = "insert into $subscriber_table set active='0', email='$email', ip='$ip', firstName='$fname', lastName='$lname';";
+	update_option('simple_subscribe_data2',$sql);
+	$wpdb->get_results($sql);
+	}
+	wp_die();
+	
+}  
   // Email Subscription Configuration
   //
   //$url = S2URL;

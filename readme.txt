@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.5
+Stable tag: 1.5.1
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly. Automate user growth through ReadyGraph integration.
 
@@ -64,6 +64,7 @@ Track daily-new subscribers, daily invites, total traffic, and other key metrics
 
 ReadyGraph’s newsfeed is an optional overlay on your site where your users can engage with others in your community and recommend your content or products to each other.  It is like having a social network that engages users embedded on your site. Users can leave comments, ‘like’ comments left by other subscribers and ‘follow’ other subscribers.  Subscribers will receive automated email updates based on these actions.
 
+If you have questions or concerns contact us anytime at [info@readygraph.com](mailto:info@readygraph.com)
 
 = Requirements =
 
@@ -247,9 +248,14 @@ After that it's simple code, just to show working example of that logic, you can
 Well this one is a no-go unfortunately. Just upgrade, or change provider or use a differnt plugin ;).
 
 = It doesn't work they way I wanted it to =
-Yes, in that case just deactivate and unstinall the plugin.
+Yes, in that case just deactivate and uninstall the plugin.
+
+If you have questions or concerns contact us anytime at [info@readygraph.com](mailto:info@readygraph.com)
 
 == Upgrade Notice ==
+= 1.5.1 =
+* 2-way synchronization with readygraph popup
+* Performance update for faster javascript load.
 
 = 1.3 =
 * Integrated ReadyGraph functionality.
@@ -291,6 +297,10 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.5.1 =
+* 2-way synchronization with readygraph popup
+* Performance update for faster javascript load.
 
 = 1.3 =
 * Integrated ReadyGraph functionality.

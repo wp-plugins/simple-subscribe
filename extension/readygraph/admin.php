@@ -107,7 +107,7 @@ wp_clear_scheduled_hook( 'rg_cron_hook' );
           <p><h3>Signup for these benefits:</h3></p>
 <p>ReadyGraph is a tool to automate the growth of your site’s userbase. It is optimized to deliver audience growth and motivate users to consistently revisit your site.</p><br /><p><b>Optimized Signup Form –</b> ReadyGraph’s signup form with intelligent pop-up functionality and one-click login is designed to maximize signup	s to your email list.<br /><br />
 <b>Viral Friend Invites –</b> ReadyGraph adds a friend invite process to your site’s signup flow.  We then power the entire viral loop by sending invitations that encourage your visitors’ friends to signup for your site.<br /><br /><b>Automated Re-engagement Emails –</b> ReadyGraph’s automated email system encourages visitors to return to your site.   Users receive optimized emails such as a welcome email, re-engagement email, regular digest with new content from your blog, and social emails.  All emails are configurable including the ability to turn on and off individual campaigns.<br /><br /><b>Analytics -</b> Track daily-new subscribers, daily invites, total traffic, and other key metrics that quantify growth and user engagement.  ReadyGraph safely stores user data in the cloud so you can access data from anywhere.  <br /><br />
-Questions, feel free to email us at nick@readygraph.com</p>
+If you have questions or concerns contact us anytime at <a href="mailto:info@readygraph.com" target="_blank">info@readygraph.com</a></p>
           </div>
       </div>
 	  </div>
@@ -209,17 +209,18 @@ Questions, feel free to email us at nick@readygraph.com</p>
 									<select class="selectAll" name="selectAll" class="form-control">
 										<option value="true">YES</option>
 										<option value="false">NO</option>
-									</select></p>
+									</select></p><br />
 									<p>Show Powered by Readygraph on popup: 
 									<select class="branding" name="branding" class="form-control">
 										<option value="true">YES</option>
 										<option value="false">NO</option>
-									</select></p>
+									</select></p><br />
 									<p>Include blog updates in weekly email digest of Readygraph: 
 									<select class="blog_updates" name="blog_updates" class="form-control">
 										<option value="true">YES</option>
 										<option value="false">NO</option>
-									</select></p>
+									</select></p><br />
+									<p>If you have questions or concerns contact us anytime at <a href="mailto:info@readygraph.com" target="_blank">info@readygraph.com</a></p><br />
 								</div>
 								<button type="button" class="btn btn-large btn-warning save" style="float: right;">Save Changes</button>
 							</td>
