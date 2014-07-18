@@ -12,7 +12,9 @@
  * @copyright 2014 Your Name or Company Name
  */
  
-function changeAccount(){
+function gCF_changeAccount(){
+$app_id = get_option('readygraph_application_id');
+wp_remote_get( "http://readygraph.com/api/v1/tracking?event=disconnect_readygraph&app_id=$app_id" );
 delete_option('readygraph_access_token');
 delete_option('readygraph_application_id');
 delete_option('readygraph_refresh_token');
@@ -24,9 +26,13 @@ delete_option('readygraph_auto_select_all');
 delete_option('readygraph_enable_notification');
 delete_option('readygraph_enable_branding');
 delete_option('readygraph_send_blog_updates');
-wp_clear_scheduled_hook( 'rg_cron_hook' );
+delete_option('readygraph_popup_template');
+/*delete_option('readygraph_popup_template_background');
+delete_option('readygraph_popup_template_text');
+delete_option('readygraph_popup_template_button');*/
+wp_clear_scheduled_hook( 'rg_gCF_cron_hook' );
 }
-	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "changeaccount")changeAccount();
+	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "changeaccount")gCF_changeAccount();
 	global $main_plugin_title;
 	if (!get_option('readygraph_access_token') || strlen(get_option('readygraph_access_token')) <= 0) {
 	if (isset($_POST["readygraph_access_token"])) update_option('readygraph_access_token', $_POST["readygraph_access_token"]);
@@ -40,6 +46,10 @@ wp_clear_scheduled_hook( 'rg_cron_hook' );
 	if (isset($_POST["readygraph_auto_select_all"])) update_option('readygraph_auto_select_all', $_POST["selectAll"]);
 	if (isset($_POST["readygraph_enable_branding"])) update_option('readygraph_enable_branding', 'false');
 	if (isset($_POST["readygraph_send_blog_updates"])) update_option('readygraph_send_blog_updates', 'true');
+	if (isset($_POST["readygraph_popup_template"])) update_option('readygraph_popup_template', 'default-template');
+	/*if (isset($_POST["readygraph_popup_template_background"])) update_option('readygraph_popup_template_background', '#ffffff');
+	if (isset($_POST["readygraph_popup_template_text"])) update_option('readygraph_popup_template_text', '#000000');
+	if (isset($_POST["readygraph_popup_template_button"])) update_option('readygraph_popup_template_button', '#5bb75b');*/
 	}
 	else {
 	if (isset($_POST["readygraph_access_token"])) update_option('readygraph_access_token', $_POST["readygraph_access_token"]);
@@ -47,12 +57,21 @@ wp_clear_scheduled_hook( 'rg_cron_hook' );
 	if (isset($_POST["readygraph_email"])) update_option('readygraph_email', $_POST["readygraph_email"]);
 	if (isset($_POST["readygraph_application_id"])) update_option('readygraph_application_id', $_POST["readygraph_application_id"]);
 	if (isset($_POST["readygraph_settings"])) update_option('readygraph_settings', $_POST["readygraph_settings"]);
-	if (isset($_POST["readygraph_delay"])) update_option('readygraph_delay', $_POST["delay"]);
+	if (isset($_POST["readygraph_delay"])) {
+	update_option('readygraph_delay', $_POST["delay"]);
+	$app_id = get_option('readygraph_application_id');
+	if ($_POST["delay"] >= 20000) wp_remote_get( "http://readygraph.com/api/v1/tracking?event=popup_delay&app_id=$app_id" ); 
+	}
 	if (isset($_POST["readygraph_enable_notification"])) update_option('readygraph_enable_notification', $_POST["notification"]);	
 	if (isset($_POST["readygraph_enable_sidebar"])) update_option('readygraph_enable_sidebar', $_POST["sidebar"]);
 	if (isset($_POST["readygraph_auto_select_all"])) update_option('readygraph_auto_select_all', $_POST["selectAll"]);
 	if (isset($_POST["readygraph_enable_branding"])) update_option('readygraph_enable_branding', $_POST["branding"]);
 	if (isset($_POST["readygraph_send_blog_updates"])) update_option('readygraph_send_blog_updates', $_POST["blog_updates"]);
+	if (isset($_POST["readygraph_popup_template"])) update_option('readygraph_popup_template', $_POST["popup_template"]);
+	/*if (isset($_POST["readygraph_popup_template_background"])) update_option('readygraph_popup_template_background', $_POST["readygraph_popup_template_background"]);
+	if (isset($_POST["readygraph_popup_template_text"])) update_option('readygraph_popup_template_text', $_POST["readygraph_popup_template_text"]);
+	if (isset($_POST["readygraph_popup_template_button"])) update_option('readygraph_popup_template_button', $_POST["readygraph_popup_template_button"]);*/
+
 	}
 	if (get_option('readygraph_enable_branding', '') == 'false') {
 	?>
@@ -78,6 +97,11 @@ wp_clear_scheduled_hook( 'rg_cron_hook' );
 <input type="hidden" name="readygraph_auto_select_all" value="<?php echo get_option('readygraph_auto_select_all', 'true') ?>">
 <input type="hidden" name="readygraph_enable_branding" value="<?php echo get_option('readygraph_enable_branding', 'false') ?>">
 <input type="hidden" name="readygraph_send_blog_updates" value="<?php echo get_option('readygraph_send_blog_updates', 'true') ?>">
+<input type="hidden" name="readygraph_popup_template" value="<?php echo get_option('readygraph_popup_template', 'default-template') ?>">
+<!--<input type="hidden" name="readygraph_popup_template_background" value="<?php //echo get_option('readygraph_popup_template_background', '') ?>">
+<input type="hidden" name="readygraph_popup_template_text" value="<?php //echo get_option('readygraph_popup_template_text', '') ?>">
+<input type="hidden" name="readygraph_popup_template_button" value="<?php //echo get_option('readygraph_popup_template_button', '') ?>">-->
+
 <div class="authenticate" style="display: none;">
 	    <div class="wrap1" style="min-height: 600px;">
 
@@ -87,16 +111,16 @@ wp_clear_scheduled_hook( 'rg_cron_hook' );
       <p style="display:none;color:red;" id="error"></p>
       <div class="register-left">
 	<div class="alert" style="margin: 0px auto; padding: 15px; text-align: center;">
-			<h3>Connect with ReadyGraph to maximize your signups</h3>
+			<h3>Activate ReadyGraph to get more traffic to your site</h3>
 <!--		<h3 style="margin-top: 0px; font-weight: 300;"><?php //echo $main_plugin_title ?>, Now with ReadyGraph</h3> -->
 		<p style="padding: 50px 0px 30px 0px;"><a class="btn btn-primary connect" href="javascript:void(0);" style="font-size: 15px; line-height: 40px; padding: 0 30px;">Connect ReadyGraph</a></p>
 		<!--<p style="padding: 0px 0px;"><a class="btn btn-default skip" href="javascript:void(0);" style="font-size: 10px; line-height: 20px; padding: 0 30px;">Skip ReadyGraph</a></p>-->
-		<p>Activate Readygraph features to optimize <?php echo $main_plugin_title ?> functionality. </p>
+		<p>Readygraph adds more ways to connect to your users. </p>
 		<p style="text-align: left; padding: 0 20px;">
-			- Grow your subscribers faster<br>
-			- Engage users with automated email updates<br>
-			- Enhanced email deliverablility<br>
-			- Track performace with user-activity analytics
+			- Get more traffic<br>
+			- Send automatic email digests of all your site posts<br>
+			- Get better deliverablility<br>
+			- Track performace and user activity
 		</p>
 	</div>
           
@@ -104,9 +128,9 @@ wp_clear_scheduled_hook( 'rg_cron_hook' );
 
         <div class="register-right">
           <div class="form-wrap alert" style="font-size:12px;">
-          <p><h3>Signup for these benefits:</h3></p>
-<p>ReadyGraph is a tool to automate the growth of your site’s userbase. It is optimized to deliver audience growth and motivate users to consistently revisit your site.</p><br /><p><b>Optimized Signup Form –</b> ReadyGraph’s signup form with intelligent pop-up functionality and one-click login is designed to maximize signup	s to your email list.<br /><br />
-<b>Viral Friend Invites –</b> ReadyGraph adds a friend invite process to your site’s signup flow.  We then power the entire viral loop by sending invitations that encourage your visitors’ friends to signup for your site.<br /><br /><b>Automated Re-engagement Emails –</b> ReadyGraph’s automated email system encourages visitors to return to your site.   Users receive optimized emails such as a welcome email, re-engagement email, regular digest with new content from your blog, and social emails.  All emails are configurable including the ability to turn on and off individual campaigns.<br /><br /><b>Analytics -</b> Track daily-new subscribers, daily invites, total traffic, and other key metrics that quantify growth and user engagement.  ReadyGraph safely stores user data in the cloud so you can access data from anywhere.  <br /><br />
+          <p><h3>ReadyGraph grows your site</h3></p>
+<p>ReadyGraph delivers audience growth and motivates users to come back.</p><br /><p><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_fb.png"></span><b>Optimized Signup Form –</b> ReadyGraph’s signup form has one click signup and integration with Facebook so you can get quick and easy signups from your users.<br /><br /><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_heart.png"></span>
+<b>Viral Friend Invites –</b>Loyal site visitors who love your site can easily invite all their friends. Readygraph encourages your visitors' friends to come and signup for your site too.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_mail.png"></span>Automated Re-engagement Emails –</b> ReadyGraph’s automated emails keep visitors coming back. Send a daily or weekly digest of all your new posts and keep them informed about site activity, events, etc.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_chart.png"></span>Analytics -</b> Track new subscribers, invites, traffic, and other key metrics that quantify growth and user engagement.  ReadyGraph safely stores user data on the cloud so you can access from anywhere.<br /><br />
 If you have questions or concerns contact us anytime at <a href="mailto:info@readygraph.com" target="_blank">info@readygraph.com</a></p>
           </div>
       </div>
@@ -220,6 +244,22 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 										<option value="true">YES</option>
 										<option value="false">NO</option>
 									</select></p><br />
+									<p>Popup Templates: 
+									<select class="popup_template" name="popup_template" class="form-control">
+										<option value="default-template">Default Template</option>
+										<option value="red-template">Red Template</option>
+										<option value="blue-template">Blue Template</option>
+										<option value="black-template">Black Template</option>
+										<option value="gray-template">Gray Template</option>
+										<option value="green-template">Green Template</option>
+										<option value="yellow-template">Yellow Template</option>
+										<option value="custom-template">Custom Template</option>
+									</select><a href="#" class="help-tooltip"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/Help-icon.png" width="15px" style="margin-left:10px;"/><span><img class="callout" src="<?php echo plugin_dir_url( __FILE__ );?>assets/callout_black.gif" /><strong>Templates</strong><br />For custom colors, select custom-template and change your colors in [plugin_name]/extension/readygraph/assets/css/custom-popup.css.<br />You can do a lot more with CSS.</span></a></p><br />
+									<!--<div class="custom-template">
+									<p>Popup Template Background Color: <input type="text" name="readygraph_popup_template_background" value="<?php //echo get_option('readygraph_popup_template_background', '') ?>" class="my-color-field" data-default-color="#effeff" /></p>
+									<p>Popup Template Text Color: <input type="text" name="readygraph_popup_template_text" value="<?php //echo get_option('readygraph_popup_template_text', '') ?>" class="my-color-field" data-default-color="#effeff" /></p>
+									<p>Popup Template Submit-button Color: <input type="text" name="readygraph_popup_template_button" value="<?php // echo get_option('readygraph_popup_template_button', '') ?>" class="my-color-field" data-default-color="#effeff" /></p>
+									</div>-->
 									<p>If you have questions or concerns contact us anytime at <a href="mailto:info@readygraph.com" target="_blank">info@readygraph.com</a></p><br />
 								</div>
 								<button type="button" class="btn btn-large btn-warning save" style="float: right;">Save Changes</button>
@@ -317,6 +357,7 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 				$('.selectAll').val($('[name="readygraph_auto_select_all"]').val());
 				$('.branding').val($('[name="readygraph_enable_branding"]').val());
 				$('.blog_updates').val($('[name="readygraph_send_blog_updates"]').val());
+				$('.popup_template').val($('[name="readygraph_popup_template"]').val());
 				
 				//$('[name="readygraph_ad_format"][value="' + $('[name="_readygraph_ad_format"]').val() + '"]').parent().click();
 				//$('[name="readygraph_ad_timing"][value="' + $('[name="_readygraph_ad_timing"]').val() + '"]').parent().click();

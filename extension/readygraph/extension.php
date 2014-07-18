@@ -1,56 +1,8 @@
 <?php
 // ReadyGraph Extension
 //
-if(!function_exists('append_submenu_page')) {
-function append_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' ) {
-	global $submenu;
-	global $menu;
-	global $_wp_real_parent_file;
-	global $_wp_submenu_nopriv;
-	global $_registered_pages;
-	global $_parent_pages;
 
-	$menu_slug = plugin_basename( $menu_slug );
-	$parent_slug = plugin_basename( $parent_slug);
-
-	if ( isset( $_wp_real_parent_file[$parent_slug] ) )
-		$parent_slug = $_wp_real_parent_file[$parent_slug];
-
-	if ( !current_user_can( $capability ) ) {
-		$_wp_submenu_nopriv[$parent_slug][$menu_slug] = true;
-		return false;
-	}
-
-	// If the parent doesn't already have a submenu, add a link to the parent
-	// as the first item in the submenu. If the submenu file is the same as the
-	// parent file someone is trying to link back to the parent manually. In
-	// this case, don't automatically add a link back to avoid duplication.
-	if (!isset( $submenu[$parent_slug] ) && $menu_slug != $parent_slug ) {
-		foreach ( (array)$menu as $parent_menu ) {
-			if ( $parent_menu[2] == $parent_slug && current_user_can( $parent_menu[1] ) )
-				$submenu[$parent_slug][] = $parent_menu;
-		}
-	}
-
-	$mymenu = array();
-	$mymenu[] = array($menu_title, $capability, $menu_slug, $page_title);
-	$submenu[$parent_slug] = array_merge($mymenu, $submenu[$parent_slug]);
-
-	$hookname = get_plugin_page_hookname( $menu_slug, $parent_slug);
-	if (!empty ( $function ) && !empty ( $hookname ))
-		add_action( $hookname, $function );
-    
-	$_registered_pages[$hookname] = true;
-	// backwards-compatibility for plugins using add_management page. See wp-admin/admin.php for redirect from edit.php to tools.php
-	if ( 'tools.php' == $parent_slug )
-		$_registered_pages[get_plugin_page_hookname( $menu_slug, 'edit.php')] = true;
-
-	// No parent as top level
-	$_parent_pages[$menu_slug] = $parent_slug;
-
-	return $hookname;
-}
-
+if(!function_exists('add_readygraph_plugin_warning')) {
 function add_readygraph_plugin_warning() {
   if (get_option('readygraph_access_token', '') != '') return;
 
@@ -151,7 +103,8 @@ function add_readygraph_plugin_warning() {
     </div>';      
   }
 }
-
+}
+if(!function_exists('readygraph_client_script_head')) {
 function readygraph_client_script_head() {
 	global $readygraph_email_subscribe;
 	if (get_option('readygraph_access_token', '') != '') {
@@ -191,7 +144,7 @@ script.onload = function(e) {
 				var last_name = userInfo.get('last_name');
 				jQuery.post(ajaxurl,
 				{
-					action : 'myajax-submit',
+					action : 'ss-myajax-submit',
 					email : rg_email,
 					fname : first_name,
 					lname : last_name

@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly. Automate user growth through ReadyGraph integration.
 
@@ -250,9 +250,111 @@ Well this one is a no-go unfortunately. Just upgrade, or change provider or use 
 = It doesn't work they way I wanted it to =
 Yes, in that case just deactivate and uninstall the plugin.
 
-If you have questions or concerns contact us anytime at [info@readygraph.com](mailto:info@readygraph.com)
+= ReadyGraph FAQ =
+
+= GENERAL QUESTIONS: =
+
+**What is ReadyGraph?**
+
+ReadyGraph is a tool that makes it easy for websites to grow and manage their user-base, by allowing/utilizing: **user sign-up**, through an optional notification tab and an intelligent pop-up, with one-click sign-up and social login options; **user friend invitations**, through the sign-up pop-up, or a sidebar button; **automated emails** (optional) that keep visitors coming back, such as welcome messages to greet new users, recent site updates/posts to keep them informed, gentle reminders for inactive users, and a weekly digest of new content; **mass emailing**, for fast communication to all your subscribers; **user-interaction**, through an optional comment-feed sidebar; **analytic tools**, to track new subscribers, daily visits, and other key metrics that quantify your website’s growth and user engagement.
+
+**How do I install ReadyGraph?**
+
+After installing this plug-in, you can activate the ReadyGraph features by connecting/signing-up for your ReadyGraph account.
+
+**How do I uninstall ReadyGraph?**
+
+You can deactivate the ReadyGraph features by navigating to the upper-right corner of the “ReadyGraph App” page, clicking the drop-down menu with your email address, and disconnecting your ReadyGraph account.
+
+**Can I delay the sign-up pop-up?**
+
+Yes, you can delay the pop-up for up to 20 minutes; however, the most effective delay is only a few seconds. That ensures that users are engaged, before showing the pop-up to them. 
+
+**How do I check my website’s stats?**
+
+You can check your website’s stats by clicking the “Insights” button at the upper-right corner of the “ReadyGraph App” page. There, you will find various metrics about your site growth.
+
+**Can I use both the pop-up and the form widget?**
+
+Yes, you can; they will not conflict with each other.
+
+**How do I contact someone for support, or to suggest a feature?**
+
+You can contact us at info@readygraph.com. We appreciate all feedback.
+
+**I’m having problems with the latest version of the plug-in; can I switch back to an older version?**
+
+Yes, just navigate to the “Developers” tab on the wordpress.org plug-in page, and select the version that works for you.
+
+= ACCOUNT QUESTIONS: =
+
+**How do I change my account email address?**
+
+Contact us as info@readygraph.com.
+
+**How do I turn off email notifications from ReadyGraph?**
+
+You can turn them off via the account settings page on ReadyGraph.com.
+
+**How do I disconnect ReadyGraph from my site?**
+
+You can disconnect ReadyGraph from your site by navigating to the upper-right corner of the “ReadyGraph App” page in this plug-in, and clicking the drop-down menu with your email address on it; there will be an option there to disconnect ReadyGraph from your site.
+
+= CUSTOMIZATION QUESTIONS: =
+
+**Can I customize the pop-up?**
+
+Yes, you can choose a template that matches your site design, from the various templates available.
+
+**Can I customize the friend-invite form?**
+
+You can customize the text on the friend invite form to something that suits your website.
+
+**Can I customize my emails?**
+
+Yes, on the right side of the “ReadyGraph App” page, you will find a link to a page where you can Configure/Enable/Disable the various automated emails that you can send via ReadyGraph.
+
+= QUESTIONS ABOUT YOUR SUBSCRIBERS: =
+
+**How do I view my subscribers?**
+
+Clicking the “Insights” button at the top of the “ReadyGraph App” page of this plug-in will take you to a page where you can view a list of your subscribers.
+
+**How do I mail my subscribers?**
+
+On the right side of the “ReadyGraph App” page, you will find a link to a page where you can send mass emails to your subscribers.
+
+**Can I import a list of existing subscribers?**
+
+This is a feature currently under development and is scheduled to be released in our next update.
+
+**Can I export a list of my subscribers?**
+
+This is a feature currently under development and is scheduled to be released in our next update. 
+
+**If I decide to stop using ReadyGraph, do I keep my subscribers?**
+
+Yes, contact us at info@readygraph.com for assistance.
+
+**Can I send automated emails/newsletters to my subscribers?**
+
+On the right side of the “ReadyGraph App” page, you will find a link to a page where you can Enable/Disable/Configure the various automated emails that you can send via ReadyGraph.
+
+**Is ReadyGraph necessary in order to use this plug-in?**
+
+No, it isn’t; you can use this plug-in without ReadyGraph features enabled, but you would be missing out on added growth opportunities.
+
+If you have questions or concerns, contact us anytime at [info@readygraph.com](mailto:info@readygraph.com)
+
 
 == Upgrade Notice ==
+
+= 1.5.2 =
+
+* Popup customization templates selection
+* Performance update for faster javascript load.
+* updated signup form information
+
 = 1.5.1 =
 * 2-way synchronization with readygraph popup
 * Performance update for faster javascript load.
@@ -297,6 +399,12 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.5.2 =
+
+* Popup customization templates selection
+* Performance update for faster javascript load.
+* updated signup form information
 
 = 1.5.1 =
 * 2-way synchronization with readygraph popup
