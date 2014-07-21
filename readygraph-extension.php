@@ -109,7 +109,7 @@ function rg_ss_cron_exec() {
 }
 }
 
-function rg_gCF_popup_options_enqueue_scripts() {
+function rg_ss_popup_options_enqueue_scripts() {
     if ( get_option('readygraph_popup_template') == 'default-template' ) {
         wp_enqueue_style( 'default-template', plugin_dir_url( __FILE__ ) .'extension/readygraph/assets/css/default-popup.css' );
     }
@@ -152,13 +152,13 @@ function rg_gCF_popup_options_enqueue_scripts() {
 		wp_enqueue_style( 'custom-template', plugin_dir_url( __FILE__ ) .'extension/readygraph/assets/css/custom-popup.css' );
     }	
 }
-add_action( 'admin_enqueue_scripts', 'rg_gCF_popup_options_enqueue_scripts' );
-add_action( 'wp_enqueue_scripts', 'rg_gCF_popup_options_enqueue_scripts' );
-add_action( 'admin_enqueue_scripts', 'mw_enqueue_color_picker' );
-function mw_enqueue_color_picker( $hook_suffix ) {
+add_action( 'admin_enqueue_scripts', 'rg_ss_popup_options_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'rg_ss_popup_options_enqueue_scripts' );
+add_action( 'admin_enqueue_scripts', 'rg_ss_enqueue_color_picker' );
+function rg_ss_enqueue_color_picker( $hook_suffix ) {
     // first check that $hook_suffix is appropriate for your admin page
     wp_enqueue_style( 'wp-color-picker' );
-    wp_enqueue_script( 'my-script-handle', plugins_url('/extension/readygraph/assets/js/my-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+    wp_enqueue_script( 'ss-script-handle', plugins_url('/extension/readygraph/assets/js/my-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 }
 
 ?>
