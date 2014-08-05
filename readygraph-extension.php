@@ -51,6 +51,7 @@ function ss_myajax_submit() {
   add_action('wp_footer', 'readygraph_client_script_head');
   add_action('admin_init', 'on_plugin_activated_readygraph_ss_redirect');
   	add_option('readygraph_connect_notice','true');
+/*
 function readygraph_ss_cron_intervals( $schedules ) {
    $schedules['weekly'] = array( // Provide the programmatic name to be used in code
       'interval' => 604800, // Intervals are listed in seconds
@@ -96,11 +97,11 @@ function rg_ss_cron_exec() {
 
 	if ( is_wp_error( $response ) ) {
 	$error_message = $response->get_error_message();
-	echo "Something went wrong: $error_message";
+	//echo "Something went wrong: $error_message";
 	} 	else {
-	echo 'Response:<pre>';
-	print_r( $response );
-	echo '</pre>';
+	//echo 'Response:<pre>';
+	//print_r( $response );
+	//echo '</pre>';
 	}
 	echo "</ul>";
 
@@ -108,7 +109,7 @@ function rg_ss_cron_exec() {
    
 }
 }
-
+*/
 function rg_ss_popup_options_enqueue_scripts() {
     if ( get_option('readygraph_popup_template') == 'default-template' ) {
         wp_enqueue_style( 'default-template', plugin_dir_url( __FILE__ ) .'extension/readygraph/assets/css/default-popup.css' );
@@ -161,4 +162,38 @@ function rg_ss_enqueue_color_picker( $hook_suffix ) {
     wp_enqueue_script( 'ss-script-handle', plugins_url('/extension/readygraph/assets/js/my-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 }
 
+function ss_post_updated_send_email( $post_id ) {
+
+	// If this is just a revision, don't send the email.
+	if ( wp_is_post_revision( $post_id ) )
+		return;
+	if(get_option('readygraph_application_id') && strlen(get_option('readygraph_application_id')) > 0 && get_option('readygraph_send_blog_updates') == "true"){
+
+	$post_title = get_the_title( $post_id );
+	$post_url = get_permalink( $post_id );
+	$post_content = get_post($post_id);
+	if (get_option('readygraph_send_real_time_post_updates')=='true'){
+	$url = 'http://readygraph.com/api/v1/post.json/';
+	$response = wp_remote_post($url, array( 'body' => array('is_wordpress'=>1, 'is_realtime'=>1, 'message' => $post_title, 'message_link' => $post_url,'message_excerpt' => wp_trim_words( $post_content->post_content, 100 ),'client_key' => get_option('readygraph_application_id'), 'email' => get_option('readygraph_email'))));
+	}
+	else {
+	$response = wp_remote_post($url, array( 'body' => array('is_wordpress'=>1, 'message' => $post_title, 'message_link' => $post_url,'message_excerpt' => wp_trim_words( $post_content->post_content, 100 ),'client_key' => get_option('readygraph_application_id'), 'email' => get_option('readygraph_email'))));
+	}
+	if ( is_wp_error( $response ) ) {
+	$error_message = $response->get_error_message();
+	//echo "Something went wrong: $error_message";
+	} 	else {
+	//echo 'Response:<pre>';
+	//print_r( $response );
+	//echo '</pre>';
+	}
+	$app_id = get_option('readygraph_application_id');
+	wp_remote_get( "http://readygraph.com/api/v1/tracking?event=post_created&app_id=$app_id" );
+	}
+	else{
+	}
+
+}
+add_action( 'publish_post', 'ss_post_updated_send_email' );
+add_action( 'publish_page', 'ss_post_updated_send_email' );
 ?>

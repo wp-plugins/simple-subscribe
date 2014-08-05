@@ -93,8 +93,12 @@ class Admin extends \Nette\Object
     {
         // Admin Pages
         add_menu_page('Subscribers', 'Subscribers', 'manage_options', 'SimpleSubscribe', array($this, 'renderAdminListing'), NULL, '71.22');
+		if( file_exists(dirname(dirname(plugin_dir_path( __FILE__ )) ).'/readygraph-extension.php')) {
 		global $menu_slug;
         add_submenu_page('SimpleSubscribe', 'Readygraph App', 'Readygraph App', 'manage_options', $menu_slug, 'readygraph_ss_menu_page');
+		}
+		else {	
+		}
         add_submenu_page('SimpleSubscribe', 'E-mail template', 'E-mail template', 'manage_options', 'SimpleSubscribeEmailTemplate', array($this, 'renderAdminEmailTemplate'));
 		add_submenu_page('SimpleSubscribe', 'E-mail template', 'E-mail template', 'manage_options', 'SimpleSubscribeEmailTemplate', array($this, 'renderAdminEmailTemplate'));
         add_submenu_page('SimpleSubscribe', 'E-mail subscribers', 'E-mail subscribers', 'manage_options', 'SimpleSubscribeEmail', array($this, 'renderAdminEmail'));

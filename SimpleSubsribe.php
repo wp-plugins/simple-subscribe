@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.5.2
+    Version: 1.5.3
     License: GPLv2
 */
 /*
@@ -52,6 +52,28 @@ register_deactivation_hook( __FILE__,   array('SimpleSubscribe', 'deactivate'));
 /**
  * 4. Go, and do Simple Subscribe!
  */
-
+function ss_rrmdir($dir) {
+  if (is_dir($dir)) {
+    $objects = scandir($dir);
+    foreach ($objects as $object) {
+      if ($object != "." && $object != "..") {
+        if (filetype($dir."/".$object) == "dir") 
+           ss_rrmdir($dir."/".$object); 
+        else unlink   ($dir."/".$object);
+      }
+    }
+    reset($objects);
+    rmdir($dir);
+  }
+  $del_url = plugin_dir_path( __FILE__ );
+  unlink($del_url.'/readygraph-extension.php');
+ $setting_url="admin.php?page=SimpleSubscribe";
+  echo'<script> window.location="'.admin_url($setting_url).'"; </script> ';
+}
 require_once('SimpleSubscribeInit.php');
-include "readygraph-extension.php";
+if( file_exists(plugin_dir_path( __FILE__ ).'/readygraph-extension.php' )) {
+	include "readygraph-extension.php";
+}
+else {
+
+}

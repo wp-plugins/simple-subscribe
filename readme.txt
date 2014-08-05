@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly. Automate user growth through ReadyGraph integration.
 
@@ -349,6 +349,12 @@ If you have questions or concerns, contact us anytime at [info@readygraph.com](m
 
 == Upgrade Notice ==
 
+= 1.5.3 =
+
+* Uninstall Readygraph Option
+* Daily digest
+* Real time post update to all the subscribers
+
 = 1.5.2 =
 
 * Popup customization templates selection
@@ -399,6 +405,12 @@ Minor bug fix, user profile subscription meta.
 More options for setting up e-mail template and sender info.
 
 == Changelog ==
+
+= 1.5.3 =
+
+* Uninstall Readygraph Option
+* Daily digest
+* Real time post update to all the subscribers
 
 = 1.5.2 =
 

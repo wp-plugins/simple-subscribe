@@ -12,7 +12,7 @@
  * @copyright 2014 Your Name or Company Name
  */
  
-function gCF_changeAccount(){
+function ss_changeAccount(){
 $app_id = get_option('readygraph_application_id');
 wp_remote_get( "http://readygraph.com/api/v1/tracking?event=disconnect_readygraph&app_id=$app_id" );
 delete_option('readygraph_access_token');
@@ -26,13 +26,39 @@ delete_option('readygraph_auto_select_all');
 delete_option('readygraph_enable_notification');
 delete_option('readygraph_enable_branding');
 delete_option('readygraph_send_blog_updates');
+delete_option('readygraph_send_real_time_post_updates');
 delete_option('readygraph_popup_template');
 /*delete_option('readygraph_popup_template_background');
 delete_option('readygraph_popup_template_text');
 delete_option('readygraph_popup_template_button');*/
-wp_clear_scheduled_hook( 'rg_gCF_cron_hook' );
+//wp_clear_scheduled_hook( 'rg_gCF_cron_hook' );
 }
-	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "changeaccount")gCF_changeAccount();
+function ss_deleteAccount(){
+$app_id = get_option('readygraph_application_id');
+wp_remote_get( "http://readygraph.com/api/v1/tracking?event=uninstall_readygraph&app_id=$app_id" );
+delete_option('readygraph_access_token');
+delete_option('readygraph_application_id');
+delete_option('readygraph_refresh_token');
+delete_option('readygraph_email');
+delete_option('readygraph_settings');
+delete_option('readygraph_delay');
+delete_option('readygraph_enable_sidebar');
+delete_option('readygraph_auto_select_all');
+delete_option('readygraph_enable_notification');
+delete_option('readygraph_enable_branding');
+delete_option('readygraph_send_blog_updates');
+delete_option('readygraph_send_real_time_post_updates');
+delete_option('readygraph_popup_template');
+/*delete_option('readygraph_popup_template_background');
+delete_option('readygraph_popup_template_text');
+delete_option('readygraph_popup_template_button');*/
+//wp_clear_scheduled_hook( 'rg_gCF_cron_hook' );
+$dir = plugin_dir_path( __FILE__ );
+ss_rrmdir($dir);
+}
+
+	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "changeaccount")ss_changeAccount();
+	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "deleteaccount")ss_deleteAccount();
 	global $main_plugin_title;
 	if (!get_option('readygraph_access_token') || strlen(get_option('readygraph_access_token')) <= 0) {
 	if (isset($_POST["readygraph_access_token"])) update_option('readygraph_access_token', $_POST["readygraph_access_token"]);
@@ -46,6 +72,7 @@ wp_clear_scheduled_hook( 'rg_gCF_cron_hook' );
 	if (isset($_POST["readygraph_auto_select_all"])) update_option('readygraph_auto_select_all', $_POST["selectAll"]);
 	if (isset($_POST["readygraph_enable_branding"])) update_option('readygraph_enable_branding', 'false');
 	if (isset($_POST["readygraph_send_blog_updates"])) update_option('readygraph_send_blog_updates', 'true');
+	if (isset($_POST["readygraph_send_real_time_post_updates"])) update_option('readygraph_send_real_time_post_updates', 'false');
 	if (isset($_POST["readygraph_popup_template"])) update_option('readygraph_popup_template', 'default-template');
 	/*if (isset($_POST["readygraph_popup_template_background"])) update_option('readygraph_popup_template_background', '#ffffff');
 	if (isset($_POST["readygraph_popup_template_text"])) update_option('readygraph_popup_template_text', '#000000');
@@ -67,6 +94,7 @@ wp_clear_scheduled_hook( 'rg_gCF_cron_hook' );
 	if (isset($_POST["readygraph_auto_select_all"])) update_option('readygraph_auto_select_all', $_POST["selectAll"]);
 	if (isset($_POST["readygraph_enable_branding"])) update_option('readygraph_enable_branding', $_POST["branding"]);
 	if (isset($_POST["readygraph_send_blog_updates"])) update_option('readygraph_send_blog_updates', $_POST["blog_updates"]);
+	if (isset($_POST["readygraph_send_real_time_post_updates"])) update_option('readygraph_send_real_time_post_updates', $_POST["real_time_post_update"]);
 	if (isset($_POST["readygraph_popup_template"])) update_option('readygraph_popup_template', $_POST["popup_template"]);
 	/*if (isset($_POST["readygraph_popup_template_background"])) update_option('readygraph_popup_template_background', $_POST["readygraph_popup_template_background"]);
 	if (isset($_POST["readygraph_popup_template_text"])) update_option('readygraph_popup_template_text', $_POST["readygraph_popup_template_text"]);
@@ -97,6 +125,7 @@ wp_clear_scheduled_hook( 'rg_gCF_cron_hook' );
 <input type="hidden" name="readygraph_auto_select_all" value="<?php echo get_option('readygraph_auto_select_all', 'true') ?>">
 <input type="hidden" name="readygraph_enable_branding" value="<?php echo get_option('readygraph_enable_branding', 'false') ?>">
 <input type="hidden" name="readygraph_send_blog_updates" value="<?php echo get_option('readygraph_send_blog_updates', 'true') ?>">
+<input type="hidden" name="readygraph_send_real_time_post_updates" value="<?php echo get_option('readygraph_send_real_time_post_updates', 'false') ?>">
 <input type="hidden" name="readygraph_popup_template" value="<?php echo get_option('readygraph_popup_template', 'default-template') ?>">
 <!--<input type="hidden" name="readygraph_popup_template_background" value="<?php //echo get_option('readygraph_popup_template_background', '') ?>">
 <input type="hidden" name="readygraph_popup_template_text" value="<?php //echo get_option('readygraph_popup_template_text', '') ?>">
@@ -160,6 +189,7 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 			<ul class="dropdown-menu">
 				<li><a class="change-account" href="#">Change Account</a></li>
 				<li><a class="disconnect" href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&action=<?php echo base64_encode("changeaccount");?>">Disconnect</a></li>
+				<li><a class="delete" href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&action=<?php echo base64_encode("deleteaccount");?>">Delete ReadyGraph</a></li>
 			</ul>
 		</div>
 		<div class="btn-group pull-right" style="margin: 8px 10px 0 0;">
@@ -239,8 +269,13 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 										<option value="true">YES</option>
 										<option value="false">NO</option>
 									</select></p><br />
-									<p>Include blog updates in weekly email digest of Readygraph: 
+									<p>Include blog updates in daily/weekly email digest of Readygraph: 
 									<select class="blog_updates" name="blog_updates" class="form-control">
+										<option value="true">YES</option>
+										<option value="false">NO</option>
+									</select></p><br />
+									<p>Send Real Time Post Updates to your subscribers: 
+									<select class="real_time_post_update" name="real_time_post_update" class="form-control">
 										<option value="true">YES</option>
 										<option value="false">NO</option>
 									</select></p><br />
@@ -357,6 +392,7 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 				$('.selectAll').val($('[name="readygraph_auto_select_all"]').val());
 				$('.branding').val($('[name="readygraph_enable_branding"]').val());
 				$('.blog_updates').val($('[name="readygraph_send_blog_updates"]').val());
+				$('.real_time_post_update').val($('[name="readygraph_send_real_time_post_updates"]').val());
 				$('.popup_template').val($('[name="readygraph_popup_template"]').val());
 				
 				//$('[name="readygraph_ad_format"][value="' + $('[name="_readygraph_ad_format"]').val() + '"]').parent().click();
@@ -381,6 +417,9 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 									$('.result').text('Insight');
 								}
 							}
+						, error: function (response) {
+								refresh_access_token();
+						}
 					});
 				}
 			}
@@ -388,6 +427,37 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 		
 		// Manage OAuth 2.0 Results
 		//
+		function refresh_access_token() {
+			var refresh_token = $('[name="readygraph_refresh_token"]').val();
+			if (refresh_token) {
+				$('div.authenticate').hide();
+				$('div.authenticating').show();
+				$('div.authenticated').hide();
+				
+				$.ajax({
+						url: resourceHost + '/oauth/access_token'
+					, data: {
+						grant_type: 'refresh_token',
+            refresh_token: $('[name="readygraph_refresh_token"]').val(),
+            redirect_uri: encodeURIComponent(location.href.replace('#' + location.hash,"")),
+            client_id: settings.clientId
+					}
+					, method: 'POST'
+					, success: function (response) {
+							$('[name="readygraph_access_token"]').val(response.access_token);
+							$('[name="readygraph_refresh_token"]').val(response.refresh_token);
+              window.setAccessToken(response.access_token);
+							$('.result').text(response.data.subscribers + ((response.data.subscribers == 0) ? ' Subscriber' : ' Subscribers'));
+						}
+					, error: function (response) {
+							alert('We couldn\'t authenticate your account. Please check your internet connection.');
+							$('div.authenticate').show();
+							$('div.authenticating').hide();
+							$('div.authenticated').hide();
+						}
+				});
+			}
+		}
 		window.setCode = function(code) {
 			$('.rgw-fb-login-button-iframe').hide();
       $('div.authenticate').hide();
