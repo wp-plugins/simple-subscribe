@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.5.3
+    Version: 1.5.4
     License: GPLv2
 */
 /*
@@ -69,6 +69,21 @@ function ss_rrmdir($dir) {
   unlink($del_url.'/readygraph-extension.php');
  $setting_url="admin.php?page=SimpleSubscribe";
   echo'<script> window.location="'.admin_url($setting_url).'"; </script> ';
+}
+function ss_delete_rg_options() {
+delete_option('readygraph_access_token');
+delete_option('readygraph_application_id');
+delete_option('readygraph_refresh_token');
+delete_option('readygraph_email');
+delete_option('readygraph_settings');
+delete_option('readygraph_delay');
+delete_option('readygraph_enable_sidebar');
+delete_option('readygraph_auto_select_all');
+delete_option('readygraph_enable_notification');
+delete_option('readygraph_enable_branding');
+delete_option('readygraph_send_blog_updates');
+delete_option('readygraph_send_real_time_post_updates');
+delete_option('readygraph_popup_template');
 }
 require_once('SimpleSubscribeInit.php');
 if( file_exists(plugin_dir_path( __FILE__ ).'/readygraph-extension.php' )) {
