@@ -34,7 +34,7 @@ ss_rrmdir($dir);
 	echo '<script>window.location.replace("'.$current_url[0].'");</script>';
 	}
 	else {
-		if(isset($_GET["source"]) && $_GET["source"] == "signup-popup"){
+		if(isset($_GET["source"]) && $_GET["source"] == "basic-settings"){
 		
 		}
 		else{

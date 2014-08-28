@@ -61,6 +61,9 @@ ss_rrmdir($dir);
 <input type="hidden" name="readygraph_refresh_token" value="<?php echo get_option('readygraph_refresh_token', '') ?>">
 <input type="hidden" name="readygraph_email" value="<?php echo get_option('readygraph_email', '') ?>">
 <input type="hidden" name="readygraph_application_id" value="<?php echo get_option('readygraph_application_id', '') ?>">
+<input type="hidden" name="readygraph_delay" value="<?php echo get_option('readygraph_delay', '5000') ?>">
+<input type="hidden" name="readygraph_enable_notification" value="<?php echo get_option('readygraph_enable_notification', 'true') ?>">
+<input type="hidden" name="readygraph_enable_popup" value="<?php echo get_option('readygraph_enable_popup', 'true') ?>">
 
 <div class="authenticate" style="display: none;">
 	    <div class="wrap1" style="min-height: 600px;">
@@ -345,14 +348,16 @@ function popup_delay(n){
 				$('.email-address').text($('[name="readygraph_email"]').val());
 				
 				window.setup_readygraph($('[name="readygraph_application_id"]').val());
-				$('.delay').val($('[name="readygraph_delay"]').val());
-				$('.sidebar').val($('[name="readygraph_enable_sidebar"]').val());
-				$('.notification').val($('[name="readygraph_enable_notification"]').val());
-				$('.selectAll').val($('[name="readygraph_auto_select_all"]').val());
-				$('.branding').val($('[name="readygraph_enable_branding"]').val());
-				$('.blog_updates').val($('[name="readygraph_send_blog_updates"]').val());
-				$('.real_time_post_update').val($('[name="readygraph_send_real_time_post_updates"]').val());
-				$('.popup_template').val($('[name="readygraph_popup_template"]').val());
+				$('.popup-delay').val($('[name="readygraph_delay"]').val());
+				if ($('[name="readygraph_enable_popup"]').val() == "true"){
+				$('.signup-popup').val('yes-center');
+				}
+				else if ($('[name="readygraph_enable_notification"]').val() == "true"){
+				$('.signup-popup').val('yes-bottom-right');
+				}
+				else{
+				$('.signup-popup').val('no');
+				}
 				
 				//$('[name="readygraph_ad_format"][value="' + $('[name="_readygraph_ad_format"]').val() + '"]').parent().click();
 				//$('[name="readygraph_ad_timing"][value="' + $('[name="_readygraph_ad_timing"]').val() + '"]').parent().click();
