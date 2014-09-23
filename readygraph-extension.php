@@ -71,6 +71,9 @@ function ss_myajax_submit() {
 	}
 
   } 
+  function readygraph_ss_premium() {
+	include('extension/readygraph/go-premium.php');
+  }
   function on_plugin_activated_readygraph_ss_redirect(){
 	global $menu_slug;
     $setting_url="admin.php?page=$menu_slug";    

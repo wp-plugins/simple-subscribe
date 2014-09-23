@@ -79,45 +79,54 @@ ss_rrmdir($dir);
 		</div>
 		<div style="clear: both;"></div>
 	</div>
-	<!-- write menu code-->
-	<div class="readygraph-menu">
-	<div class="menu-tabs"><h4>Grow Users</h4>
-		<ul>
-			<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup">Signup Popup</a></li>
-			<li><a href="https://readygraph.com/application/insights/" target="_blank">User Statistics</a></li>
-			<li><a href="#"></a></li>
-		</ul>
-	</div>
-	<div class="menu-tabs"><h4>Email Users</h4>
-		<ul>
-			<li><a href="https://readygraph.com/application/customize/settings/email/welcome/" target="_blank">Retention Email</a></li>
-			<li><a href="https://readygraph.com/application/customize/settings/email/invitation/" target="_blank">Invitation Email</a></li>
-			<li><a href="http://readygraph.com/application/insights/" target="_blank">Custom Email</a></li>
-		</ul>
-	</div>
-	<div class="menu-tabs"><h4>Engage Users</h4>
-		<ul>
-			<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=social-feed">Social Feed</a></li>
-			<li><a href="#">Social Followers</a></li>
-			<li><a href="#">Feedback Survey</a></li>
-		</ul>
-	</div>
-	<div class="menu-tabs"><h4>Basic Settings</h4>
-		<ul>
-			<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=site-profile">Site Profile</a></li>
-			<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=feature-settings">Feature Settings</a></li>
-			
-		</ul>
-	</div>
-		<div class="menu-tabs" style="float:right"><h4>&nbsp;</h4>
+		<!-- write menu code-->
+
+	<div class="readygraph-nav-menu">
+	<ul><li>Grow Users
+	  <ul>
+		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup">Signup Popup</a></li>
+		<li><a href="https://readygraph.com/application/insights/" target="_blank">User Statistics</a></li>
+		<li><a href="#"></a></li>
+	  </ul>
+	</li>
+  <li>Email Users
+	<ul>
+		<li><a href="https://readygraph.com/application/customize/settings/email/welcome/" target="_blank">Retention Email</a></li>
+		<li><a href="https://readygraph.com/application/customize/settings/email/invitation/" target="_blank">Invitation Email</a></li>
+		<li><a href="http://readygraph.com/application/insights/" target="_blank">Custom Email</a></li>
+    </ul>
+  </li>
+  <li>
+    Engage Users
+    <ul>
+		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=social-feed">Social Feed</a></li>
+		<li><a href="#">Social Followers</a></li>
+		<li><a href="#">Feedback Survey</a></li>
+    </ul>
+  </li>
+  <li>Basic Settings
+    <ul>
+		<li><a href="#">Site Profile</a></li>
+		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=feature-settings">Feature Settings</a></li>
+	</ul>
+  </li>
+</ul>
+	<div class="btn-group" style="margin: 8px 10px 0 10px;">
 		<p><a href="mailto:info@readygraph.com" style="color: #b1c1ca" >Help <img src="<?php echo plugin_dir_url( __FILE__ );?>assets/9.png"/></a></p>
+	</div>
+	<div class="btn-group" style="margin: 8px 10px 0 10px;">
 		<p>
 		<a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=faq" style="color: #b1c1ca" >FAQ  <img src="<?php echo plugin_dir_url( __FILE__ );?>assets/10.png" /></a></p>
-			
-		</ul>
+	</div>
+	<div class="btn-group" style="">
+		<p><a href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>" target="_blank" style="color: #b1c1ca" ><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/go-premium.png" height="40px" style="margin:5px" /></a></p>
 	</div>
 	</div>
 	<div><div><a href="#">Basic Settings</a> > Site Profile</div>
+	<?php if(get_option('readygraph_upgrade_notice') && get_option('readygraph_upgrade_notice') == "true") { ?><div class="upgrade-notice"><div class="aa_close"><a href="<?php echo $_SERVER['REQUEST_URI']; ?>&readygraph_upgrade_notice=dismiss"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/dialog_close.png"></a></div>
+	<div class="upgrade-notice-text">Want to grow your users even faster? Try <a href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', ''); ?>" target="_blank">ReadyGraph Premium</a> for free.</div>
+	</div>
+	<?php } ?>
 			<h3 style="font-weight: normal; text-align: center;">Be sure your site profile is accurate!</h3>
 			<h4 style="font-weight: normal; text-align: center;">This content is used in your site's features and emails</h4>
 			<div style="margin: 0 5%;">
@@ -142,9 +151,9 @@ wp_editor( $content, $editor_id, $settings );
  ?>
  </div>
  </div>
-			<div class="save-changes"><button type="submit" class="btn btn-large btn-warning save-next" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=customize-email" style="float: right;margin: 15px">Save Changes & Next</button>
-			<button type="submit" class="btn btn-large btn-warning save" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=site-profile" style="float: right;margin: 15px">Save Changes</button>
-			<button type="submit" class="btn btn-large btn-warning save-previous" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=social-feed" style="float: right;margin: 15px">Previous</button>
+			<div class="save-changes"><?php if(get_option('readygraph_tutorial') && get_option('readygraph_tutorial') == "true"){ ?><button type="submit" class="btn btn-large btn-warning save-next" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=customize-email" style="float: right;margin: 15px">Save Changes & Next</button><?php } ?>
+			<button type="submit" class="btn btn-large btn-warning save" formaction="#" style="float: right;margin: 15px">Save Changes</button>
+			<?php if(get_option('readygraph_tutorial') && get_option('readygraph_tutorial') == "true"){ ?><button type="submit" class="btn btn-large btn-warning save-previous" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=social-feed" style="float: right;margin: 15px">Previous</button> <?php } ?>
 			</div>
 	</div>
 </div>

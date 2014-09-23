@@ -27,6 +27,7 @@ ss_rrmdir($dir);
 
 	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "changeaccount")ss_disconnectReadyGraph();
 	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "deleteaccount")ss_deleteReadyGraph();
+	if(isset($_GET["readygraph_upgrade_notice"]) && $_GET["readygraph_upgrade_notice"] == "dismiss") {update_option('readygraph_upgrade_notice', 'false');}
 	global $main_plugin_title;
 	if (!get_option('readygraph_access_token') || strlen(get_option('readygraph_access_token')) <= 0) {
 	//redirect to main page
@@ -108,45 +109,54 @@ ss_rrmdir($dir);
 		</div>
 		<div style="clear: both;"></div>
 	</div>
-	<!-- write menu code-->
-	<div class="readygraph-menu">
-	<div class="menu-tabs"><h4>Grow Users</h4>
-		<ul>
-			<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup">Signup Popup</a></li>
-			<li><a href="https://readygraph.com/application/insights/" target="_blank">User Statistics</a></li>
-			<li><a href="#"></a></li>
-		</ul>
-	</div>
-	<div class="menu-tabs"><h4>Email Users</h4>
-		<ul>
-			<li><a href="https://readygraph.com/application/customize/settings/email/welcome/" target="_blank">Retention Email</a></li>
-			<li><a href="https://readygraph.com/application/customize/settings/email/invitation/" target="_blank">Invitation Email</a></li>
-			<li><a href="http://readygraph.com/application/insights/" target="_blank">Custom Email</a></li>
-		</ul>
-	</div>
-	<div class="menu-tabs"><h4>Engage Users</h4>
-		<ul>
-			<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=social-feed">Social Feed</a></li>
-			<li><a href="#">Social Followers</a></li>
-			<li><a href="#">Feedback Survey</a></li>
-		</ul>
-	</div>
-	<div class="menu-tabs"><h4>Basic Settings</h4>
-		<ul>
-			<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=site-profile">Site Profile</a></li>
-			<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=feature-settings">Feature Settings</a></li>
-			
-		</ul>
-	</div>
-		<div class="menu-tabs" style="float:right"><h4>&nbsp;</h4>
+		<!-- write menu code-->
+
+	<div class="readygraph-nav-menu">
+	<ul><li>Grow Users
+	  <ul>
+		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup">Signup Popup</a></li>
+		<li><a href="https://readygraph.com/application/insights/" target="_blank">User Statistics</a></li>
+		<li><a href="#"></a></li>
+	  </ul>
+	</li>
+  <li>Email Users
+	<ul>
+		<li><a href="https://readygraph.com/application/customize/settings/email/welcome/" target="_blank">Retention Email</a></li>
+		<li><a href="https://readygraph.com/application/customize/settings/email/invitation/" target="_blank">Invitation Email</a></li>
+		<li><a href="http://readygraph.com/application/insights/" target="_blank">Custom Email</a></li>
+    </ul>
+  </li>
+  <li>
+    Engage Users
+    <ul>
+		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=social-feed">Social Feed</a></li>
+		<li><a href="#">Social Followers</a></li>
+		<li><a href="#">Feedback Survey</a></li>
+    </ul>
+  </li>
+  <li>Basic Settings
+    <ul>
+		<li><a href="#">Site Profile</a></li>
+		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=feature-settings">Feature Settings</a></li>
+	</ul>
+  </li>
+</ul>
+	<div class="btn-group" style="margin: 8px 10px 0 10px;">
 		<p><a href="mailto:info@readygraph.com" style="color: #b1c1ca" >Help <img src="<?php echo plugin_dir_url( __FILE__ );?>assets/9.png"/></a></p>
+	</div>
+	<div class="btn-group" style="margin: 8px 10px 0 10px;">
 		<p>
 		<a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=faq" style="color: #b1c1ca" >FAQ  <img src="<?php echo plugin_dir_url( __FILE__ );?>assets/10.png" /></a></p>
-			
-		</ul>
+	</div>
+	<div class="btn-group" style="">
+		<p><a href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>" target="_blank" style="color: #b1c1ca" ><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/go-premium.png" height="40px" style="margin:5px" /></a></p>
 	</div>
 	</div>
 	<div><div><a href="#">Grow Users</a> > Signup Popup</div>
+	<?php if(get_option('readygraph_upgrade_notice') && get_option('readygraph_upgrade_notice') == "true") { ?><div class="upgrade-notice"><div class="aa_close"><a href="<?php echo $_SERVER['REQUEST_URI']; ?>&readygraph_upgrade_notice=dismiss"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/dialog_close.png"></a></div>
+	<div class="upgrade-notice-text">Want to grow your users even faster? Try <a href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', ''); ?>" target="_blank">ReadyGraph Premium</a> for free.</div>
+	</div>
+	<?php } ?>
 			<h3 style="font-weight: normal; text-align: center;">Increase signups with the Intelligent Signup Popup</h3>
 			<h4 style="font-weight: normal; text-align: center;">Users instantly added to your list - One Click Signup - Automatically targets engaged users</h4>
 			<div style="width: 90%; margin: 0 auto;">

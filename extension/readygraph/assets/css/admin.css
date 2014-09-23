@@ -33,39 +33,123 @@
   padding: 16px 30px;
   text-shadow: none;
 }
-.readygraph-menu {
 
-  background-color: #093e7d;
-  color: #34495E;
-  margin-right: 1%;
-  height:150px;
-  margin-bottom: 1%;
-  padding-top: 1%;
-  
-}
-.menu-tabs h4{
-color: #b1c1ca;
-}
-.menu-tabs a:link,a:visited{
-color: #5fb1d8;
-text-decoration: none;
-}
-.menu-tabs a:hover, a:active {
-color: #ffffff;
-text-decoration: none;
-}
-.menu-tabs {
-color: #5fb1d8;
-}
 .alert p {font-style: normal;}
 
 .alert label {font-size: 14px;font-weight: bold;}
 
 .wrap1 {width: 100%; display: block; position: relative;}
 .save-changes{margin: 15px;}
-.rg-signup-icon {float:left; margin:0 1.5em 1em 0}
-.menu-tabs {width: 18%; margin: 0 1%; float: left;text-align: center;}
 .rg-small-icon { height: 25px; width: 25px; margin: 5px;vertical-align: middle;}
 .rg-big-icon { height: 50px; width: 50px; margin: 15px;vertical-align: middle;}
 .rg-h4 { font-weight: normal; margin: 0 auto; }
 .save-next a, a:hover, a:active, a:visited {text-decoration: none; }
+.readygraph-nav-menu {
+
+  background-color: #093e7d;
+  color: #b1c1ca;
+  margin-right: 1%;
+  height:55px;
+  margin-bottom: 1%;
+  padding-left: 1%;
+}
+.readygraph-nav-menu h4{
+color: #b1c1ca;
+}
+
+.readygraph-nav-menu ul {
+  text-align: left;
+  display: inline;
+  margin: 0;
+  padding: 15px 4px 17px 0;
+  list-style: none;
+/*  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);*/
+  margin-top: 2px;
+}
+.readygraph-nav-menu ul li {
+  display: inline-block;
+  margin-right: -4px;
+  position: relative;
+  padding: 15px 30px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  margin-bottom: 0px;
+  width: 150px;
+}
+.readygraph-nav-menu ul li:hover {
+  background: #2691CB;
+  color: #fff;
+}
+.readygraph-nav-menu ul li ul {
+  padding: 0;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transiton: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  -transition: opacity 0.2s;
+  background: #2691CB;
+}
+.readygraph-nav-menu ul li ul li {
+  display: block;
+  margin: 5px;
+  width: 140px;
+  padding: 10px 0;
+  text-align: center;
+}
+.readygraph-nav-menu ul li ul a {
+  color: #fff;
+}
+
+.readygraph-nav-menu ul li ul li:hover{
+  background: #fff;
+}
+.readygraph-nav-menu ul li ul li:hover a { color: #2691CB;}
+.readygraph-nav-menu ul li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+.upgrade-notice{
+	text-align: center;
+	width: 60%;
+	margin: 1% auto;
+	background: #E1EFD4;
+	border: 1px solid #BFDBA7;
+}
+.upgrade-notice-text{
+	margin: 2% 5%;
+}
+.aa_close {
+	float: right;
+}
+.readygraph_upgrade_right_sidebar{
+	border: 1px solid #BAD6DA;
+	width: 100%;
+	text-align: center;
+}
+.centered-image {
+    padding:15px;
+}
+.rg-three-column {
+	width: 29%;
+	margin: 1% 2% 1%;
+	border: 2px solid #2691CB;
+}
+.rg-signup-icon{
+	margin: 5px;
+}

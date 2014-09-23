@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly. Automate user growth through ReadyGraph integration.
 
@@ -63,6 +63,18 @@ Track daily-new subscribers, daily invites, total traffic, and other key metrics
 = Newsfeed =
 
 ReadyGraph’s newsfeed is an optional overlay on your site where your users can engage with others in your community and recommend your content or products to each other.  It is like having a social network that engages users embedded on your site. Users can leave comments, ‘like’ comments left by other subscribers and ‘follow’ other subscribers.  Subscribers will receive automated email updates based on these actions.
+
+= Want To Grow Even Faster? =
+
+Try [ReadyGraph premium](https://readygraph.com/accounts/payment/) for free to get these advanced features:
+
+1.	Monthly Promotion to 10,000 New Users
+2.	Unlimited New Blog Post Emails
+3.	Unlimited Viral Email Invites
+4.	Unlimited Facebook Invites
+5.	Many more premium features added all the time
+
+[Get it here!](https://readygraph.com/accounts/payment/)
 
 If you have questions or concerns contact us anytime at [info@readygraph.com](mailto:info@readygraph.com)
 
@@ -348,6 +360,11 @@ If you have questions or concerns, contact us anytime at [info@readygraph.com](m
 
 
 == Upgrade Notice ==
+
+= 1.5.6 =
+
+* ReadyGraph Premium Features
+* UI Tweaks
 
 = 1.5.5 =
 

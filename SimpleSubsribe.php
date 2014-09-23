@@ -5,7 +5,7 @@
     Author: latorante
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.5.5
+    Version: 1.5.6
     License: GPLv2
 */
 /*
