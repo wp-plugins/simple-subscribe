@@ -190,7 +190,7 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 			<h4 class="rg-h4"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/>Unlimited Viral Email/Facebook Invites</h4>
 			<h4 class="rg-h4"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/>Unlimited Blog Post Notifications and More!</h4>
 			
-			<div class="save-changes" style="font-weight: normal; text-align: center;"><button type="submit" class="btn btn-large btn-warning save-next" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup&source=basic-settings" style="margin: 15px">Learn more about Premium</button><br>
+			<div class="save-changes" style="font-weight: normal; text-align: center;"><a class="btn btn-large btn-warning save-next" href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>" target="_blank" style="margin: 15px">Learn more about Premium</a><br>
 			<strong>Or take <a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup&source=basic-settings">the tutorial</a> to customize your ReadyGraph settings</strong>
 			</div></div>
 	</div>
