@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.5.7
+Stable tag: 1.5.8
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly. Automate user growth through ReadyGraph integration.
 
@@ -360,6 +360,11 @@ If you have questions or concerns, contact us anytime at [info@readygraph.com](m
 
 
 == Upgrade Notice ==
+
+= 1.5.8 =
+
+* Disconnect/Delete Readygraph Link fix
+* Deactivation confirmation message
 
 = 1.5.7 =
 
