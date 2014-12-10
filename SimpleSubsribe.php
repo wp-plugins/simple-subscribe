@@ -2,10 +2,10 @@
 /*
     Plugin Name: Simple Subscribe
     Description: The easiest to use subscribe plugin, just for you :)
-    Author: latorante
+    Author: latorante, tanaylakhani
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.5.8
+    Version: 1.6
     License: GPLv2
 */
 /*
