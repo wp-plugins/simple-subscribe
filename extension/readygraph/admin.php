@@ -40,19 +40,21 @@ ss_rrmdir($dir);
 	if (isset($_POST["readygraph_access_token"])) update_option('readygraph_access_token', $_POST["readygraph_access_token"]);
 	if (isset($_POST["readygraph_refresh_token"])) update_option('readygraph_refresh_token', $_POST["readygraph_refresh_token"]);
 	if (isset($_POST["readygraph_email"])) update_option('readygraph_email', $_POST["readygraph_email"]);
-	if (isset($_POST["readygraph_application_id"])) update_option('readygraph_application_id', $_POST["readygraph_application_id"]);
+	if (isset($_POST["readygraph_application_id"])){ update_option('readygraph_application_id', $_POST["readygraph_application_id"]);/*s2_wordpress_sync_users($_POST["readygraph_application_id"]);*/}
 	if (isset($_POST["readygraph_settings"])) update_option('readygraph_settings', $_POST["readygraph_settings"]);
 	if (isset($_POST["readygraph_delay"])) update_option('readygraph_delay', 10000);
 	if (isset($_POST["readygraph_enable_notification"])) update_option('readygraph_enable_notification', 'true');	
 	if (isset($_POST["readygraph_enable_popup"])) update_option('readygraph_enable_popup', 'true');
-	if (isset($_POST["readygraph_enable_sidebar"])) update_option('readygraph_enable_sidebar', 'false');
-	if (isset($_POST["readygraph_auto_select_all"])) update_option('readygraph_auto_select_all', 'true');
-	if (isset($_POST["readygraph_enable_branding"])) update_option('readygraph_enable_branding', 'false');
-	if (isset($_POST["readygraph_send_blog_updates"])) update_option('readygraph_send_blog_updates', 'true');
-	if (isset($_POST["readygraph_send_real_time_post_updates"])) update_option('readygraph_send_real_time_post_updates', 'false');
-	if (isset($_POST["readygraph_popup_template"])) update_option('readygraph_popup_template', 'default-template');
+	update_option('readygraph_enable_sidebar', 'false');
+	update_option('readygraph_auto_select_all', 'true');
+	update_option('readygraph_enable_branding', 'false');
+	update_option('readygraph_send_blog_updates', 'true');
+	update_option('readygraph_send_real_time_post_updates', 'false');
+	update_option('readygraph_popup_template', 'default-template');
 	update_option('readygraph_upgrade_notice', 'true');
 	update_option('readygraph_tutorial',"true");
+	$site_url = site_url();
+	update_option('readygraph_site_url', $site_url);
 	}
 	else {
 	}
@@ -87,7 +89,9 @@ ss_rrmdir($dir);
 			- Get more traffic<br>
 			- Send automatic email digests of all your site posts<br>
 			- Get better deliverablility<br>
-			- Track performace and user activity
+			- Track performance and user activity<br>
+			- Automatically synchs with your current subscriber list<br>
+			- Your best content featured to the full UserBase community<br>
 		</p>
 	</div>
           
@@ -96,8 +100,8 @@ ss_rrmdir($dir);
         <div class="register-right">
           <div class="form-wrap alert" style="font-size:12px;">
           <p><h3>ReadyGraph grows your site</h3></p>
-<p>ReadyGraph delivers audience growth and motivates users to come back.</p><br /><p><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_fb.png"></span><b>Optimized Signup Form –</b> ReadyGraph’s signup form has one click signup and integration with Facebook so you can get quick and easy signups from your users.<br /><br /><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_heart.png"></span>
-<b>Viral Friend Invites –</b>Loyal site visitors who love your site can easily invite all their friends. Readygraph encourages your visitors' friends to come and signup for your site too.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_mail.png"></span>Automated Re-engagement Emails –</b> ReadyGraph’s automated emails keep visitors coming back. Send a daily or weekly digest of all your new posts and keep them informed about site activity, events, etc.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_chart.png"></span>Analytics -</b> Track new subscribers, invites, traffic, and other key metrics that quantify growth and user engagement.  ReadyGraph safely stores user data on the cloud so you can access from anywhere.<br /><br />
+<p>ReadyGraph delivers audience growth and motivates users to come back.</p><br /><p><span style="min-height: 50px;"><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_fb.png"></span><b>Optimized Signup Form –</b> ReadyGraph’s signup form has one click signup and integration with Facebook so you can get quick and easy signups from your users.</span><br /><br /><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_heart.png"></span>
+<b>Viral Friend Invites –</b>Loyal site visitors who love your site can easily invite all their friends. Readygraph encourages your visitors' friends to come and signup for your site too.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_mail.png"></span>Automated Re-engagement Emails –</b> ReadyGraph’s automated emails keep visitors coming back. Send a daily or weekly digest of all your new posts and keep them informed about site activity, events, etc.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_chart.png"></span>Analytics -</b> Track new subscribers, invites, traffic, and other key metrics that quantify growth and user engagement.  ReadyGraph safely stores user data on the cloud so you can access from anywhere.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/ub-icon.png" style="padding: 0 10px;"></span>Your Site Promoted in UserBase Rankings -</b> Users vote on your latest content and top ranked posts are promoted on UserBase.com to thousands of people.<br /><br />
 If you have questions or concerns contact us anytime at <a href="mailto:info@readygraph.com" target="_blank">info@readygraph.com</a> Feel free to check out our <a href="http://readygraph.com/faq/" target="_blank">FAQ</a> for a more comprehensive overview.  You can also completely <a class="delete" href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&action=<?php echo base64_encode("deleteaccount");?>">Delete ReadyGraph</a> if you don't want access to our amazing growth tools.  Either way, good luck building a massive userbase!</p>
           </div>
       </div>
@@ -112,7 +116,9 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 			- Grow your subscribers faster<br>
 			- Engage users with automated email updates<br>
 			- Enhanced email deliverablility<br>
-			- Track performace with user-activity analytics
+			- Track performace with user-activity analytics<br>
+			- Automatically synchs with your current subscriber list<br>
+			- Your best content featured to the full UserBase community<br>
 		</p>
 	</div>
 </div>
@@ -167,7 +173,7 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
   </li>
   <li>Basic Settings
     <ul>
-		<li><a href="#">Site Profile</a></li>
+		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=site-profile">Site Profile</a></li>
 		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=feature-settings">Feature Settings</a></li>
 	</ul>
   </li>
@@ -186,13 +192,31 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 	<?php if(get_option('readygraph_tutorial') && get_option('readygraph_tutorial') == "true"){ ?>
 	<div class="tutorial-true" style="margin: 5% auto;">
 		<h3 style="font-weight: normal; text-align: center;"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/check.png"/>Congratulations! <?php echo $main_plugin_title; ?>'s ReadyGraph growth engine is now active.</h3>
-		<h3 style="font-weight: normal; text-align: center;">Consider going premium to grow even faster!</h3>
-			<div style="width: 60%; margin: 0 auto;"><h4 class="rg-h4"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/>Your site promoted to 10,000 New Users Every Month in our Community Email Update</h4>
-			<h4 class="rg-h4"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/>Unlimited Viral Email/Facebook Invites</h4>
-			<h4 class="rg-h4"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/>Unlimited Blog Post Notifications and More!</h4>
-			
-			<div class="save-changes" style="font-weight: normal; text-align: center;"><a class="btn btn-large btn-warning save-next" href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>" target="_blank" style="margin: 15px">Learn more about Premium</a><br>
+		
+			<div style="width: 45%; margin: 1% 1% 0 10%; float: left">
+			<h3 style="font-weight: normal;color: grey;">Step 1: Choose a plan for exposure to more new users!</h3>
+			<div class="rg-icon-thumb"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/></div>
+			<h4 class="rg-h4">Cross promotion to thousands of users</h4><p class="rg-icon-content">Get promoted through our community emails and your own site SEO page on UserBase.com</p>
+			<div class="rg-icon-thumb"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/></div>
+			<h4 class="rg-h4">Let users vote up your content</h4><p class="rg-icon-content">Add vote buttons in your site post emails.  Top voted posts featured on UserBase.com</p>
+			<div class="rg-icon-thumb"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/></div>
+			<h4 class="rg-h4">Content recommendations</h4><p class="rg-icon-content">As a member of our cross promotion network, your users discover valuable content from related sites</p>
+			<div class="rg-icon-thumb"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/round-check.png" class="rg-small-icon"/></div>
+			<h4 class="rg-h4">Full set of growth tools</h4><p class="rg-icon-content">Optimized signup form, viral invites, site update emails, and more!</p>
+			<?php /* ?><!--<div class="save-changes" style="font-weight: normal; text-align: center;"><a class="btn btn-large btn-warning save-next" href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>" target="_blank" style="margin: 15px">Learn more about Premium</a><br>
 			<strong>Or take <a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup&source=basic-settings">the tutorial</a> to customize your ReadyGraph settings</strong>
+			</div><?php */ ?> </div>
+			<div style="width: 25%; margin: 1% 5% 0 0; float: left; background: #F0F0F0; border-radius: 15px;padding: 1% 2% 1% 1%"><h4 class="rg-h4">Select your plan</h4>
+			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_free" style="font-weight: bold; margin: 12px 0" checked></div><p class="rg-icon-content"><strong>Free - Stick with the Basic Plan</strong> </input><br><span style="margin-top: -12px">Basic tools, Promotion if content ranks highly</span></p></div>
+			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_19" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Get promoted to 2000 users monthly</strong></input><br><span style="margin-top: -12px">$19/month</span></p></div>
+			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_59" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Get promoted to 20,000 users monthly</strong></input><br><span style="margin-top: -12px">$59/month</span></p></div>
+			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_149" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Get promoted to 100,000 users monthly</strong></input><br><span style="margin-top: -12px">$149/month</span></p></div>
+			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_no" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Don't promote my site</strong></input><br><span style="margin-top: -12px">Opt out of cross promotion network</span></p></div>
+			<div class="rg-icon-thumb" style="margin: 10px;width:100%"><input type="checkbox" id="plan-type" name="plan-type" value="annual" style="font-weight: bold">&nbsp;&nbsp; Save 20% with an annual plan</input></div>
+			<?php /* ?><button type="button" onclick="subscribe_readygraph()">Form gets submitted</button>
+			<div class="save-changes" style="font-weight: normal; text-align: center;"><a class="btn btn-large btn-warning save-next" href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>&payment-plan=" target="_blank" style="margin: 15px">Continue</a><br> <?php */ ?>
+			<div class="save-changes" style="font-weight: normal; text-align: center;"><a class="btn btn-large btn-warning save-next" href="#" style="margin: 15px" onclick="subscribe_readygraph()">Continue</a><br> 
+			<?php /* ?><strong>Or take <a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup&source=basic-settings">the tutorial</a> to customize your ReadyGraph settings</strong><?php */ ?>
 			</div></div>
 	</div>
 	<?php } else { ?>
@@ -277,6 +301,36 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 </form>
 <script type="text/javascript" src="https://readygraph.com/scripts/readygraph.js"></script>
 <script type="text/javascript" charset="utf-8">
+function subscribe_readygraph() {
+    var radios = document.getElementsByName("select-plan");
+	if (document.getElementById('plan-type').checked) {
+            annual="true";
+        } else {
+            annual="false";
+        }
+
+    for (var i = 0; i < radios.length; i++) {       
+        if (radios[i].checked) {
+            plan = radios[i].value;
+			//alert(radios[i].value);
+            break;
+        }
+    }
+	
+	var current_url = document.URL;
+	var new_url = current_url.slice(0, -28);
+	url = 'https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>&payment_plan='+plan+'&is_annual='+annual+'&redirect_uri='+encodeURIComponent(new_url+'site-profile');
+	current_url = new_url+'site-profile';
+	if (plan === "promote_free"){
+	window.location.href = current_url;
+	}
+	else{
+	var win=window.open(url, '_blank');
+	window.open(current_url, '_self');
+	window.location.href = current_url;
+	win.focus();
+	}
+}
 function popup_position(n){
 	<?php 	$current_url = explode("&", $_SERVER['REQUEST_URI']); ?>
   if(n.selectedIndex === 0){

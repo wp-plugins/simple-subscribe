@@ -3,10 +3,10 @@ Contributors: Dabelon, wenzhixue, tanaylakhani
 Donate link: http://donate.latorante.name/
 Tags: subscription, subscribe, e-mail subscript ion, email subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
 Requires at least: 3.3
-Tested up to: 3.8
+Tested up to: 4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.7
+Stable tag: 1.8
 
 Simple Subscribe is the subscribe plugin you have been waiting for. It's simple to use, yet powerful, bulletproof and developers friendly. Automate user growth through ReadyGraph integration.
 
@@ -364,6 +364,11 @@ If you have questions or concerns, contact us anytime at [info@readygraph.com](m
 
 
 == Upgrade Notice ==
+
+= 1.8 =
+
+* Readygraph premium plan selections
+* Site profile for readygraph promotions
 
 = 1.7 =
 

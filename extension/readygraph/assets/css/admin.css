@@ -153,3 +153,15 @@ color: #b1c1ca;
 .rg-signup-icon{
 	margin: 5px;
 }
+.rg-icon-thumb {
+    float: left;
+}
+.rg-icon-thumb img {
+    display: block;
+}
+.rg-icon-content {
+    margin-left: 25px;
+}
+.site_category select{
+margin: 5px;
+}

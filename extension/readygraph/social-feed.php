@@ -124,7 +124,7 @@ ss_rrmdir($dir);
   </li>
   <li>Basic Settings
     <ul>
-		<li><a href="#">Site Profile</a></li>
+		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=site-profile">Site Profile</a></li>
 		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=feature-settings">Feature Settings</a></li>
 	</ul>
   </li>
