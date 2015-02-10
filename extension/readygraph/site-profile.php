@@ -58,6 +58,7 @@ function siteprofile_sync(){
 		siteprofile_sync();
 	}
 	}
+	if(isset($_GET["readygraph_plan"]) && $_GET["readygraph_plan"] != ""){update_option('readygraph_plan',$_GET["readygraph_plan"]);}
 	
  ?>	
 
@@ -436,6 +437,17 @@ wp_editor( $content, $editor_id, $settings );
 </form>
 <script type="text/javascript" src="https://readygraph.com/scripts/readygraph.js"></script>
 
+<script type="text/javascript" charset="utf-8">
+var $ = jQuery;
+var category = $('[name="readygraph_site_category"]').val();
+if (category != ""){
+	$('#site_category').val(category);
+}
+var language = $('[name="readygraph_site_language"]').val();
+if (language != ""){
+	$('#site_language').val(language);
+}
+</script>
 <script type="text/javascript" charset="utf-8">
 	var $ = jQuery;
 	$(function () {

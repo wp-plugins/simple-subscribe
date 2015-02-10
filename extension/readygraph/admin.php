@@ -58,6 +58,9 @@ ss_rrmdir($dir);
 	}
 	else {
 	}
+	if (!get_option('readygraph_plan') || strlen(get_option('readygraph_plan')) <= 0) {
+	update_option('readygraph_tutorial',"true");
+	}
 ?>	
 
 <link rel="stylesheet" type="text/css" href="<?php echo plugins_url( 'assets/css/admin.css', __FILE__ ) ?>">
@@ -207,8 +210,8 @@ If you have questions or concerns contact us anytime at <a href="mailto:info@rea
 			<strong>Or take <a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup&source=basic-settings">the tutorial</a> to customize your ReadyGraph settings</strong>
 			</div><?php */ ?> </div>
 			<div style="width: 25%; margin: 1% 5% 0 0; float: left; background: #F0F0F0; border-radius: 15px;padding: 1% 2% 1% 1%"><h4 class="rg-h4">Select your plan</h4>
-			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_free" style="font-weight: bold; margin: 12px 0" checked></div><p class="rg-icon-content"><strong>Free - Stick with the Basic Plan</strong> </input><br><span style="margin-top: -12px">Basic tools, Promotion if content ranks highly</span></p></div>
-			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_19" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Get promoted to 2000 users monthly</strong></input><br><span style="margin-top: -12px">$19/month</span></p></div>
+			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_free" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Free - Stick with the Basic Plan</strong> </input><br><span style="margin-top: -12px">Basic tools, Promotion if content ranks highly</span></p></div>
+			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_19" style="font-weight: bold; margin: 12px 0" checked></div><p class="rg-icon-content"><strong>Get promoted to 2000 users monthly</strong></input><br><span style="margin-top: -12px">$19/month</span></p></div>
 			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_59" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Get promoted to 20,000 users monthly</strong></input><br><span style="margin-top: -12px">$59/month</span></p></div>
 			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_149" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Get promoted to 100,000 users monthly</strong></input><br><span style="margin-top: -12px">$149/month</span></p></div>
 			<div style="margin: 10px;"><div class="rg-icon-thumb"><input type="radio" name="select-plan" value="promote_no" style="font-weight: bold; margin: 12px 0"></div><p class="rg-icon-content"><strong>Don't promote my site</strong></input><br><span style="margin-top: -12px">Opt out of cross promotion network</span></p></div>
@@ -312,15 +315,18 @@ function subscribe_readygraph() {
     for (var i = 0; i < radios.length; i++) {       
         if (radios[i].checked) {
             plan = radios[i].value;
-			//alert(radios[i].value);
             break;
         }
     }
 	
 	var current_url = document.URL;
+	<?php if(isset($_GET["tutorial"]) && $_GET["tutorial"] == "true"){ ?>
 	var new_url = current_url.slice(0, -28);
+	<?php } else { ?>
+	var new_url = current_url.slice(0, -16);
+	<?php } ?>
 	url = 'https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>&payment_plan='+plan+'&is_annual='+annual+'&redirect_uri='+encodeURIComponent(new_url+'site-profile');
-	current_url = new_url+'site-profile';
+	current_url = new_url+'site-profile&readygraph_plan='+plan;
 	if (plan === "promote_free"){
 	window.location.href = current_url;
 	}
