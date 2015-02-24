@@ -14,11 +14,11 @@ Simple Subscribe is the subscribe plugin you have been waiting for. It's simple 
 
 Check official website for live demo http://plugins.readygraph.com/simple-subscribe/
 
-*[Live demo](http://plugins.readygraph.com/simple-subscribe/)
+* [Live demo](http://plugins.readygraph.com/simple-subscribe/)
 
-*[More Description](http://plugins.readygraph.com/simple-subscribe/)
+* [More Description](http://plugins.readygraph.com/simple-subscribe/)
 
-*[Suggestion/comments](http://plugins.readygraph.com/simple-subscribe/)
+* [Suggestion/comments](http://plugins.readygraph.com/simple-subscribe/)
 
 
 Simple Subscribe is the only bulletproof secure plugin, that is easy to use and developers friendly as well. It gives you the power to simply add subscription
