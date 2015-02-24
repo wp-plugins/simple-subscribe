@@ -12,6 +12,15 @@ Simple Subscribe is the subscribe plugin you have been waiting for. It's simple 
 
 == Description ==
 
+Check official website for live demo http://plugins.readygraph.com/simple-subscribe/
+
+*[Live demo](http://plugins.readygraph.com/simple-subscribe/)
+
+*[More Description](http://plugins.readygraph.com/simple-subscribe/)
+
+*[Suggestion/comments](http://plugins.readygraph.com/simple-subscribe/)
+
+
 Simple Subscribe is the only bulletproof secure plugin, that is easy to use and developers friendly as well. It gives you the power to simply add subscription
 form to your Wordpress website, as a **widget**, **shortcode** or using php in your template codes.
 
@@ -90,6 +99,8 @@ If you have questions or concerns contact us anytime at [info@readygraph.com](ma
 
 == Installation ==
 
+Installation Instruction and Configuration can also be found at [Installation Instruction and Configuration](http://plugins.readygraph.com/simple-subscribe/installation/)
+
 = Automatic =
 1. Go to your admin area and select Plugins -> Add new from the menu.
 2. Search for "Simple Subscribe".
@@ -106,16 +117,16 @@ If you have questions or concerns contact us anytime at [info@readygraph.com](ma
 
 == Screenshots ==
 
-1. Simple Subscribe Settings Page.
-2. Listing of subscribers with export options, and form to add new subscriber thru admin.
-3. Wordpress registered users settings in their profile.
-4. Subscribe Widget
-5. Subscribe Widget Invalid Form Values
-6. Subscribe Widget Invalid Form Values II
-7. Subscribe Widget Valid
-8. E-mail template options
-9. Log messages
-10. Mass e-mail message
+1. Simple Subscribe Settings Page. http://plugins.readygraph.com/simple-subscribe/screenshots/
+2. Listing of subscribers with export options, and form to add new subscriber thru admin. http://plugins.readygraph.com/simple-subscribe/screenshots/
+3. Wordpress registered users settings in their profile. http://plugins.readygraph.com/simple-subscribe/screenshots/
+4. Subscribe Widget http://plugins.readygraph.com/simple-subscribe/screenshots/
+5. Subscribe Widget Invalid Form Values http://plugins.readygraph.com/simple-subscribe/screenshots/
+6. Subscribe Widget Invalid Form Values II http://plugins.readygraph.com/simple-subscribe/screenshots/
+7. Subscribe Widget Valid http://plugins.readygraph.com/simple-subscribe/screenshots/
+8. E-mail template options http://plugins.readygraph.com/simple-subscribe/screenshots/
+9. Log messages http://plugins.readygraph.com/simple-subscribe/screenshots/
+10. Mass e-mail message http://plugins.readygraph.com/simple-subscribe/screenshots/
 
 == Developer's Guide ==
 
@@ -259,6 +270,8 @@ if correctly or not, we should always display our hidden modal window, so people
 After that it's simple code, just to show working example of that logic, you can copy and paste this code or change, amend, whatever you wish to do.
 
 == Frequently Asked Questions ==
+
+For detailed FAQ and other support visit [http://plugins.readygraph.com/simple-subscribe/faq/](http://plugins.readygraph.com/simple-subscribe/faq/)
 
 = It requires PHP 5.3 and I don't have that =
 Well this one is a no-go unfortunately. Just upgrade, or change provider or use a differnt plugin ;).
