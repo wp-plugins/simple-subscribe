@@ -92,16 +92,16 @@ class Admin extends \Nette\Object
     public function adminMenu()
     {
 		if( file_exists(dirname(dirname(plugin_dir_path( __FILE__ )) ).'/readygraph-extension.php')) {
-		global $menu_slug;
+		global $ss_menu_slug;
         // Admin Pages
-        add_menu_page('Subscribers', 'Subscribers', 'manage_options', $menu_slug, 'readygraph_ss_menu_page', NULL, '71.22');
-        add_submenu_page($menu_slug, 'Readygraph App', 'Readygraph App', 'manage_options', $menu_slug, 'readygraph_ss_menu_page');
-		add_submenu_page($menu_slug, 'Subscribers', 'Subscribers', 'manage_options', 'SimpleSubscribe', array($this, 'renderAdminListing'));
-        add_submenu_page($menu_slug, 'E-mail template', 'E-mail template', 'manage_options', 'SimpleSubscribeEmailTemplate', array($this, 'renderAdminEmailTemplate'));
-        add_submenu_page($menu_slug, 'E-mail subscribers', 'E-mail subscribers', 'manage_options', 'SimpleSubscribeEmail', array($this, 'renderAdminEmail'));
-        add_submenu_page($menu_slug, 'Settings', 'Settings', 'manage_options', 'SimpleSubscribeSettings', array($this, 'renderAdminSettings'));
-        add_submenu_page($menu_slug, 'Log', $this->log->menuTitle(), 'manage_options', 'SimpleSubscribeLog', array($this, 'renderAdminLog'));
-        add_submenu_page($menu_slug, 'Go Premium', 'Go Premium', 'manage_options', 'readygraph-go-premium', 'readygraph_ss_premium');
+        add_menu_page('Subscribers', 'Subscribers', 'manage_options', $ss_menu_slug, 'readygraph_ss_menu_page', NULL, '71.22');
+        add_submenu_page($ss_menu_slug, 'Readygraph App', 'Readygraph App', 'manage_options', $ss_menu_slug, 'readygraph_ss_menu_page');
+		add_submenu_page($ss_menu_slug, 'Subscribers', 'Subscribers', 'manage_options', 'SimpleSubscribe', array($this, 'renderAdminListing'));
+        add_submenu_page($ss_menu_slug, 'E-mail template', 'E-mail template', 'manage_options', 'SimpleSubscribeEmailTemplate', array($this, 'renderAdminEmailTemplate'));
+        add_submenu_page($ss_menu_slug, 'E-mail subscribers', 'E-mail subscribers', 'manage_options', 'SimpleSubscribeEmail', array($this, 'renderAdminEmail'));
+        add_submenu_page($ss_menu_slug, 'Settings', 'Settings', 'manage_options', 'SimpleSubscribeSettings', array($this, 'renderAdminSettings'));
+        add_submenu_page($ss_menu_slug, 'Log', $this->log->menuTitle(), 'manage_options', 'SimpleSubscribeLog', array($this, 'renderAdminLog'));
+        add_submenu_page($ss_menu_slug, 'Go Premium', 'Go Premium', 'manage_options', 'readygraph-go-premium', 'readygraph_ss_premium');
 		}
 		else {
 		add_menu_page('Subscribers', 'Subscribers', 'manage_options', 'SimpleSubscribe', array($this, 'renderAdminListing'), NULL, '71.22');
@@ -342,11 +342,9 @@ class Admin extends \Nette\Object
     public function renderAdminListing()
     {
         $table = new \SimpleSubscribe\TableSubscribes($this->settings, $this->subscribers);
-        $table->prepare_items();
-        // template
+		$table->prepare_items();
         $template = new \SimpleSubscribe\Template('adminPage.latte');
         $template->prepareTemplate(array('formSubscriber' => $this->formSubscriber, 'formSubscriberWp' => $this->formSubscriberWp, 'table' => $table));
-
         echo $template->getTemplate();
     }
 

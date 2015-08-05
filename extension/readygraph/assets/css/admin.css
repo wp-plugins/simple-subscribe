@@ -151,7 +151,8 @@ color: #b1c1ca;
 	border: 2px solid #2691CB;
 }
 .rg-signup-icon{
-	margin: 5px;
+	margin: 0 15px 0 5px;
+	clear:both;
 }
 .rg-icon-thumb {
     float: left;

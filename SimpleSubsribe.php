@@ -5,7 +5,7 @@
     Author: latorante, tanaylakhani
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 1.8.2
+    Version: 2.0
     License: GPLv2
 */
 /*
@@ -48,6 +48,22 @@ SimpleSubscribeCheck::checkRequirements();
 
 register_activation_hook(__FILE__,      array('SimpleSubscribe', 'activate'));
 register_deactivation_hook( __FILE__,   array('SimpleSubscribe', 'deactivate'));
+
+define( 'SS_VERSION', '2.0' );
+
+if (get_option('SS_VERSION') && strlen(get_option('SS_VERSION')) > 0){
+	if (get_option('SS_VERSION') !== SS_VERSION ) {
+		add_action('shutdown', 'ss_update');
+	}
+} else { 
+update_option('SS_VERSION', SS_VERSION);	
+}
+if (!function_exists('ss_update')) {
+	function ss_update() {
+		///plugin version check and upgrade code
+	}
+}
+
 
 /**
  * 4. Go, and do Simple Subscribe!

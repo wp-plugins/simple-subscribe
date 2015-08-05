@@ -1,4 +1,4 @@
-<?php
+<?php 
 	if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Represents the view for the administration dashboard.
@@ -13,186 +13,12 @@
  * @copyright 2014 Your Name or Company Name
  */
  
-function ss_disconnectReadyGraph(){
-$app_id = get_option('readygraph_application_id');
-wp_remote_get( "http://readygraph.com/api/v1/tracking?event=disconnect_readygraph&app_id=$app_id" );
-ss_delete_rg_options();
-}
-function ss_deleteReadyGraph(){
-$app_id = get_option('readygraph_application_id');
-wp_remote_get( "http://readygraph.com/api/v1/tracking?event=uninstall_readygraph&app_id=$app_id" );
-ss_delete_rg_options();
-$dir = plugin_dir_path( __FILE__ );
-ss_rrmdir($dir);
-}
-
-	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "changeaccount")ss_disconnectReadyGraph();
-	if(isset($_GET["action"]) && base64_decode($_GET["action"]) == "deleteaccount")ss_deleteReadyGraph();
-	global $main_plugin_title;
-	if (!get_option('readygraph_access_token') || strlen(get_option('readygraph_access_token')) <= 0) {
-	//redirect to main page
-	$current_url = explode("&", $_SERVER['REQUEST_URI']); 
-	echo '<script>window.location.replace("'.$current_url[0].'");</script>';
-	}
-	else {
-	if (isset($_POST["readygraph_access_token"])) update_option('readygraph_access_token', $_POST["readygraph_access_token"]);
-	if (isset($_POST["readygraph_refresh_token"])) update_option('readygraph_refresh_token', $_POST["readygraph_refresh_token"]);
-	if (isset($_POST["readygraph_email"])) update_option('readygraph_email', $_POST["readygraph_email"]);
-	if (isset($_POST["readygraph_application_id"])) update_option('readygraph_application_id', $_POST["readygraph_application_id"]);
-	if (isset($_POST["inviteemaileditor"])) update_option('readygraph_invite_email', mysql_real_escape_string( $_POST["inviteemaileditor"] ));
-	}
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo plugins_url( 'assets/css/admin.css', __FILE__ ) ?>">
-<script type="text/javascript" src="<?php echo plugins_url( 'assets/js/admin.js', __FILE__ ) ?>"></script>
-<form method="post" id="myForm">
-<input type="hidden" name="readygraph_access_token" value="<?php echo get_option('readygraph_access_token', '') ?>">
-<input type="hidden" name="readygraph_refresh_token" value="<?php echo get_option('readygraph_refresh_token', '') ?>">
-<input type="hidden" name="readygraph_email" value="<?php echo get_option('readygraph_email', '') ?>">
-<input type="hidden" name="readygraph_application_id" value="<?php echo get_option('readygraph_application_id', '') ?>">
-
-<div class="authenticate" style="display: none;">
-	    <div class="wrap1" style="min-height: 600px;">
-
-      <div id="icon-plugins" class="icon32"></div>
-      <h2>We've enhanced <?php echo $main_plugin_title ?> with ReadyGraph's User Growth Engine</h2>
-      
-      <p style="display:none;color:red;" id="error"></p>
-      <div class="register-left">
-	<div class="alert" style="margin: 0px auto; padding: 15px; text-align: center;">
-			<h3>Activate ReadyGraph to get more traffic to your site</h3>
-<!--		<h3 style="margin-top: 0px; font-weight: 300;"><?php //echo $main_plugin_title ?>, Now with ReadyGraph</h3> -->
-		<p style="padding: 50px 0px 30px 0px;"><a class="btn btn-primary connect" href="javascript:void(0);" style="font-size: 15px; line-height: 40px; padding: 0 30px;">Connect ReadyGraph</a></p>
-		<!--<p style="padding: 0px 0px;"><a class="btn btn-default skip" href="javascript:void(0);" style="font-size: 10px; line-height: 20px; padding: 0 30px;">Skip ReadyGraph</a></p>-->
-		<p>Readygraph adds more ways to connect to your users. </p>
-		<p style="text-align: left; padding: 0 20px;">
-			- Get more traffic<br>
-			- Send automatic email digests of all your site posts<br>
-			- Get better deliverablility<br>
-			- Track performace and user activity
-		</p>
-	</div>
-          
-      </div>
-
-        <div class="register-right">
-          <div class="form-wrap alert" style="font-size:12px;">
-          <p><h3>ReadyGraph grows your site</h3></p>
-<p>ReadyGraph delivers audience growth and motivates users to come back.</p><br /><p><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_fb.png"></span><b>Optimized Signup Form –</b> ReadyGraph’s signup form has one click signup and integration with Facebook so you can get quick and easy signups from your users.<br /><br /><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_heart.png"></span>
-<b>Viral Friend Invites –</b>Loyal site visitors who love your site can easily invite all their friends. Readygraph encourages your visitors' friends to come and signup for your site too.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_mail.png"></span>Automated Re-engagement Emails –</b> ReadyGraph’s automated emails keep visitors coming back. Send a daily or weekly digest of all your new posts and keep them informed about site activity, events, etc.<br /><br /><b><span class="rg-signup-icon"><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/icon_chart.png"></span>Analytics -</b> Track new subscribers, invites, traffic, and other key metrics that quantify growth and user engagement.  ReadyGraph safely stores user data on the cloud so you can access from anywhere.<br /><br />
-If you have questions or concerns contact us anytime at <a href="mailto:info@readygraph.com" target="_blank">info@readygraph.com</a></p>
-          </div>
-      </div>
-	  </div>
-</div>
-<div class="authenticating" style="display: none;">
-	<div style="color: #ffffff; width: 350px; margin: 100px auto 0px; padding: 15px; border: solid 1px #2a388f; text-align: center; background-color: #1b75bb; -webkit-border-radius: 7px; -moz-border-radius: 7px; border-radius: 7px;">
-		<h3 style="margin-top: 0px; font-weight: 300;"><?php echo $main_plugin_title ?>, Now with ReadyGraph</h3>
-		<h4 style="padding: 50px 0; line-height: 42px;">Retrieving Your Account..</h4>
-		<p>Activate Readygraph features to optimize <?php echo $main_plugin_title ?> functionality. Signup For These Benefits:</p>
-		<p style="text-align: left; padding: 0 20px;">
-			- Grow your subscribers faster<br>
-			- Engage users with automated email updates<br>
-			- Enhanced email deliverablility<br>
-			- Track performace with user-activity analytics
-		</p>
-	</div>
-</div>
-<style>a.help-tooltip {outline:none; }a.help-tooltip strong {line-height:30px;}a.help-tooltip:hover {text-decoration:none;} a.help-tooltip span {    z-index:10;display:none; padding:14px 20px;    margin-top:40px; margin-left:-150px;    width:300px; line-height:16px;}a.help-tooltip:hover span{    display:inline; position:absolute;     border:2px solid #FFF;    background:#fff;	text-align: justify;	z-index:1000000000;}.callout {z-index:1000000000;position:absolute;border:0;top:-14px;left:120px;}    /*CSS3 extras*/a.help-tooltip span{    border-radius:2px;    -moz-border-radius: 2px;    -webkit-border-radius: 2px;            -moz-box-shadow: 0px 0px 8px 4px #666;    -webkit-box-shadow: 0px 0px 8px 4px #666;    box-shadow: 0px 0px 8px 4px #666;}</style>
-<div class="authenticated" style="display: none;">
-	<div style="background-color: #1b75bb; min-width: 90%; height: 50px;">
-		<img src="<?php echo plugin_dir_url( __FILE__ );?>assets/white-logo.png" style="width: 138px; height: 30px; margin: 10px 0 0 15px; float: left;">
-		<div class="btn-group pull-right" style="margin: 8px 10px 0 0;">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style="background: transparent; border-color: #ffffff; color: #ffffff; ">
-				<span class="email-address" style="text-shadow: none;"></span> <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu">
-				<li><a class="change-account" href="#">Change Account</a></li>
-				<li><a class="disconnect" href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&action=<?php echo base64_encode("changeaccount");?>">Disconnect</a></li>
-				<li><a class="delete" href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&action=<?php echo base64_encode("deleteaccount");?>">Delete ReadyGraph</a></li>
-			</ul>
-		</div>
-		<div class="btn-group pull-right" style="margin: 8px 10px 0 0;">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style="background: transparent; border-color: #ffffff; color: #ffffff; ">
-				<span class="result" style="text-shadow: none;">...</span> <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu">
-				<li><a href="http://readygraph.com/application/insights/" target="_blank">Insights</a></li>
-			</ul>
-		</div>
-		<div style="clear: both;"></div>
-	</div>
-		<!-- write menu code-->
-
-	<div class="readygraph-nav-menu">
-	<ul><li>Grow Users
-	  <ul>
-		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=signup-popup">Signup Popup</a></li>
-		<li><a href="https://readygraph.com/application/insights/" target="_blank">User Statistics</a></li>
-		<li><a href="#"></a></li>
-	  </ul>
-	</li>
-  <li>Email Users
-	<ul>
-		<li><a href="https://readygraph.com/application/customize/settings/email/welcome/" target="_blank">Retention Email</a></li>
-		<li><a href="https://readygraph.com/application/customize/settings/email/invitation/" target="_blank">Invitation Email</a></li>
-		<li><a href="http://readygraph.com/application/insights/" target="_blank">Custom Email</a></li>
-    </ul>
-  </li>
-  <li>
-    Engage Users
-    <ul>
-		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=social-feed">Social Feed</a></li>
-		<li><a href="#">Social Followers</a></li>
-		<li><a href="#">Feedback Survey</a></li>
-    </ul>
-  </li>
-  <li>Basic Settings
-    <ul>
-		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=site-profile">Site Profile</a></li>
-		<li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=feature-settings">Feature Settings</a></li><li><a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=monetization-settings">Monetization Settings</a></li>
-	</ul>
-  </li>
-</ul>
-	<div class="btn-group" style="margin: 8px 10px 0 10px;">
-		<p><a href="mailto:info@readygraph.com" style="color: #b1c1ca" >Help <img src="<?php echo plugin_dir_url( __FILE__ );?>assets/9.png"/></a></p>
-	</div>
-	<div class="btn-group" style="margin: 8px 10px 0 10px;">
-		<p>
-		<a href="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=faq" style="color: #b1c1ca" >FAQ  <img src="<?php echo plugin_dir_url( __FILE__ );?>assets/10.png" /></a></p>
-	</div>
-	<div class="btn-group" style="">
-		<p><a href="https://readygraph.com/accounts/payment/?email=<?php echo get_option('readygraph_email', '') ?>" target="_blank" style="color: #b1c1ca" ><img src="<?php echo plugin_dir_url( __FILE__ );?>assets/go-premium.png" height="40px" style="margin:5px" /></a></p>
-	</div>
-	</div>
-	<div><div><a href="#">Email</a> > Invitation Email</div>
-			<h3 style="font-weight: normal; text-align: center;">This email gets sent when users invite each other to your site</h3>
-			<div style="margin: 0 5%;"><?php /**
- 
-/**
- * Basic syntax
- */
-$content = get_option('readygraph_invite_email');
-$editor_id = 'inviteemaileditor';
-$settings = array(
-    'textarea_rows' => 15,
-	'media_buttons' => false,
-    'teeny' => true,
-    'quicktags' => false
-);
-wp_editor( $content, $editor_id, $settings );
- ?>
- </div>
-			<div class="save-changes"><button type="submit" class="btn btn-large btn-warning save-next" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=custom-email" style="float: right;margin: 15px">Save Changes & Next</button>
-			<button type="submit" class="btn btn-large btn-warning save" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=invitation-email" style="float: right;margin: 15px">Save Changes</button>
-			<button type="submit" class="btn btn-large btn-warning save-previous" formaction="<?php $current_url = explode("&", $_SERVER['REQUEST_URI']); echo $current_url[0];?>&ac=custom-email" style="float: right;margin: 15px">Previous</button>
-			</div>
-	</div>
-</div>
-</form>
 <script type="text/javascript" src="https://readygraph.com/scripts/readygraph.js"></script>
-<script type="text/javascript" charset="utf-8">
+<script>
 	var $ = jQuery;
+	var jsData;
 	$(function () {
 		var settings =
 			{
@@ -202,7 +28,8 @@ wp_editor( $content, $editor_id, $settings );
 
 		var authHost     = "https://" + settings.host;
 		var resourceHost = "https://" + settings.host;
-		
+		var app_id = "<?php echo get_option('readygraph_application_id');?>";
+		var app_secret = "<?php echo get_option('readygraph_connect_anonymous_app_secret');?>";
 		// OAuth 2.0 Popup
 		//
 		var popupWindow=null;
@@ -214,14 +41,53 @@ wp_editor( $content, $editor_id, $settings );
 		function parent_disable() {
 			if(popupWindow && !popupWindow.closed) popupWindow.focus();
 		}
+		$("a.monetize").click(function() {
+			if(app_id.length > 0) {
+			$.ajax({
+				url: resourceHost + '/api/v1/wp-monetize/'
+			, method: 'POST'
+			, data: {
+            app_id: $('[name="readygraph_application_id"]').val(),
+			monetize: "true",
+            client_id: settings.clientId
+					}
+			, success: function (response) {
+					var monetize_adsoptimal_id = response.data.adsoptimal_id;
+					var monetize_adsoptimal_secret = response.data.adsoptimal_secret;
+					jQuery.post(ajaxurl,{action : 's2-myajax-submit',readygraph_monetize : "true",adsoptimal_id : monetize_adsoptimal_id, adsoptimal_secret : monetize_adsoptimal_secret},function() {});
+					/* future processing for sites opted in for monetization */
+				}
+			, error: function (response) {
+					console.log(response);
+					/* future process */
+			}
+			});}
+			var url = authHost + '/oauth/authenticate?client_id=' + settings.clientId + '&redirect_uri=' + encodeURIComponent(location.href.replace('#' + location.hash,"")) + '&response_type=token&app_id='+app_id+'&app_secret='+app_secret;
+			openPopup(url);
+			$(document.body).bind('focus', parent_disable);
+			$(document.body).bind('click', parent_disable);
+		});	
 		
 		$("a.connect").click(function() {
+			if(document.getElementById('readygraph_monetize').checked) {
+			enable_monetize = true;
+			} else {
+			enable_monetize = false;
+			}
+			if (enable_monetize){
+			$.post(ajaxurl,{action : 's2-myajax-submit',readygraph_monetize : "true"},function() {});
+			var url = authHost + '/oauth/authenticate?client_id=' + settings.clientId + '&redirect_uri=' + encodeURIComponent(location.href.replace('#' + location.hash,"")) + '&response_type=token&monetization=true';
+			}
+			else{
+			$.post(ajaxurl,{action : 's2-myajax-submit',readygraph_monetize : "false"},function() {});
 			var url = authHost + '/oauth/authenticate?client_id=' + settings.clientId + '&redirect_uri=' + encodeURIComponent(location.href.replace('#' + location.hash,"")) + '&response_type=token';
+			}
 			openPopup(url);
 			$(document.body).bind('focus', parent_disable);
 			$(document.body).bind('click', parent_disable);
 		});
 		$(".change-account").click(function() {
+			document.cookie="readygraph_tutorial=true"
 			var url = authHost + '/oauth/authenticate?client_id=' + settings.clientId + '&redirect_uri=' + encodeURIComponent(location.href.replace('#' + location.hash,"")) + '&response_type=token';
 			var logout = authHost + '/oauth/logout?redirect=' + encodeURIComponent(url);
 			openPopup(logout);
@@ -272,21 +138,23 @@ wp_editor( $content, $editor_id, $settings );
 				$('.email-address').text($('[name="readygraph_email"]').val());
 				
 				window.setup_readygraph($('[name="readygraph_application_id"]').val());
+				$('.popup-delay').val($('[name="readygraph_delay"]').val());
+				if ($('[name="readygraph_enable_popup"]').val() == "true"){
+				$('.signup-popup').val('yes-center');
+				}
+				else if ($('[name="readygraph_enable_notification"]').val() == "true"){
+				$('.signup-popup').val('yes-bottom-right');
+				}
+				else{
+				$('.signup-popup').val('no');
+				}
 				$('.delay').val($('[name="readygraph_delay"]').val());
-				$('.sidebar').val($('[name="readygraph_enable_sidebar"]').val());
 				$('.notification').val($('[name="readygraph_enable_notification"]').val());
 				$('.selectAll').val($('[name="readygraph_auto_select_all"]').val());
 				$('.branding').val($('[name="readygraph_enable_branding"]').val());
 				$('.blog_updates').val($('[name="readygraph_send_blog_updates"]').val());
 				$('.real_time_post_update').val($('[name="readygraph_send_real_time_post_updates"]').val());
 				$('.popup_template').val($('[name="readygraph_popup_template"]').val());
-				
-				//$('[name="readygraph_ad_format"][value="' + $('[name="_readygraph_ad_format"]').val() + '"]').parent().click();
-				//$('[name="readygraph_ad_timing"][value="' + $('[name="_readygraph_ad_timing"]').val() + '"]').parent().click();
-				
-				//$('[name="readygraph_ad_delay"]').val($('[name="_readygraph_ad_delay"]').val());
-				//$('[name="readygraph_ad_scroll"]').val($('[name="_readygraph_ad_scroll"]').val());
-				
 				$('.result').text('...');
 				if ($('[name="readygraph_access_token"]').val()) {
 					$.ajax({
@@ -299,8 +167,11 @@ wp_editor( $content, $editor_id, $settings );
 						, success: function (response) {
 								if (response.data) {
 									$('.result').text(response.data.subscribers + ((response.data.subscribers == 0) ? ' Subscriber' : ' Subscribers'));
+									$('.user_tier').text(((response.data.user_tier > 0) ? ' Premium User ' : ' Free User '));
+									
 								} else {
 									$('.result').text('Insight');
+									$('.result').text(' Free User ');
 								}
 							}
 						, error: function (response) {
@@ -336,7 +207,7 @@ wp_editor( $content, $editor_id, $settings );
 							$('.result').text(response.data.subscribers + ((response.data.subscribers == 0) ? ' Subscriber' : ' Subscribers'));
 						}
 					, error: function (response) {
-							alert('We couldn\'t authenticate your account. Please check your internet connection.');
+							alert('We couldn\'t authenticate your account. Please re-connect to ReadyGraph using different browser');
 							$('div.authenticate').show();
 							$('div.authenticating').hide();
 							$('div.authenticated').hide();

@@ -170,14 +170,15 @@ class TableSubscribes extends Table
     {
         $this->process_bulk_action();
         $allSubscribers = $this->subscribers->getAllSubscribers();
+		
         $this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
         usort($allSubscribers, array(&$this, 'usort_reorder'));
-
-        $perPage = $this->get_items_per_page('subscribersPerPage', 50);
-
-        $this->found_data = array_slice($allSubscribers,(($this->get_pagenum()-1)* $perPage), $perPage);
+		$perPage = $this->get_items_per_page('subscribersPerPage', 50);
+        $found_data = array_slice($allSubscribers,(($this->get_pagenum()-1)* $perPage), $perPage);
+		$this->found_data = $found_data;
         $this->set_pagination_args(array('total_items' => count($allSubscribers), 'per_page' => $perPage ));
-        $this->items = $this->found_data;
+        $this->items = $found_data;
+		
     }
 
 
