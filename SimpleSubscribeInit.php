@@ -57,20 +57,6 @@ if (!class_exists('SimpleSubscribe'))
             $this->settingsAll = $this->settings->getSettings();
         }
 
-/*        public function on_plugin_activated_redirect(){
-            if (is_plugin_active( 'readygraph/readygraph.php' )){
-			$setting_url="options-general.php?page=readygraph&plugin_redirect=simple_subscribe";
-			}
-			else
-			{
-			$setting_url="admin.php?page=SimpleSubscribe";
-			}
-            if (get_option('simple_subscribe_do_activation_redirect', false)) {  
-                delete_option('simple_subscribe_do_activation_redirect'); 
-                wp_redirect(admin_url($setting_url)); 
-            }  
-        }
-*/		
         /**
          * Initialize
          */

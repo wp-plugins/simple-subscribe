@@ -5,7 +5,7 @@
     Author: latorante, tanaylakhani
     Author URI: http://latorante.name
     Author Email: martin@latorante.name
-    Version: 2.0
+    Version: 2.0.1
     License: GPLv2
 */
 /*
@@ -49,7 +49,7 @@ SimpleSubscribeCheck::checkRequirements();
 register_activation_hook(__FILE__,      array('SimpleSubscribe', 'activate'));
 register_deactivation_hook( __FILE__,   array('SimpleSubscribe', 'deactivate'));
 
-define( 'SS_VERSION', '2.0' );
+define( 'SS_VERSION', '2.0.1' );
 
 if (get_option('SS_VERSION') && strlen(get_option('SS_VERSION')) > 0){
 	if (get_option('SS_VERSION') !== SS_VERSION ) {

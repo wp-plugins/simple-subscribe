@@ -3,10 +3,10 @@ Contributors: Dabelon, wenzhixue, tanaylakhani
 Donate link: http://donate.latorante.name/
 Tags: subscription, subscribe, e-mail subscript ion, email subscription, simple subscription, digest, post news, post e-mails, e-mail newsletter, newsletter
 Requires at least: 3.3
-Tested up to: 4.2
+Tested up to: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 2.0
+Stable tag: 2.0.1
 
 Registration form that's easy to use, friendly and powerful.  Automate user growth and revenue with ReadyGraph integration.
 
@@ -377,6 +377,11 @@ If you have questions or concerns, contact us anytime at [info@readygraph.com](m
 
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+
+* Code cleanup
+* Use Wp_mail for sending mails
 
 = 2.0 =
 

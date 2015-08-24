@@ -212,20 +212,22 @@ class Email extends \Nette\Object
         if(count($recipients) < 1){
             throw new EmailException('No subscribers provided. (possibly none in your system)');
         }
+		// convert HTML tags
+		$data["message"] = htmlspecialchars_decode($data["message"]);
         // try sending e-mail
         try{
-            $mail = new \Nette\Mail\Message;
-            $mail->setFrom($this->senderEmail, $this->senderName)->setSubject($subject);
-            foreach($recipients as $recipient){
-                $mail->addBcc($recipient);
-            }
+			$from = 'From: '. $this->senderName . '<'.$this->senderEmail.'>';
             // set HTML / or plaintext body
             if($this->htmlEmail == TRUE){
-                $mail->setHTMLBody($this->getEmailTemplate($data));
+                $headers = array('Content-Type: text/html; charset=UTF-8');
+				array_push($headers,$from);
             } else {
-                $mail->setBody($this->getEmailTemplate($data));
+                $headers = array('Content-Type: text/plain; charset=UTF-8');
+				array_push($headers,$from);
             }
-            $this->mailer->send($mail);
+
+            // Send the mail
+            wp_mail( $recipients, $subject, $this->getEmailTemplate($data), $headers);
         } catch(\Exception $e){
             throw new EmailException($e->getMessage());
         }
