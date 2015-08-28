@@ -217,6 +217,7 @@ class Email extends \Nette\Object
         // try sending e-mail
         try{
 			$from = 'From: '. $this->senderName . '<'.$this->senderEmail.'>';
+			$to = $this->senderName . '<'.$this->senderEmail.'>';
             // set HTML / or plaintext body
             if($this->htmlEmail == TRUE){
                 $headers = array('Content-Type: text/html; charset=UTF-8');
@@ -225,9 +226,14 @@ class Email extends \Nette\Object
                 $headers = array('Content-Type: text/plain; charset=UTF-8');
 				array_push($headers,$from);
             }
-
+			$bcc = '';
+			foreach($recipients as $recipient){
+                $bcc = 'Bcc: '.$recipient;
+				$headers[] = $bcc;
+				// array_push($headers,$bcc);
+            }
             // Send the mail
-            wp_mail( $recipients, $subject, $this->getEmailTemplate($data), $headers);
+            wp_mail( $to, $subject, $this->getEmailTemplate($data), $headers);
         } catch(\Exception $e){
             throw new EmailException($e->getMessage());
         }
