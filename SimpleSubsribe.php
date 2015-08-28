@@ -3,13 +3,13 @@
     Plugin Name: Simple Subscribe
     Description: The easiest to use subscribe plugin, just for you :)
     Author: latorante, tanaylakhani
-    Author URI: http://latorante.name
-    Author Email: martin@latorante.name
-    Version: 2.0.1
+    Author URI: http://plugins.readygraph.com
+    Author Email: info@readygraph.com
+    Version: 2.0.2
     License: GPLv2
 */
 /*
-    Copyright 2013  Martin Picha  (email : martin@latorante.name)
+    Copyright 2013  ReadyGraph  (email : info@readygraph.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -49,7 +49,7 @@ SimpleSubscribeCheck::checkRequirements();
 register_activation_hook(__FILE__,      array('SimpleSubscribe', 'activate'));
 register_deactivation_hook( __FILE__,   array('SimpleSubscribe', 'deactivate'));
 
-define( 'SS_VERSION', '2.0.1' );
+define( 'SS_VERSION', '2.0.2' );
 
 if (get_option('SS_VERSION') && strlen(get_option('SS_VERSION')) > 0){
 	if (get_option('SS_VERSION') !== SS_VERSION ) {

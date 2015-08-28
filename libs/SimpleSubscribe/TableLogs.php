@@ -29,7 +29,7 @@ class TableLogs extends Table
     function __construct(\SimpleSubscribe\RepositoryLog $log)
     {
         global $status, $page;
-        $this->log = $log;
+		$this->log = $log;
         parent::__construct(array('singular'=> 'log', 'plural' => 'logs', 'ajax' => false));
     }
 
@@ -116,9 +116,10 @@ class TableLogs extends Table
         $this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
         usort($allLogs, array(&$this, 'usort_reorder'));
         $perPage = 50; // set per page
-        $this->found_data = array_slice($allLogs,(($this->get_pagenum()-1)* $perPage), $perPage);
+        $found_data = array_slice($allLogs,(($this->get_pagenum()-1)* $perPage), $perPage);
+		$this->found_data = $found_data;
         $this->set_pagination_args(array('total_items' => count($allLogs), 'per_page' => $perPage));
-        $this->items = $this->found_data;
+        $this->items = $found_data;
     }
 
 

@@ -144,7 +144,7 @@ class Admin extends \Nette\Object
     {
         if ($file == 'simple-subscribe/SimpleSubsribe.php'){
             $ratePlugin = Html::el('a target="_blank"')->href('http://wordpress.org/support/view/plugin-reviews/simple-subscribe')->setText('Rate this plugin');
-            $donatePlugin = Html::el('a target="_blank" class="red"')->href('http://donate.latorante.name/')->setText('Donate');
+            $donatePlugin = Html::el('a target="_blank" class="red"')->href('http://blog.readygraph.com/donate/')->setText('Donate');
             array_push($links, $ratePlugin, $donatePlugin);
         }
         return $links;
